@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "Catppuccin.catppuccin-vsc",
+    "dbaeumer.vscode-eslint",
+    "dsznajder.es7-react-js-snippets",
+    "eamodio.gitlens",
+    "equinusocio.vsc-material-theme-icons",
+    "esbenp.prettier-vscode",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "GitHub.copilot",
+    "mrmlnc.vscode-scss",
+    "rvest.vs-code-prettier-eslint",
+    "sidthesloth.html5-boilerplate",
+    "syler.sass-indented",
+    "tonybaloney.vscode-pets"
+  ]
+}

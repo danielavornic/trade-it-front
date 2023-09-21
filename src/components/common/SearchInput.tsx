@@ -85,6 +85,7 @@ export const SearchInput = () => {
               rightIcon={<ChevronDownIcon />}
               size="sm"
               w="130px"
+              fontWeight={400}
             >
               {category ? category : "All categories"}
             </MenuButton>

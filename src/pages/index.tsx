@@ -1,7 +1,12 @@
+import { Layout } from "@/components";
+import { Heading, Text } from "@chakra-ui/react";
+
 export default function Home() {
   return (
-    <main>
-      <h1>Hello world</h1>
-    </main>
+    <Layout>
+      <Heading as="h1" size="4xl" noOfLines={1}>
+        Backenderi losi
+      </Heading>
+    </Layout>
   );
 }

@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import Head from "next/head";
+import { Container } from "@chakra-ui/react";
 
 import { Footer, Header } from "@/components";
 
@@ -15,7 +16,9 @@ export const Layout = ({ title, children }: PropsWithChildren<LayoutProps>) => {
       </Head>
 
       <Header />
-      <main>{children}</main>
+      <Container maxW={["container.sm", "container.md", "container.lg", "8xl"]}>
+        {children}
+      </Container>
       <Footer />
     </>
   );

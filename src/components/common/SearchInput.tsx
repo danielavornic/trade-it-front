@@ -16,12 +16,17 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 
-import { categories, products } from "@/data";
+import { getCategories, products } from "@/data";
 import { Category } from "@/types";
+import { useQuery } from "@tanstack/react-query";
 
 export const SearchInput = () => {
   const router = useRouter();
   const { q, category: categoryUrl } = router.query;
+  const { data: categories, isSuccess } = useQuery({
+    queryKey: ["categories"],
+    queryFn: getCategories,
+  });
 
   const predicate = (product: any, query: string) => {
     const baseCondition =
@@ -90,15 +95,16 @@ export const SearchInput = () => {
               {category ? category : "All categories"}
             </MenuButton>
             <MenuList>
-              {categories.map((category: Category) => (
-                <MenuItem
-                  key={category.id}
-                  onClick={() => setCategory(category.name)}
-                  value={category.name}
-                >
-                  {category.name}
-                </MenuItem>
-              ))}
+              {isSuccess &&
+                categories.map((category: Category) => (
+                  <MenuItem
+                    key={category.id}
+                    onClick={() => setCategory(category.name)}
+                    value={category.name}
+                  >
+                    {category.name}
+                  </MenuItem>
+                ))}
             </MenuList>
           </Menu>
           <Divider orientation="vertical" mx={1} pr={1} />

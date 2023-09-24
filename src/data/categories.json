@@ -14,5 +14,29 @@
   {
     "id": 4,
     "name": "Electronics"
+  },
+  {
+    "id": 5,
+    "name": "Tools, Equipment & Machinery"
+  },
+  {
+    "id": 6,
+    "name": "Home Decor"
+  },
+  {
+    "id": 7,
+    "name": "Toys & Games"
+  },
+  {
+    "id": 8,
+    "name": "Beauty & Personal Care"
+  },
+  {
+    "id": 9,
+    "name": "Sports & Outdoors"
+  },
+  {
+    "id": 10,
+    "name": "Groceries"
   }
 ]

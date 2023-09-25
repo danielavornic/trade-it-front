@@ -1,4 +1,5 @@
 import { useAuth } from "@/hooks";
+import { SearchInput } from "@/components";
 
 export const Header = () => {
   const { user } = useAuth();
@@ -6,7 +7,12 @@ export const Header = () => {
   // Render different header based on user state
   if (user) {
     // https://chakra-templates.dev/navigation/navbar
-    return <div>Header Auth</div>;
+    return (
+      <div>
+        Header Auth
+        <SearchInput />
+      </div>
+    );
   }
 
   // https://choc-ui.com/docs/navigation/navbars

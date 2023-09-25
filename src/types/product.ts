@@ -12,3 +12,8 @@ export interface Product {
   targetProduct?: string;
   img?: string;
 }
+
+export interface Category {
+  id: number;
+  name: string;
+}

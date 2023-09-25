@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import Head from "next/head";
+import { Box, Container, VStack } from "@chakra-ui/react";
 
 import { Footer, Header } from "@/components";
 
@@ -14,9 +15,21 @@ export const Layout = ({ title, children }: PropsWithChildren<LayoutProps>) => {
         <title>{title ? `${title} | Trade It` : "Trade It"}</title>
       </Head>
 
-      <Header />
-      <main>{children}</main>
-      <Footer />
+      <VStack
+        minH="100vh"
+        position="relative"
+        overflowX="hidden"
+        width="100%"
+        spacing={0}
+        align="stretch"
+        justifyContent="space-between"
+      >
+        <Header />
+        <Container maxW={["container.sm", "container.md", "container.lg", "8xl"]} as="main">
+          {children}
+        </Container>
+        <Footer />
+      </VStack>
     </>
   );
 };

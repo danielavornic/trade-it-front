@@ -26,7 +26,7 @@ const Logo = (props: any) => {
   return (
     <a href="./Layout">
       <Image
-        boxSize="120px"
+        boxSize="180px"
         height="auto"
         src="/assets/images/Logo.jpg"
         alt="Logo"
@@ -39,7 +39,7 @@ const Logo = (props: any) => {
 const Profile = (props: any) => {
   return (
     <Image
-      boxSize="40px"
+      boxSize="50px"
       height="auto"
       src="/assets/images/profile.png"
       alt="Profile"
@@ -91,7 +91,7 @@ export const Navbar: React.FC = () => {
             onClick={() => handleButtonClick("message")}
             variant="unstyled"
             _hover={{ backgroundColor: "gray.100" }}
-            ml={2}
+            ml={20}
           >
             <Icon as={FiMessageSquare} boxSize={6} />
           </Button>
@@ -100,7 +100,7 @@ export const Navbar: React.FC = () => {
             onClick={() => handleButtonClick("bell")}
             variant="unstyled"
             _hover={{ backgroundColor: "gray.100" }}
-            ml={2}
+            ml={4}
           >
             <Icon as={FiBell} boxSize={6} />
           </Button>
@@ -139,7 +139,7 @@ export const Navbar: React.FC = () => {
             <Tab
               py={1}
               m={0}
-              style={{ textAlign: "left" }}
+              ml={8}
               _hover={{
                 color: "#0EB085",
               }}
@@ -158,6 +158,7 @@ export const Navbar: React.FC = () => {
 
         <Select
           size="sm"
+          ml={4}
           placeholder="Help"
           width="auto"
           variant="unstyled"
@@ -176,7 +177,7 @@ export const Navbar: React.FC = () => {
           <option value="option2">Our Policy</option>
           <option value="option3">Questions</option>
         </Select>
-
+        <Spacer />
         <Select
           size="sm"
           placeholder="English"

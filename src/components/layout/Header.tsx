@@ -1,6 +1,7 @@
 import { useAuth } from "@/hooks";
 import { Navbar } from "@/components";
 import { Box } from "@chakra-ui/react";
+
 export const Header = () => {
   const { user } = useAuth();
 

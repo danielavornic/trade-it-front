@@ -1,6 +1,7 @@
 import React from "react";
 import {
-  Box,
+  Spacer,
+  Button,
   Flex,
   Icon,
   Menu,
@@ -12,6 +13,7 @@ import {
   Tabs,
   TabList,
   Image,
+  Box,
 } from "@chakra-ui/react";
 import { FiMessageSquare, FiBell } from "react-icons/fi";
 import { IconButton } from "@chakra-ui/button";
@@ -22,13 +24,15 @@ import { Category } from "@/types";
 
 const Logo = (props: any) => {
   return (
-    <Image
-      boxSize="120px"
-      height="auto"
-      src="/assets/images/Logo.jpg"
-      alt="Logo"
-      style={{ mixBlendMode: "multiply" }}
-    />
+    <a href="./Layout">
+      <Image
+        boxSize="120px"
+        height="auto"
+        src="/assets/images/Logo.jpg"
+        alt="Logo"
+        style={{ mixBlendMode: "multiply" }}
+      />
+    </a>
   );
 };
 
@@ -50,6 +54,20 @@ export const Navbar: React.FC = () => {
     <MenuItem key={category.id}>{category.name}</MenuItem>
   ));
 
+  const handleButtonClick = (buttonName: string) => {
+    switch (buttonName) {
+      case "message":
+        console.log("Message button clicked");
+        break;
+      case "bell":
+        console.log("Bell button clicked");
+        break;
+      case "profile":
+        console.log("Profile button clicked");
+        break;
+    }
+  };
+
   return (
     <div className="navbar">
       <Flex
@@ -62,10 +80,43 @@ export const Navbar: React.FC = () => {
         color="black"
       >
         <Logo />
-        <SearchInput />
-        <Icon as={FiMessageSquare} boxSize={6} ml={4} />
-        <Icon as={FiBell} boxSize={6} ml={4} />
-        <Profile />
+        <Box ml={4}>
+          <SearchInput />
+        </Box>
+        <Spacer />
+
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Button
+            size="sm"
+            onClick={() => handleButtonClick("message")}
+            variant="unstyled"
+            _hover={{ backgroundColor: "gray.100" }}
+            ml={2}
+          >
+            <Icon as={FiMessageSquare} boxSize={6} />
+          </Button>
+          <Button
+            size="sm"
+            onClick={() => handleButtonClick("bell")}
+            variant="unstyled"
+            _hover={{ backgroundColor: "gray.100" }}
+            ml={2}
+          >
+            <Icon as={FiBell} boxSize={6} />
+          </Button>
+        </div>
+
+        <Spacer />
+
+        <Button
+          size="sm"
+          onClick={() => handleButtonClick("profile")}
+          variant="unstyled"
+          _hover={{ backgroundColor: "gray.100" }}
+          ml={2}
+        >
+          <Icon as={Profile} boxSize={6} />
+        </Button>
       </Flex>
 
       <Flex
@@ -89,8 +140,15 @@ export const Navbar: React.FC = () => {
               py={1}
               m={0}
               style={{ textAlign: "left" }}
+              _hover={{
+                color: "#0EB085",
+              }}
+              _active={{
+                color: "#0EB085",
+              }}
               _focus={{
                 boxShadow: "none",
+                color: "#0EB085",
               }}
             >
               New in
@@ -98,18 +156,63 @@ export const Navbar: React.FC = () => {
           </TabList>
         </Tabs>
 
-        <Select size="sm" placeholder="Help" width="auto" variant="unstyled">
+        <Select
+          size="sm"
+          placeholder="Help"
+          width="auto"
+          variant="unstyled"
+          _hover={{
+            color: "#0EB085",
+          }}
+          _active={{
+            color: "#0EB085",
+          }}
+          _focus={{
+            boxShadow: "none",
+            color: "#0EB085",
+          }}
+        >
           <option value="option1">Contacts</option>
           <option value="option2">Our Policy</option>
           <option value="option3">Questions</option>
         </Select>
 
-        <Select size="sm" placeholder="English" width="auto" variant="unstyled">
+        <Select
+          size="sm"
+          placeholder="English"
+          width="auto"
+          variant="unstyled"
+          _hover={{
+            color: "#0EB085",
+          }}
+          _active={{
+            color: "#0EB085",
+          }}
+          _focus={{
+            boxShadow: "none",
+            color: "#0EB085",
+          }}
+        >
           <option value="option1">Română</option>
           <option value="option2">Русский</option>
         </Select>
 
-        <Select size="sm" placeholder="Chisinau" width="auto" variant="unstyled">
+        <Select
+          size="sm"
+          placeholder="Chisinau"
+          width="auto"
+          variant="unstyled"
+          _hover={{
+            color: "#0EB085",
+          }}
+          _active={{
+            color: "#0EB085",
+          }}
+          _focus={{
+            boxShadow: "none",
+            color: "#0EB085",
+          }}
+        >
           <option value="option1">Bălți</option>
           <option value="option2">Cahul</option>
           <option value="option3">Soroca</option>

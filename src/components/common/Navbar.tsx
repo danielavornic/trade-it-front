@@ -1,5 +1,4 @@
 import React from "react";
-//import Image from "next/image";
 import {
   Box,
   Flex,
@@ -18,6 +17,8 @@ import { FiMessageSquare, FiBell } from "react-icons/fi";
 import { IconButton } from "@chakra-ui/button";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { SearchInput } from "@/components";
+import { getCategories } from "@/data";
+import { Category } from "@/types";
 
 const Logo = (props: any) => {
   return (
@@ -44,6 +45,11 @@ const Profile = (props: any) => {
 };
 
 export const Navbar: React.FC = () => {
+  const categories = getCategories();
+  const menuItems = categories.map((category: Category) => (
+    <MenuItem key={category.id}>{category.name}</MenuItem>
+  ));
+
   return (
     <div className="navbar">
       <Flex
@@ -74,17 +80,7 @@ export const Navbar: React.FC = () => {
             <HamburgerIcon />
             All categories
           </MenuButton>
-          <MenuList>
-            <MenuItem>Automobiles</MenuItem>
-            <MenuItem>Clothes and Wear</MenuItem>
-            <MenuItem>Home Interiors</MenuItem>
-            <MenuItem>Computer and Tech</MenuItem>
-            <MenuItem>Tools, equipment</MenuItem>
-            <MenuItem>Sports and Outdoor</MenuItem>
-            <MenuItem>Animals and Pets</MenuItem>
-            <MenuItem>Machinery Tools</MenuItem>
-            <MenuItem>More Category</MenuItem>
-          </MenuList>
+          <MenuList>{menuItems}</MenuList>
         </Menu>
 
         <Tabs defaultIndex={1} borderBottomColor="transparent">

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useSearch } from "react-use-search";
+// import { useSearch } from "react-use-search";
 import {
   Box,
   Button,
@@ -45,14 +45,15 @@ export const SearchInput = () => {
   };
 
   const [category, setCategory] = useState("");
-  const [filteredProducts, query, handleChange, setQuery] = useSearch(products, predicate);
+  // const [filteredProducts, query, handleChange, setQuery] = useSearch(products, predicate);
+  const [search, setSearch] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     router.push({
       pathname: "/search",
-      query: { q: query, category: category },
+      query: { q: search, category: category },
     });
   };
 
@@ -76,8 +77,8 @@ export const SearchInput = () => {
         </InputLeftElement>
         <Input
           placeholder="Search"
-          value={query}
-          onChange={handleChange}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           pr="224px"
           colorScheme="brand"
         />

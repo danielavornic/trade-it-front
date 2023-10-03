@@ -1,5 +1,6 @@
 import { useAuth } from "@/hooks";
-import { SearchInput } from "@/components";
+import { Navbar } from "@/components";
+import { Box } from "@chakra-ui/react";
 
 export const Header = () => {
   const { user } = useAuth();
@@ -8,10 +9,9 @@ export const Header = () => {
   if (user) {
     // https://chakra-templates.dev/navigation/navbar
     return (
-      <div>
-        Header Auth
-        <SearchInput />
-      </div>
+      <Box mx={20}>
+        <Navbar />;
+      </Box>
     );
   }
 

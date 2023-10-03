@@ -1,14 +1,11 @@
 import { useAuth } from "@/hooks";
 import React from "react";
 import {
-  Spacer,
   Button,
   Flex,
-  Icon,
   Image,
   Box,
   Container,
-  HStack,
   Menu,
   MenuButton,
   Avatar,
@@ -60,9 +57,11 @@ export const Header = () => {
             />
           </Link>
 
-          <Box>
-            <SearchInput />
-          </Box>
+          {user && (
+            <Box>
+              <SearchInput />
+            </Box>
+          )}
 
           <Flex alignItems={"center"}>
             {user ? (
@@ -107,7 +106,7 @@ export const Header = () => {
               </>
             ) : (
               <>
-                <Button as={"a"} mr={6} fontSize={"sm"} variant={"link"} href={"#"}>
+                <Button as={"a"} mr={6} fontSize={"sm"} variant={"link"} href={"/siginIn"}>
                   Sign In
                 </Button>
                 <Button
@@ -117,7 +116,7 @@ export const Header = () => {
                   fontWeight={600}
                   color={"white"}
                   bg={"brand.500"}
-                  href={"#"}
+                  href={"/signup"}
                   _hover={{
                     bg: "brand.600",
                   }}

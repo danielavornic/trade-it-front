@@ -109,7 +109,7 @@ export const SearchInput = () => {
             </MenuList>
           </Menu>
           <Divider orientation="vertical" mx={1} pr={1} />
-          <Button colorScheme="brand" size="sm" mr={2} type="submit">
+          <Button colorScheme="accent" size="sm" mr={2} type="submit">
             Search
           </Button>
         </InputRightElement>

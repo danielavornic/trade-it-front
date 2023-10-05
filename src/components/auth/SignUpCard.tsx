@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/router";
 import {
   Box,
   FormControl,
@@ -14,6 +15,8 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
+import { useAuth } from "@/hooks";
+
 const initialFormValues = {
   name: "",
   surname: "",
@@ -23,6 +26,9 @@ const initialFormValues = {
 };
 
 export const SignUpCard = () => {
+  const { signUp } = useAuth();
+  const router = useRouter();
+
   const [formValues, setFormValues] = useState(initialFormValues);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -32,7 +38,8 @@ export const SignUpCard = () => {
 
   const handleSubmit = (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
-    alert(JSON.stringify(formValues));
+    signUp(formValues);
+    router.push("/");
   };
 
   return (

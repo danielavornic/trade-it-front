@@ -26,7 +26,7 @@ const fakeUser: User = {
 
 const initialState: AuthState = {
   // Modify this to null to see the login screen
-  user: fakeUser,
+  user: null,
   isLoading: false,
   error: null,
   signUp: async () => {},

@@ -1,5 +1,8 @@
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/router";
 import { Box, FormControl, FormLabel, Input, Stack, Button, Text } from "@chakra-ui/react";
+
+import { useAuth } from "@/hooks";
 
 const initialFormValues = {
   email: "",
@@ -7,6 +10,8 @@ const initialFormValues = {
 };
 
 export const SignInCard = () => {
+  const { signIn } = useAuth();
+  const router = useRouter();
   const [formValues, setFormValues] = useState(initialFormValues);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +20,8 @@ export const SignInCard = () => {
 
   const handleSubmit = (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
-    alert(JSON.stringify(formValues));
+    signIn(formValues.email, formValues.password);
+    router.push("/");
   };
 
   return (

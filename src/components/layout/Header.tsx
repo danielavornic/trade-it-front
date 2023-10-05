@@ -1,5 +1,5 @@
-import { useAuth } from "@/hooks";
-import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   Button,
   Flex,
@@ -15,11 +15,13 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { FiMessageSquare, FiBell } from "react-icons/fi";
+
+import { useAuth } from "@/hooks";
 import { SearchInput } from "@/components";
-import Link from "next/link";
 
 export const Header = () => {
-  const { user } = useAuth();
+  const router = useRouter();
+  const { user, logout } = useAuth();
 
   const handleButtonClick = (buttonName: string) => {
     switch (buttonName) {
@@ -36,7 +38,7 @@ export const Header = () => {
   };
 
   return (
-    <Box bg="gray.50">
+    <Box shadow="sm">
       <Container maxW={["container.sm", "container.md", "container.lg", "8xl"]} as="header">
         <Flex
           as="nav"
@@ -57,11 +59,9 @@ export const Header = () => {
             />
           </Link>
 
-          {user && (
-            <Box>
-              <SearchInput />
-            </Box>
-          )}
+          <Box>
+            <SearchInput />
+          </Box>
 
           <Flex alignItems={"center"}>
             {user ? (
@@ -100,29 +100,46 @@ export const Header = () => {
                     <MenuItem>Link 1</MenuItem>
                     <MenuItem>Link 2</MenuItem>
                     <MenuDivider />
-                    <MenuItem>Link 3</MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        logout();
+                        router.push("/");
+                      }}
+                    >
+                      Log out
+                    </MenuItem>
                   </MenuList>
                 </Menu>
               </>
             ) : (
               <>
-                <Button as={"a"} mr={6} fontSize={"sm"} variant={"link"} href={"/siginIn"}>
-                  Sign In
-                </Button>
-                <Button
-                  as={"a"}
-                  display={{ base: "none", md: "inline-flex" }}
-                  fontSize={"sm"}
-                  fontWeight={600}
-                  color={"white"}
-                  bg={"brand.500"}
-                  href={"/signup"}
-                  _hover={{
-                    bg: "brand.600",
-                  }}
-                >
-                  Sign Up
-                </Button>
+                <Link href="/signin">
+                  <Button
+                    color="gray"
+                    mr={6}
+                    fontSize={"sm"}
+                    fontFamily={"heading"}
+                    variant={"link"}
+                    fontWeight={400}
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/signup">
+                  <Button
+                    display={{ base: "none", md: "inline-flex" }}
+                    fontSize={"sm"}
+                    fontWeight={600}
+                    fontFamily={"heading"}
+                    color={"white"}
+                    bg={"brand.500"}
+                    _hover={{
+                      bg: "brand.600",
+                    }}
+                  >
+                    Sign Up
+                  </Button>
+                </Link>
               </>
             )}
           </Flex>

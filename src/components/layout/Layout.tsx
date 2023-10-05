@@ -25,7 +25,13 @@ export const Layout = ({ title, children }: PropsWithChildren<LayoutProps>) => {
         justifyContent="space-between"
       >
         <Header />
-        <Container maxW={["container.sm", "container.md", "container.lg", "8xl"]} as="main">
+        <Container
+          maxW={["container.sm", "container.md", "container.lg", "8xl"]}
+          h="full"
+          flex="1"
+          py={10}
+          as="main"
+        >
           {children}
         </Container>
         <Footer />

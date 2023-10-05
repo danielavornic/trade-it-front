@@ -1,11 +1,10 @@
-import { Layout, ProductsGrid } from "@/components";
-import { ProductDescriptionCard } from "@/components/product/ProductDescriptionCard";
-import { ProductOverviewCard } from "@/components/product/ProductOverviewCard";
-import { getProduct, getProducts } from "@/data";
-import { Product } from "@/types";
+import { useRouter } from "next/router";
 import { Box, Heading } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/router";
+
+import { Product } from "@/types";
+import { getProduct, getProducts } from "@/data";
+import { Layout, ProductDetailsCard, ProductOverviewCard, ProductsGrid } from "@/components";
 
 const ProductPage = () => {
   const router = useRouter();
@@ -30,7 +29,7 @@ const ProductPage = () => {
           </Box>
 
           <Box as="section" py={20}>
-            <ProductDescriptionCard product={data as Product} />
+            <ProductDetailsCard product={data as Product} />
           </Box>
 
           <Box as="section" pb={20}>

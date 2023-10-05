@@ -1,7 +1,7 @@
 import { Product } from "@/types";
 import { Card, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
-export const ProductDescriptionCard = ({ product }: { product: Product }) => {
+export const ProductDetailsCard = ({ product }: { product: Product }) => {
   return (
     <Card shadow="none" border="1px solid" borderColor="gray.200" borderRadius="md" p={4}>
       <Tabs colorScheme="brand">

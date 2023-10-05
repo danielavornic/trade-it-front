@@ -1,5 +1,6 @@
-import { Card } from "@chakra-ui/react";
+import { Card, HStack } from "@chakra-ui/react";
 import { Product } from "@/types";
+import { SellerCard } from "./SellerCard";
 
 export const ProductOverviewCard = ({ product }: { product: Product }) => {
   const { id, name, description, sellerName, category, condition, status, targetProduct, img } =
@@ -7,7 +8,9 @@ export const ProductOverviewCard = ({ product }: { product: Product }) => {
 
   return (
     <Card shadow="none" border="1px solid" borderColor="gray.200" borderRadius="md" p={5}>
-      {id}
+      <HStack>
+        <SellerCard sellerUsername="yum3lo" />
+      </HStack>
     </Card>
   );
 };

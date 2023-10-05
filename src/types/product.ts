@@ -5,8 +5,8 @@ export interface Product {
   id: number;
   name: string;
   description: string;
-  sellerName: number;
-  category: number;
+  sellerName: string;
+  category: string;
   condition: Condition;
   status: Status;
   targetProduct?: string;

@@ -1,6 +1,7 @@
-import { Product } from "@/types";
+export const ProductsSlider = ({ products }: { products?: any[] }) => {
+  if (!products) {
+    return null;
+  }
 
-// ca din homepage
-export const ProductsSlider = ({ products }: { products: Product[] }) => {
   return <div>ProductsSlider</div>;
 };

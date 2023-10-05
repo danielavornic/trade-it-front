@@ -31,6 +31,7 @@ export const ProductCategoriesBanner = () => {
       spacing={4}
       padding={4}
       w="full"
+      shadow="sm"
       borderColor="gray.100"
       borderRadius={8}
       borderWidth={1}

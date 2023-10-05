@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 
-import { getCategories, products } from "@/data";
+import { getCategories } from "@/data";
 import { Category } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 

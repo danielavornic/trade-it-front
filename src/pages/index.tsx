@@ -1,14 +1,33 @@
-import { Layout } from "@/components";
-import { ProductCategoriesBanner } from "@/components/product/ProductCategoriesBanner";
-import { Heading, Text } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+import { Box, Heading } from "@chakra-ui/react";
+
+import { getProducts } from "@/data";
+import { Layout, ProductCategoriesBanner, ProductsGrid, ProductsSlider } from "@/components";
 
 export default function Home() {
+  const { data: products, isSuccess } = useQuery({
+    queryKey: ["products"],
+    queryFn: getProducts,
+  });
+
   return (
     <Layout>
-      {/* <Heading as="h1" size="4xl">
-        Backenderi losi. jk only dima.
-      </Heading> */}
-      <ProductCategoriesBanner />
+      <section>
+        <ProductCategoriesBanner />
+      </section>
+      <Box as="section" pt={20}>
+        <Heading as="h2" size="lg" mb="4">
+          Popular products
+        </Heading>
+        <ProductsSlider products={products} />
+      </Box>
+
+      <Box as="section" py={20}>
+        <Heading as="h2" size="lg" mb="4">
+          Recommended items
+        </Heading>
+        <ProductsGrid products={products} />
+      </Box>
     </Layout>
   );
 }

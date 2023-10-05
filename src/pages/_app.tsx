@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import "@fontsource/open-sans/400.css";
 import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
 
 import { AuthProvider } from "@/context";
 

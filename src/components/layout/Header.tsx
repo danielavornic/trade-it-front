@@ -101,7 +101,7 @@ export const Header = () => {
                       <Link href="/account">My profile</Link>
                     </MenuItem>
                     <MenuItem>
-                      <Link href="/account/products">My Products</Link>
+                      <Link href="/account/products">My products</Link>
                     </MenuItem>
                     <MenuItem>
                       <Link href="/product/add">Add product</Link>

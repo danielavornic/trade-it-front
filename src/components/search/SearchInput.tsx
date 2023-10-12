@@ -81,6 +81,7 @@ export const SearchInput = () => {
           onChange={(e) => setSearch(e.target.value)}
           pr="224px"
           colorScheme="brand"
+          fontSize={16}
         />
         <InputRightElement width="224px" display="flex" alignItems="center" justifyContent="end">
           <Divider orientation="vertical" pr={1} />
@@ -92,6 +93,7 @@ export const SearchInput = () => {
               size="sm"
               w="130px"
               fontWeight={400}
+              color="gray.600"
             >
               {category ? category : "All categories"}
             </MenuButton>
@@ -102,6 +104,8 @@ export const SearchInput = () => {
                     key={category.id}
                     onClick={() => setCategory(category.name)}
                     value={category.name}
+                    size="sm"
+                    fontSize={14}
                   >
                     {category.name}
                   </MenuItem>

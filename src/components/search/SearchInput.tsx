@@ -104,7 +104,6 @@ export const SearchInput = () => {
                     key={category.id}
                     onClick={() => setCategory(category.name)}
                     value={category.name}
-                    size="sm"
                     fontSize={14}
                   >
                     {category.name}

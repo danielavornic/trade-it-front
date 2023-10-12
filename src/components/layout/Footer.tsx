@@ -60,9 +60,8 @@ const SocialButton = ({
 export const Footer = () => {
   return (
     <Box
-      // bg={useColorModeValue('gray.50', 'gray.900')}
       borderTop={"1px solid"}
-      borderTopColor={useColorModeValue("gray.200", "gray.700")}
+      borderTopColor={useColorModeValue("gray.100", "gray.700")}
       color={useColorModeValue("gray.700", "gray.200")}
     >
       <Container as={Stack} maxW={"8xl"} py={4} spacing={4} justify={"center"} align={"center"}>
@@ -86,7 +85,7 @@ export const Footer = () => {
       <Box
         borderTopWidth={1}
         borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.700")}
+        borderColor={useColorModeValue("gray.100", "gray.700")}
       >
         <Container
           as={Stack}

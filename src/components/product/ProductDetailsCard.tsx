@@ -6,8 +6,8 @@ export const ProductDetailsCard = ({ product }: { product: Product }) => {
     <Card shadow="none" border="1px solid" borderColor="gray.200" borderRadius="md" p={4}>
       <Tabs colorScheme="brand">
         <TabList>
-          <Tab>Description</Tab>
-          <Tab>About seller</Tab>
+          <Tab>Details</Tab>
+          <Tab>Previous Reviews</Tab>
         </TabList>
 
         <TabPanels>

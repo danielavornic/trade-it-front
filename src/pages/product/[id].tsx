@@ -38,6 +38,13 @@ const ProductPage = () => {
             </Heading>
             <ProductsGrid products={products} />
           </Box>
+
+          <Box as="section" pb={20}>
+            <Heading as="h2" size="lg" mb="4">
+              More from this seller
+            </Heading>
+            <ProductsGrid products={products} />
+          </Box>
         </>
       )}
     </Layout>

@@ -38,7 +38,7 @@ export const Header = () => {
   };
 
   return (
-    <Box shadow="sm">
+    <Box shadow="sm" py={2}>
       <Container maxW={["container.sm", "container.md", "container.lg", "8xl"]} as="header">
         <Flex
           as="nav"
@@ -51,7 +51,7 @@ export const Header = () => {
         >
           <Link href="/">
             <Image
-              boxSize="180px"
+              boxSize="140px"
               height="auto"
               src="/assets/images/Logo.jpg"
               alt="Logo"
@@ -97,8 +97,18 @@ export const Header = () => {
                     />
                   </MenuButton>
                   <MenuList>
-                    <MenuItem>Link 1</MenuItem>
-                    <MenuItem>Link 2</MenuItem>
+                    <MenuItem>
+                      <Link href="/account">My profile</Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href="/account/products">My Products</Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href="/product/add">Add product</Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href="/account/settings">Settings</Link>
+                    </MenuItem>
                     <MenuDivider />
                     <MenuItem
                       onClick={() => {

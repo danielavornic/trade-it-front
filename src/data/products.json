@@ -6,8 +6,8 @@
     "sellerName": "Andrew T",
     "category": "Technology",
     "condition": "Like New",
-    "status": "Pending",
-    "img": "watch.png"
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
+    "status": "Pending"
   },
   {
     "id": 2,
@@ -16,6 +16,7 @@
     "sellerName": "Sasha S",
     "category": "Clothing",
     "condition": "Like New",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "status": "Available"
   },
   {
@@ -25,6 +26,7 @@
     "sellerName": "Anastasia Kramer",
     "category": "Clothing",
     "condition": "Like New",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "status": "Swapped"
   },
   {
@@ -33,6 +35,7 @@
     "description": "Moving out. Works perfectly, comes with instruction manual and warranty.",
     "sellerName": "Jason McKnight",
     "category": "Electronics",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "condition": "New",
     "status": "Swapped"
   },
@@ -42,6 +45,7 @@
     "description": "Blue color, authentic leather. Looking for other men accessories.",
     "sellerName": "Mihai B",
     "category": "Clothing",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "condition": "New",
     "status": "Swapped"
   },
@@ -52,6 +56,7 @@
     "sellerName": "Seller 6",
     "category": "Clothing",
     "condition": "Like New",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "status": "Pending"
   },
   {
@@ -60,6 +65,7 @@
     "description": "Description for Product 7",
     "sellerName": "Seller 7",
     "category": "Clothing",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "condition": "New",
     "status": "Swapped"
   },
@@ -70,6 +76,7 @@
     "sellerName": "Seller 8",
     "category": "Electronics",
     "condition": "Like New",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "status": "Pending"
   },
   {
@@ -78,6 +85,7 @@
     "description": "Description for Product 9",
     "sellerName": "Seller 9",
     "category": "Furniture",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "condition": "New",
     "status": "Available"
   },
@@ -87,6 +95,7 @@
     "description": "Description for Product 10",
     "sellerName": "Seller 10",
     "category": "Furniture",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "condition": "Used",
     "status": "Swapped"
   }

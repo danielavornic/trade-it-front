@@ -21,12 +21,12 @@ export const ProductsGrid = ({ products }: { products?: Product[] }) => {
   };
 
   return (
-    <Slider {...settings}>
+    <Grid templateColumns="repeat(4, 1fr)" gap={6}>
       {products.map((product) => (
         <GridItem key={product.id}>
           <ProductGridCard product={product} />
         </GridItem>
       ))}
-    </Slider>
+    </Grid>
   );
 };

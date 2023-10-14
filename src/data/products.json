@@ -1,46 +1,51 @@
 [
   {
     "id": 1,
-    "name": "Product 1",
-    "description": "Description for Product 1",
-    "sellerName": "Seller 1",
-    "category": "Clothing",
+    "name": "Smart Watch",
+    "description": "Used only a few times, comfortable to wear. Comes with charger and original box.",
+    "sellerName": "Andrew T",
+    "category": "Technology",
     "condition": "Like New",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "status": "Pending"
   },
   {
     "id": 2,
-    "name": "Product 2",
-    "description": "Description for Product 2",
-    "sellerName": "Seller 2",
-    "category": "Furniture",
+    "name": "T-shirt for men",
+    "description": "Cotton, size M, color: blue. Looking to barter for button up shirts.",
+    "sellerName": "Sasha S",
+    "category": "Clothing",
     "condition": "Like New",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "status": "Available"
   },
   {
     "id": 3,
-    "name": "Product 3",
-    "description": "Description for Product 3",
-    "sellerName": "Seller 3",
-    "category": "Furniture",
+    "name": "Brown winter coat, kids",
+    "description": "Looking to barter as my kid grew out of it. Good condition, interior of wool.",
+    "sellerName": "Anastasia Kramer",
+    "category": "Clothing",
     "condition": "Like New",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "status": "Swapped"
   },
   {
     "id": 4,
-    "name": "Product 4",
-    "description": "Description for Product 4",
-    "sellerName": "Seller 4",
-    "category": "Books",
+    "name": "Electric Kettle",
+    "description": "Moving out. Works perfectly, comes with instruction manual and warranty.",
+    "sellerName": "Jason McKnight",
+    "category": "Electronics",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "condition": "New",
     "status": "Swapped"
   },
   {
     "id": 5,
-    "name": "Product 5",
-    "description": "Description for Product 5",
-    "sellerName": "Seller 5",
-    "category": "Books",
+    "name": "Leather wallet for men",
+    "description": "Blue color, authentic leather. Looking for other men accessories.",
+    "sellerName": "Mihai B",
+    "category": "Clothing",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "condition": "New",
     "status": "Swapped"
   },
@@ -51,6 +56,7 @@
     "sellerName": "Seller 6",
     "category": "Clothing",
     "condition": "Like New",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "status": "Pending"
   },
   {
@@ -59,6 +65,7 @@
     "description": "Description for Product 7",
     "sellerName": "Seller 7",
     "category": "Clothing",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "condition": "New",
     "status": "Swapped"
   },
@@ -69,6 +76,7 @@
     "sellerName": "Seller 8",
     "category": "Electronics",
     "condition": "Like New",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "status": "Pending"
   },
   {
@@ -77,6 +85,7 @@
     "description": "Description for Product 9",
     "sellerName": "Seller 9",
     "category": "Furniture",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "condition": "New",
     "status": "Available"
   },
@@ -86,6 +95,7 @@
     "description": "Description for Product 10",
     "sellerName": "Seller 10",
     "category": "Furniture",
+    "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
     "condition": "Used",
     "status": "Swapped"
   }

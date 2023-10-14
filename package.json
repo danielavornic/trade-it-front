@@ -28,13 +28,15 @@
     "eslint-config-prettier": "^9.0.0",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.4",
-    "next": "13.4.19",
+    "next": "^13.5.4",
     "prettier": "^3.0.3",
     "query-string": "^8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
     "react-select": "^5.7.4",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "typescript": "5.2.2",
     "yup": "^1.2.0"
   },
@@ -53,6 +55,7 @@
     "@storybook/nextjs": "^7.4.2",
     "@storybook/react": "^7.4.2",
     "@storybook/testing-library": "^0.2.1",
+    "@types/react-slick": "^0.23.10",
     "eslint-plugin-storybook": "^0.6.13",
     "storybook": "^7.4.2"
   }

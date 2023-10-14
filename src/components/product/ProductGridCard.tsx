@@ -15,7 +15,7 @@ export const ProductGridCard = ({ product }: { product: Product }) => {
         transition="all 0.2s"
       >
         <CardBody bg="white">
-          <Image src={img} alt={name} borderRadius="lg" bg="gray.100" />
+          <Image src={img} alt={name} borderRadius="lg" bg="gray.50" />
           <Heading size="md" mt={6}>
             {name}
           </Heading>

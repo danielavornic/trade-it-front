@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Box, Heading } from "@chakra-ui/react";
-
+import { Product } from "@/types";
 import { getProducts } from "@/data";
 import { Layout, ProductCategoriesBanner, ProductsGrid, ProductsSlider } from "@/components";
 

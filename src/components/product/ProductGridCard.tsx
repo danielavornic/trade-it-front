@@ -1,17 +1,19 @@
-// https://chakra-ui.com/docs/components/card/usage
-
-import { Card } from "@chakra-ui/react";
+import { Card, Stack, Heading, Image } from "@chakra-ui/react";
 import Link from "next/link";
 
 import { Product } from "@/types";
 
 export const ProductGridCard = ({ product }: { product: Product }) => {
-  const { id, name, description, sellerName, category, condition, status, targetProduct, img } =
-    product;
+  const { id, name, img } = product;
 
   return (
     <Link href={`/product/${id}`}>
-      <Card shadow="sm">ProductCard</Card>;
+      <Card shadow="sm">
+        <Image src={img} alt={name} borderRadius="lg" />
+        <Stack mt="6" spacing="3">
+          <Heading size="md">{name}</Heading>
+        </Stack>
+      </Card>
     </Link>
   );
 };

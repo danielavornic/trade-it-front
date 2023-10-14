@@ -23,6 +23,7 @@ export const Layout = ({ title, children }: PropsWithChildren<LayoutProps>) => {
         spacing={0}
         align="stretch"
         justifyContent="space-between"
+        bg="whiteAlpha.900"
       >
         <Header />
         <Container

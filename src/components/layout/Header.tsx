@@ -38,7 +38,7 @@ export const Header = () => {
   };
 
   return (
-    <Box shadow="sm" py={2}>
+    <Box shadow="sm" py={2} bg="white">
       <Container maxW={["container.sm", "container.md", "container.lg", "8xl"]} as="header">
         <Flex
           as="nav"

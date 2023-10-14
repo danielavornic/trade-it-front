@@ -63,6 +63,7 @@ export const Footer = () => {
       borderTop={"1px solid"}
       borderTopColor={useColorModeValue("gray.100", "gray.700")}
       color={useColorModeValue("gray.700", "gray.200")}
+      bg="white"
     >
       <Container as={Stack} maxW={"8xl"} py={4} spacing={4} justify={"center"} align={"center"}>
         <Logo />

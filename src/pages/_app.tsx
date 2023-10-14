@@ -11,7 +11,7 @@ import { AuthProvider } from "@/context";
 
 const theme = extendTheme({
   colors: {
-    white: "#FCFBFB",
+    white: "#FFFFFF",
     black: "#1A1A1A",
     brand: {
       100: "rgb(14, 176, 133, 0.1)",

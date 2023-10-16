@@ -11,6 +11,7 @@ export const ProductGridCard = ({ product }: { product: Product }) => {
       <Card
         shadow="sm"
         py={3}
+        h="full"
         _hover={{ transform: "translateY(-4px)", color: "brand.500" }}
         transition="all 0.2s"
       >

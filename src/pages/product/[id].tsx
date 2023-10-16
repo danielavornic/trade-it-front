@@ -4,7 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 
 import { Product } from "@/types";
 import { getProduct, getProducts } from "@/data";
-import { Layout, ProductDetailsCard, ProductOverviewCard, ProductsGrid } from "@/components";
+import {
+  Layout,
+  ProductDetailsCard,
+  ProductOverviewCard,
+  ProductsGrid,
+  ProductsSlider,
+} from "@/components";
 
 const ProductPage = () => {
   const router = useRouter();
@@ -36,14 +42,11 @@ const ProductPage = () => {
             <Heading as="h2" size="lg" mb="4">
               Related items
             </Heading>
-            <ProductsGrid products={products} />
+            <ProductsGrid products={products?.slice(0, 4)} />
           </Box>
 
           <Box as="section" pb={20}>
-            <Heading as="h2" size="lg" mb="4">
-              More from this seller
-            </Heading>
-            <ProductsGrid products={products} />
+            <ProductsSlider title="More from this seller" products={products} />
           </Box>
         </>
       )}

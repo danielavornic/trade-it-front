@@ -19,6 +19,33 @@ import { FiMessageSquare, FiBell } from "react-icons/fi";
 import { useAuth } from "@/hooks";
 import { SearchInput } from "@/components";
 
+const accountItems = [
+  {
+    label: "Profile",
+    href: "/account",
+  },
+  {
+    label: "Products",
+    href: "/account/products",
+  },
+  {
+    label: "Add product",
+    href: "/product/add",
+  },
+  {
+    label: "Transactions",
+    href: "/account/transactions",
+  },
+  {
+    label: "Reviews",
+    href: "/account/reviews",
+  },
+  {
+    label: "Settings",
+    href: "/account/settings",
+  },
+];
+
 export const Header = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
@@ -91,24 +118,18 @@ export const Header = () => {
                     <Avatar
                       w="40px"
                       h="40px"
-                      src={
-                        "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                      }
+                      name={user.name + " " + user.surname}
+                      colorScheme="brand"
+                      bg="brand.500"
+                      color="white"
                     />
                   </MenuButton>
                   <MenuList>
-                    <MenuItem>
-                      <Link href="/account">My profile</Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link href="/account/products">My products</Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link href="/product/add">Add product</Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link href="/account/settings">Settings</Link>
-                    </MenuItem>
+                    {accountItems.map((item) => (
+                      <MenuItem key={item.label}>
+                        <Link href={item.href}>{item.label}</Link>
+                      </MenuItem>
+                    ))}
                     <MenuDivider />
                     <MenuItem
                       onClick={() => {

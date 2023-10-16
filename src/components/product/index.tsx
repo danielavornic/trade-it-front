@@ -5,3 +5,4 @@ export * from "./ProductsGrid";
 export * from "./ProductListItem";
 export * from "./ProductDetailsCard";
 export * from "./ProductOverviewCard";
+export * from "./ProductsList";

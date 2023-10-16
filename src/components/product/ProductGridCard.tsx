@@ -1,5 +1,5 @@
-import { Card, Stack, Heading, Image, CardBody } from "@chakra-ui/react";
 import Link from "next/link";
+import { Card, Image, CardBody, Text } from "@chakra-ui/react";
 
 import { Product } from "@/types";
 
@@ -17,9 +17,9 @@ export const ProductGridCard = ({ product }: { product: Product }) => {
       >
         <CardBody bg="white">
           <Image src={img} alt={name} borderRadius="lg" bg="gray.50" />
-          <Heading size="md" mt={6}>
+          <Text fontSize="xl" fontWeight={600} mt={6}>
             {name}
-          </Heading>
+          </Text>
         </CardBody>
       </Card>
     </Link>

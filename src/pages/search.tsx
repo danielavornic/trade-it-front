@@ -42,10 +42,10 @@ const SearchPage = () => {
         </VStack>
 
         <VStack spacing={8} w="75%" alignItems="start">
-          <Card shadow="none" w="full" border="1px solid" borderColor="gray.100">
+          <Card shadow="sm " w="full" border="1px solid" borderColor="gray.100">
             <CardBody py={4}>
               <HStack spacing={4} justifyContent="space-between" alignItems="center">
-                <Heading size="sm" textAlign="left">
+                <Heading size="md" textAlign="left">
                   {products?.length} items found for "{q}" in{" "}
                   {!!category ? category : "All Categories"}
                 </Heading>

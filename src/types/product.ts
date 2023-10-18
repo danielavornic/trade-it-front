@@ -2,7 +2,7 @@ type Condition = "NEW" | "USED" | "LIKE NEW";
 type Status = "AVAILABLE" | "SWAPPED" | "SOLD";
 
 export interface Product {
-  id: number | string;
+  id: number;
   name: string;
   description: string;
   sellerName: string;

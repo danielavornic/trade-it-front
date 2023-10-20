@@ -10,7 +10,7 @@ export interface Product {
   condition: Condition;
   status: Status;
   targetProduct?: string;
-  img?: string;
+  img: string;
 }
 
 export interface Category {

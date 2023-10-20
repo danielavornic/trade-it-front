@@ -1,3 +1,4 @@
+import { Product } from "@/types";
 import categoriesList from "./categories.json";
 import productsList from "./products.json";
 
@@ -7,7 +8,7 @@ export const getCategories = () => {
 };
 
 export const getProducts = () => {
-  return productsList;
+  return productsList as Product[];
 };
 
 export const getProduct = (id: number) => {

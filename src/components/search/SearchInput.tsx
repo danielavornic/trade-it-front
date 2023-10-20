@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-// import { useSearch } from "react-use-search";
+import { useQuery } from "@tanstack/react-query";
 import {
   Box,
   Button,
@@ -18,34 +18,17 @@ import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 
 import { getCategories } from "@/data";
 import { Category } from "@/types";
-import { useQuery } from "@tanstack/react-query";
 
 export const SearchInput = () => {
   const router = useRouter();
   const { q, category: categoryUrl } = router.query;
+
   const { data: categories, isSuccess } = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
   });
 
-  const predicate = (product: any, query: string) => {
-    const baseCondition =
-      product.name.toLowerCase().includes(query.toLowerCase()) ||
-      product.description.toLowerCase().includes(query.toLowerCase()) ||
-      product.sellerName.toLowerCase().includes(query.toLowerCase()) ||
-      product.category.toLowerCase().includes(query.toLowerCase()) ||
-      product.condition.toLowerCase().includes(query.toLowerCase()) ||
-      product.status.toLowerCase().includes(query.toLowerCase());
-
-    if (!category || category === "All categories" || category === product.category) {
-      return baseCondition;
-    }
-
-    return false;
-  };
-
   const [category, setCategory] = useState("");
-  // const [filteredProducts, query, handleChange, setQuery] = useSearch(products, predicate);
   const [search, setSearch] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,20 +40,18 @@ export const SearchInput = () => {
     });
   };
 
-  // useEffect(() => {
-  //   if (q) {
-  //     setQuery(q as string);
-  //   }
-  // }, [q]);
+  useEffect(() => {
+    if (q) {
+      setSearch(q as string);
+    }
 
-  // useEffect(() => {
-  //   if (categoryUrl) {
-  //     setCategory(categoryUrl as string);
-  //   }
-  // }, [categoryUrl]);
+    if (categoryUrl) {
+      setCategory(categoryUrl as string);
+    }
+  }, [router.query]);
 
   return (
-    <Box as="form" onSubmit={handleSubmit} maxW={600}>
+    <Box as="form" onSubmit={handleSubmit} maxW={600} zIndex={20} position="relative">
       <InputGroup size="lg" colorScheme="brand">
         <InputLeftElement pointerEvents="none">
           <SearchIcon color="gray.300" />

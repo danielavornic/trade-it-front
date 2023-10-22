@@ -5,7 +5,7 @@
 // https://chakra-ui.com/docs/components/button/usage
 // https://chakra-ui.com/docs/components/text/usage
 
-import { Card, Button, Stack, StackDivider, Text, Avatar, Box } from "@chakra-ui/react";
+import { Card, Button, Stack, Text, Avatar, Box, HStack } from "@chakra-ui/react";
 import { FaMapMarkerAlt, FaHeart } from "react-icons/fa";
 
 export const SellerCard = ({ sellerUsername }: { sellerUsername: string }) => {
@@ -14,26 +14,27 @@ export const SellerCard = ({ sellerUsername }: { sellerUsername: string }) => {
   const location = "Chișinău, MD";
 
   return (
-    <Card>
+    <Card p={4}>
       <Stack spacing={4}>
-        <Avatar bg="#0EB085">
-          {/*avatar content here*/}
-        </Avatar>
-        <Text>{sellerUsername}</Text>
-        <Stack direction="row" spacing={2}>
+        <HStack align="center">
+          <Avatar bg="#0EB085" size="lg">
+            {/* Your avatar content here */}
+          </Avatar>
+          <Text ml={2}>{sellerUsername}</Text>
+        </HStack>
+        <HStack spacing={2}>
           <Box as={FaMapMarkerAlt} fontSize="lg" color="gray.500" />
           <Text>{location}</Text>
-        </Stack>
-        <Button colorScheme="#0EB085" variant="solid">
+        </HStack>
+        <Button colorScheme="teal" variant="solid" color="white" bg="#0EB085">
           Initiate Barter
         </Button>
-        <Stack direction="row" spacing={2}>
-          <Box as={FaHeart} fontSize="lg" color="#0EB085" />
-          <Button colorScheme="gray" variant="outline" color="#0EB085">
-            Save for Later
-          </Button>
-        </Stack>
       </Stack>
+      <HStack justify="space-between" mt={4}>
+        <Button leftIcon={<FaHeart />} colorScheme="gray" variant="outline" color="#0EB085">
+          Save for Later
+        </Button>
+      </HStack>
     </Card>
   );
 };

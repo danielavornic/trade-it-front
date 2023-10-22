@@ -1,9 +1,19 @@
-import { Card, HStack, Image, Box, Text, VStack, Spacer } from "@chakra-ui/react";
+import {
+  Card,
+  HStack,
+  Image,
+  Box,
+  Text,
+  VStack,
+  Spacer,
+  SliderFilledTrack,
+} from "@chakra-ui/react";
 import { Product } from "@/types";
 import { SellerCard } from "./SellerCard";
 
 export const ProductOverviewCard = ({ product }: { product: Product }) => {
-  const { id, name, description, sellerName, category, condition, status, targetProduct, img } =
+  // Check Product interface for more details
+  const { id, name, description, seller, category, condition, status, targetProducts, img } =
     product;
 
   return (
@@ -26,14 +36,14 @@ export const ProductOverviewCard = ({ product }: { product: Product }) => {
               {name}
             </Text>
             <Text fontSize="sm" color="gray.500">
-              {category}
+              {category.name}
             </Text>
             <Text fontSize="sm">{description}</Text>
           </Box>
         </VStack>
         <Spacer />
         <Box border="1px solid" borderColor="gray.200" margin="0 auto" padding={10}>
-          <SellerCard sellerUsername={sellerName} />
+          <SellerCard sellerUsername={SliderFilledTrack.name} />
         </Box>
       </HStack>
     </Card>

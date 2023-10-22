@@ -1,27 +1,14 @@
-import {
-  Card,
-  HStack,
-  Image,
-  Box,
-  Text,
-  VStack,
-  Spacer,
-  SliderFilledTrack,
-} from "@chakra-ui/react";
+import { Card, HStack, Image, Box, Text, VStack, Spacer } from "@chakra-ui/react";
 import { Product } from "@/types";
 import { SellerCard } from "./SellerCard";
 
 export const ProductOverviewCard = ({ product }: { product: Product }) => {
-  // Check Product interface for more details
-  const { id, name, description, seller, category, condition, status, targetProducts, img } =
-    product;
+  const { name, description, img, condition, targetProducts } = product;
 
   return (
-    <Card shadow="none" border="1px solid" borderColor="gray.200" borderRadius="md" p={2}>
+    <Card shadow="none" p={2} fontSize="3xl">
       <HStack justify="space-between">
         <Image
-          border="1px solid"
-          borderColor="gray.200"
           src={img}
           alt={name}
           margin="20px"
@@ -31,19 +18,20 @@ export const ProductOverviewCard = ({ product }: { product: Product }) => {
           borderRadius="md"
         />
         <VStack p={2} align="start" spacing={2}>
-          <Box border="1px solid" borderColor="gray.200" margin="0 auto" padding={10}>
-            <Text fontSize="xl" fontWeight="bold">
+          <Box padding={2}>
+            <Text fontSize="3xl" fontWeight="bold">
               {name}
             </Text>
-            <Text fontSize="sm" color="gray.500">
-              {category.name}
+            <Text fontSize="xl">{description}</Text>
+            <Text fontSize="xl" color="gray.500">
+              Condition: {condition}
             </Text>
-            <Text fontSize="sm">{description}</Text>
+            <Text fontSize="xl">Target Products: {targetProducts}</Text>
           </Box>
         </VStack>
         <Spacer />
-        <Box border="1px solid" borderColor="gray.200" margin="0 auto" padding={10}>
-          <SellerCard sellerUsername={SliderFilledTrack.name} />
+        <Box padding={2}>
+          <SellerCard sellerUsername={product.seller.name} />
         </Box>
       </HStack>
     </Card>

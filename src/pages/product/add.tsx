@@ -131,7 +131,6 @@ const AddProductPage = () => {
                 key={item.label}
                 onClick={() => router.push(item.href)}
                 fontFamily="poppins"
-                px={0}
               >
                 {item.label}
               </Button>

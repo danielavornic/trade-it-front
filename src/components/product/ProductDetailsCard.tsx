@@ -8,12 +8,16 @@ export const ProductDetailsCard = ({ product }: { product: Product }) => {
       <Tabs colorScheme="brand">
         <TabList>
           <Tab>Details</Tab>
+          <Tab>Comments</Tab>
           <Tab>Previous Reviews</Tab>
         </TabList>
 
         <TabPanels pt={4}>
           <TabPanel>
             <Text fontSize="lg">{details}</Text>
+          </TabPanel>
+          <TabPanel>
+            <Text fontSize="lg">comments</Text>
           </TabPanel>
           <TabPanel>
             <Text fontSize="lg">previouse reviews</Text>

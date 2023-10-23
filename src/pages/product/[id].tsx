@@ -18,8 +18,6 @@ const ProductPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   const { data, isSuccess } = useQuery({
     queryKey: ["product", id],
     queryFn: () => getProduct(Number(id)),
@@ -37,7 +35,6 @@ const ProductPage = () => {
           <>
             <Box as="section" pt={10}>
               <ProductOverviewCard product={data as Product} />
-              <Button onClick={onOpen}>Open Modal</Button>
             </Box>
 
             <Box as="section" py={20}>
@@ -56,7 +53,6 @@ const ProductPage = () => {
             </Box>
           </>
         )}
-        <BarterModal isOpen={isOpen} onClose={onClose} product={data as Product} />
       </Layout>
     </>
   );

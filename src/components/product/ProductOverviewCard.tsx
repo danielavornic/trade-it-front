@@ -21,7 +21,7 @@ export const ProductOverviewCard = ({ product }: { product: Product }) => {
         />
         <VStack p={2} align="start" spacing={2}>
           <Box padding={2}>
-            <Badge fontSize="0.5em" mb="6">
+            <Badge fontSize="0.5em" bg="accent.200" mb="6">
               {condition}
             </Badge>
             <Heading fontSize="4xl" as="h1" fontWeight="bold" mb="4">
@@ -39,8 +39,8 @@ export const ProductOverviewCard = ({ product }: { product: Product }) => {
           </Box>
         </VStack>
         <Spacer />
-        <Box padding={2}>
-          <SellerCard sellerUsername={product.seller.name} />
+        <Box padding={4}>
+          <SellerCard product={product} />
         </Box>
       </HStack>
     </Card>

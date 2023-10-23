@@ -22,16 +22,17 @@ import {
 
 import { getCategories } from "@/data";
 import { products } from "@/api";
+import { useAuth } from "@/hooks";
 import { Layout } from "@/components";
 
 const initialFormValues = {
   name: "",
   description: "",
   details: "",
-  category: "",
+  category_id: "",
   condition: "",
-  status: "",
-  targetProduct: "",
+  targetProducts: "",
+  city_id: "",
   img: "",
 };
 
@@ -68,6 +69,7 @@ const AddProductPage = () => {
   const router = useRouter();
   const toast = useToast();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   const { data: categories, isSuccess } = useQuery({
     queryKey: ["categories"],
@@ -103,10 +105,19 @@ const AddProductPage = () => {
       [e.target.name]: e.target.value,
     }));
 
+  const handleSelectChange = (name: string, e: any) => {
+    setFormValues((prevFormValues: any) => ({
+      ...prevFormValues,
+      [name]: e.target.value,
+    }));
+  };
+
   const handleSubmit = (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
+
+    alert(JSON.stringify(formValues));
   };
 
   return (
@@ -181,11 +192,14 @@ const AddProductPage = () => {
                       />
                     </FormControl>
 
-                    <FormControl id="category" isRequired>
+                    <FormControl id="category_id" isRequired>
                       <FormLabel color="gray.600" fontFamily="poppins" fontWeight="bold">
                         Category
                       </FormLabel>
-                      <Select placeholder="Select category">
+                      <Select
+                        placeholder="Select category"
+                        onChange={(val) => handleSelectChange("category_id", val)}
+                      >
                         {categories?.map((category) => (
                           <option value={category.id}>{category.name}</option>
                         ))}
@@ -222,21 +236,38 @@ const AddProductPage = () => {
                       <FormLabel color="gray.600" fontFamily="poppins" fontWeight="bold">
                         Condition
                       </FormLabel>
-                      <Select placeholder="Select condition">
-                        <option value="new">New</option>
-                        <option value="like-new">Like new</option>
-                        <option value="used">Used</option>
+                      <Select
+                        placeholder="Select condition"
+                        onChange={(val) => handleSelectChange("condition", val)}
+                      >
+                        <option value="NEW">New</option>
+                        <option value="LIKE NEW">Like new</option>
+                        <option value="USED">Used</option>
                       </Select>
                     </FormControl>
 
-                    <FormControl id="targetProduct" isRequired>
+                    <FormControl id="city_id" isRequired>
+                      <FormLabel color="gray.600" fontFamily="poppins" fontWeight="bold">
+                        City
+                      </FormLabel>
+                      <Select
+                        placeholder="Select city"
+                        onChange={(val) => handleSelectChange("city_id", val)}
+                      >
+                        <option value="1">New</option>
+                        <option value="2">Like new</option>
+                        <option value="3">Used</option>
+                      </Select>
+                    </FormControl>
+
+                    <FormControl id="targetProducts" isRequired>
                       <FormLabel color="gray.600" fontFamily="poppins" fontWeight="bold">
                         Items to look for
                       </FormLabel>
                       <Input
                         type="text"
-                        name="targetProduct"
-                        value={formValues.targetProduct}
+                        name="targetProducts"
+                        value={formValues.targetProducts}
                         onChange={handleChange}
                       />
                     </FormControl>

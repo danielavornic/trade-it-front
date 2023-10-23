@@ -18,6 +18,7 @@ type AuthAction =
 
 // For now, we'll just use a fake user
 const fakeUser: User = {
+  id: 1,
   email: "yum3lo@gm.com",
   username: "yum3lo",
   name: "Yum3lo",
@@ -83,6 +84,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<{}>) => {
 
   const signIn = async (email: string, password: string) => {
     const user: User = {
+      id: 1,
       email,
       username: email.split("@")[0],
       name: "Yum3lo",

@@ -1,5 +1,14 @@
 import { axios } from "@/lib";
+import { UserWithPassword } from "@/types";
 
 export const auth = {
-  // TODO: Add methods for signin, signup, logout, etc.
+  login: (credentials: { username: string; password: string }) => {
+    return axios.post("/auth/login", credentials);
+  },
+  logout: () => {
+    return axios.post("/auth/logout");
+  },
+  signup: (credentials: UserWithPassword) => {
+    return axios.post("/auth/register", credentials);
+  },
 };

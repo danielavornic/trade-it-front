@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import Head from "next/head";
-import { Box, Container, VStack } from "@chakra-ui/react";
+import { Container, VStack } from "@chakra-ui/react";
 
 import { Footer, Header } from "@/components";
 

@@ -86,7 +86,7 @@ export const Header = () => {
             />
           </Link>
 
-          <Box>
+          <Box display={router.pathname.includes("sign") ? "none" : "block"}>
             <SearchInput />
           </Box>
 

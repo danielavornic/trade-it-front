@@ -6,7 +6,7 @@ export const ProductOverviewCard = ({ product }: { product: Product }) => {
   const { name, description, img, condition, targetProducts } = product;
 
   return (
-    <Card shadow="none" p={2} fontSize="3xl" border="1px solid" borderColor="gray.200">
+    <Card shadow="sm" p={2} fontSize="3xl" border="1px solid" borderColor="gray.200">
       <HStack justify="space-between" alignItems="flex-start" spacing={8}>
         <Image
           src={img}

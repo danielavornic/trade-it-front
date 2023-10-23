@@ -1,16 +1,24 @@
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { Box, Button, HStack, Heading, VStack, Text, Flex, Icon } from "@chakra-ui/react";
-import { SiHandshake } from "react-icons/si";
 import { MdOutlineSwapVerticalCircle } from "react-icons/md";
 import { LuHeartHandshake } from "react-icons/lu";
+
 import { getProducts } from "@/data";
+import { products as productsApi } from "@/api";
 import { Layout, ProductCategoriesBanner, ProductsGrid, ProductsSlider } from "@/components";
 
 export default function Home() {
-  const { data: products, isSuccess } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
+  const { data: popularProducts } = useQuery({
+    queryKey: ["popular-products"],
+    // queryFn: () => productsApi.getList({ popular: true }),
+    queryFn: () => getProducts(),
+  });
+
+  const { data: featuredProducts } = useQuery({
+    queryKey: ["popular-products"],
+    // queryFn: () => productsApi.getList({ featured: true }),
+    queryFn: () => getProducts(),
   });
 
   return (
@@ -26,7 +34,7 @@ export default function Home() {
       </Box>
 
       <Box as="section">
-        <ProductsSlider title="Popular products" products={products} />
+        <ProductsSlider title="Popular products" products={popularProducts} />
       </Box>
 
       <HStack spacing={6} alignItems="stretch" as="section" pt={20}>
@@ -84,7 +92,7 @@ export default function Home() {
         <Heading as="h2" size="xl" mb="4">
           Recommended items
         </Heading>
-        <ProductsGrid products={products?.slice(0, 8)} />
+        <ProductsGrid products={featuredProducts?.slice(0, 8)} />
       </Box>
 
       <Box as="section" py={20} bg="brand.500" px={14} borderRadius={10}>

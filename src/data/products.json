@@ -1,102 +1,222 @@
 [
   {
     "id": 1,
-    "name": "Smart Watch",
-    "description": "Used only a few times, comfortable to wear. Comes with charger and original box.",
-    "sellerName": "Andrew T",
-    "category": "Technology",
-    "condition": "Like New",
+    "seller": {
+      "id": 123,
+      "name": "John Doe"
+    },
+    "name": "Product 1",
+    "category": {
+      "id": 1,
+      "name": "Electronics"
+    },
     "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
-    "status": "Pending"
+    "description": "This is the first product description.",
+    "details": "Additional details for the first product.",
+    "condition": "NEW",
+    "targetProducts": "Vinyl, Smth else, Book X",
+    "city": {
+      "id": 3,
+      "name": "New York"
+    },
+    "status": "available"
   },
   {
     "id": 2,
-    "name": "T-shirt for men",
-    "description": "Cotton, size M, color: blue. Looking to barter for button up shirts.",
-    "sellerName": "Sasha S",
-    "category": "Clothing",
-    "condition": "Like New",
+    "seller": {
+      "id": 124,
+      "name": "Jane Smith"
+    },
+    "name": "Product 2",
+    "category": {
+      "id": 2,
+      "name": "Clothing"
+    },
     "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
-    "status": "Available"
+    "description": "This is the second product description. his is the second product description. his is the second product description. his is the second product description. his is the second product description.",
+    "details": "Additional details for the second product.",
+    "condition": "LIKE NEW",
+    "targetProducts": "Fashion enthusiasts",
+    "city": {
+      "id": 4,
+      "name": "Los Angeles"
+    },
+    "status": "available"
   },
   {
     "id": 3,
-    "name": "Brown winter coat, kids",
-    "description": "Looking to barter as my kid grew out of it. Good condition, interior of wool.",
-    "sellerName": "Anastasia Kramer",
-    "category": "Clothing",
-    "condition": "Like New",
+    "seller": {
+      "id": 125,
+      "name": "Alice Johnson"
+    },
+    "name": "Product 3",
+    "category": {
+      "id": 3,
+      "name": "Books"
+    },
     "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
-    "status": "Swapped"
+    "description": "This is the third product description.",
+    "details": "Additional details for the third product.",
+    "condition": "USED",
+    "targetProducts": "Book lovers",
+    "city": {
+      "id": 5,
+      "name": "Chicago"
+    },
+    "status": "available"
   },
   {
     "id": 4,
-    "name": "Electric Kettle",
-    "description": "Moving out. Works perfectly, comes with instruction manual and warranty.",
-    "sellerName": "Jason McKnight",
-    "category": "Electronics",
+    "seller": {
+      "id": 126,
+      "name": "Robert Wilson"
+    },
+    "name": "Product 4",
+    "category": {
+      "id": 1,
+      "name": "Electronics"
+    },
     "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
-    "condition": "New",
-    "status": "Swapped"
+    "description": "This is the fourth product description.",
+    "details": "Additional details for the fourth product.",
+    "condition": "NEW",
+    "targetProducts": "Tech enthusiasts",
+    "city": {
+      "id": 6,
+      "name": "San Francisco"
+    },
+    "status": "available"
   },
   {
     "id": 5,
-    "name": "Leather wallet for men",
-    "description": "Blue color, authentic leather. Looking for other men accessories.",
-    "sellerName": "Mihai B",
-    "category": "Clothing",
+    "seller": {
+      "id": 127,
+      "name": "Eva Martinez"
+    },
+    "name": "Product 5",
+    "category": {
+      "id": 4,
+      "name": "Furniture"
+    },
     "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
-    "condition": "New",
-    "status": "Swapped"
+    "description": "This is the fifth product description.",
+    "details": "Additional details for the fifth product.",
+    "condition": "USED",
+    "targetProducts": "Home decorators",
+    "city": {
+      "id": 7,
+      "name": "Miami"
+    },
+    "status": "available"
   },
   {
     "id": 6,
+    "seller": {
+      "id": 128,
+      "name": "Michael Brown"
+    },
     "name": "Product 6",
-    "description": "Description for Product 6",
-    "sellerName": "Seller 6",
-    "category": "Clothing",
-    "condition": "Like New",
+    "category": {
+      "id": 5,
+      "name": "Toys"
+    },
     "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
-    "status": "Pending"
+    "description": "This is the sixth product description.",
+    "details": "Additional details for the sixth product.",
+    "condition": "LIKE NEW",
+    "targetProducts": "Children",
+    "city": {
+      "id": 8,
+      "name": "Seattle"
+    },
+    "status": "available"
   },
   {
     "id": 7,
+    "seller": {
+      "id": 129,
+      "name": "Sophia Davis"
+    },
     "name": "Product 7",
-    "description": "Description for Product 7",
-    "sellerName": "Seller 7",
-    "category": "Clothing",
+    "category": {
+      "id": 2,
+      "name": "Sports"
+    },
     "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
-    "condition": "New",
-    "status": "Swapped"
+    "description": "This is the seventh product description.",
+    "details": "Additional details for the seventh product.",
+    "condition": "NEW",
+    "targetProducts": "Sports enthusiasts",
+    "city": {
+      "id": 9,
+      "name": "Denver"
+    },
+    "status": "available"
   },
   {
     "id": 8,
+    "seller": {
+      "id": 130,
+      "name": "David Lee"
+    },
     "name": "Product 8",
-    "description": "Description for Product 8",
-    "sellerName": "Seller 8",
-    "category": "Electronics",
-    "condition": "Like New",
+    "category": {
+      "id": 3,
+      "name": "Beauty"
+    },
     "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
-    "status": "Pending"
+    "description": "This is the eighth product description.",
+    "details": "Additional details for the eighth product.",
+    "condition": "USED",
+    "targetProducts": "Beauty enthusiasts",
+    "city": {
+      "id": 10,
+      "name": "Houston"
+    },
+    "status": "available"
   },
   {
     "id": 9,
+    "seller": {
+      "id": 131,
+      "name": "Olivia White"
+    },
     "name": "Product 9",
-    "description": "Description for Product 9",
-    "sellerName": "Seller 9",
-    "category": "Furniture",
+    "category": {
+      "id": 6,
+      "name": "Home Decor"
+    },
     "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
-    "condition": "New",
-    "status": "Available"
+    "description": "This is the ninth product description.",
+    "details": "Additional details for the ninth product.",
+    "condition": "NEW",
+    "targetProducts": "Interior decorators",
+    "city": {
+      "id": 11,
+      "name": "Atlanta"
+    },
+    "status": "available"
   },
   {
     "id": 10,
+    "seller": {
+      "id": 132,
+      "name": "William Smith"
+    },
     "name": "Product 10",
-    "description": "Description for Product 10",
-    "sellerName": "Seller 10",
-    "category": "Furniture",
+    "category": {
+      "id": 4,
+      "name": "Furniture"
+    },
     "img": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494",
-    "condition": "Used",
-    "status": "Swapped"
+    "description": "This is the tenth product description.",
+    "details": "Additional details for the tenth product.",
+    "condition": "LIKE NEW",
+    "targetProducts": "Homeowners",
+    "city": {
+      "id": 12,
+      "name": "Dallas"
+    },
+    "status": "available"
   }
 ]

@@ -1,19 +1,31 @@
 type Condition = "NEW" | "USED" | "LIKE NEW";
-type Status = "AVAILABLE" | "SWAPPED" | "SOLD";
+type Status = "AVAILABLE" | "SWAPPED" | "PENDING";
+
+interface Seller {
+  id: number;
+  name: string;
+}
+
+interface Category {
+  id: number;
+  name: string;
+}
+
+interface City {
+  id: number;
+  name: string;
+}
 
 export interface Product {
   id: number;
+  seller: Seller;
   name: string;
+  category: Category;
   description: string;
-  sellerName: string;
-  category: string;
-  condition: Condition;
+  details: string;
   status: Status;
-  targetProduct?: string;
   img: string;
-}
-
-export interface Category {
-  id: number;
-  name: string;
+  condition: Condition;
+  targetProducts: string;
+  city: City;
 }

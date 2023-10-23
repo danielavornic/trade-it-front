@@ -20,6 +20,7 @@ const theme = extendTheme({
       100: "rgb(14, 176, 133, 0.1)",
       400: "#0b8e6b",
       500: "#0EB085",
+      600: "#0b8e6b",
     },
     accent: {
       500: "#F7A072",

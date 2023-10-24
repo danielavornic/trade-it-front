@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
-import { Box, FormControl, FormLabel, Input, Stack, Button, Text } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Link, Input, Stack, Button, Text } from "@chakra-ui/react";
 
 import { useAuth } from "@/hooks";
 
@@ -20,8 +20,13 @@ export const SignInCard = () => {
 
   const handleSubmit = (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
-    signIn(formValues.email, formValues.password);
-    router.push("/");
+    try {
+      signIn(formValues.email, formValues.password);
+      const nextUrl = router.query.next as string;
+      router.push(nextUrl || "/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -49,6 +54,14 @@ export const SignInCard = () => {
           >
             Sign in
           </Button>
+        </Stack>
+        <Stack pt={6}>
+          <Text align="center">
+            No account?{" "}
+            <Link color="brand.500" href="/signin">
+              Sign up
+            </Link>
+          </Text>
         </Stack>
       </Stack>
     </Box>

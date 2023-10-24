@@ -5,7 +5,7 @@ const signin = () => {
   return (
     <Layout title="Sign In">
       <Flex align="center" justify="center">
-        <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
+        <Stack spacing={8} mx="auto" maxW="lg" px={6}>
           <Stack align="center">
             <Heading as="h1" fontSize="4xl">
               Sign in to your account

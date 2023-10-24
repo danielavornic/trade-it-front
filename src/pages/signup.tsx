@@ -1,7 +1,19 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useAuth } from "@/hooks";
 import { Flex, Stack, Heading } from "@chakra-ui/react";
 import { Layout, SignUpCard } from "@/components";
 
 const signup = () => {
+  const { user } = useAuth();
+  const { push } = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      push("/");
+    }
+  }, [user]);
+
   return (
     <Layout title="Sign Up">
       <Flex align="center" justify="center">

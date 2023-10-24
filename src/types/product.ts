@@ -29,3 +29,14 @@ export interface Product {
   targetProducts: string;
   city: City;
 }
+
+export interface ProductAdd {
+  seller_id: number;
+  name: string;
+  category_id: number;
+  description: string;
+  details: string;
+  condition: Condition;
+  targetProducts: string;
+  img: Blob;
+}

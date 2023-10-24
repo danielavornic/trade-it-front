@@ -76,7 +76,9 @@ export const SearchInput = () => {
               fontWeight={400}
               color="gray.600"
             >
-              {category ? category : "All categories"}
+              {category && category.split(",").length === 1
+                ? categories?.find((c) => c.id === Number(category))?.name
+                : "All categories"}
             </MenuButton>
             <MenuList>
               {isSuccess &&

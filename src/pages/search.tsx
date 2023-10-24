@@ -5,8 +5,8 @@ import { Button, Card, CardBody, Divider, HStack, Heading, Icon, VStack } from "
 import { TfiLayoutGrid2Alt } from "react-icons/tfi";
 import { FaThList } from "react-icons/fa";
 
-import { getProducts } from "@/data";
-import { Layout, ProductsGrid, ProductsList } from "@/components";
+import { getCategories, getProducts } from "@/data";
+import { FilterListOptions, Layout, ProductsGrid, ProductsList } from "@/components";
 
 const SearchPage = () => {
   const router = useRouter();
@@ -17,6 +17,11 @@ const SearchPage = () => {
   const { data: products } = useQuery({
     queryKey: ["search-results"],
     queryFn: getProducts,
+  });
+
+  const { data: categories } = useQuery({
+    queryKey: ["filter-categories"],
+    queryFn: getCategories,
   });
 
   const resetFilter = () => {
@@ -39,6 +44,9 @@ const SearchPage = () => {
             </Button>
           </HStack>
           <Divider my={3} />
+          <VStack spacing={4} w="full" alignItems="start">
+            <FilterListOptions title="Categories" options={categories as any} />
+          </VStack>
         </VStack>
 
         <VStack spacing={8} w="75%" alignItems="start">
@@ -46,8 +54,7 @@ const SearchPage = () => {
             <CardBody py={4}>
               <HStack spacing={4} justifyContent="space-between" alignItems="center">
                 <Heading size="md" textAlign="left">
-                  {products?.length} items found for "{q}" in{" "}
-                  {!!category ? category : "All Categories"}
+                  {products?.length} items found for "{q}"
                 </Heading>
 
                 <HStack spacing={2}>

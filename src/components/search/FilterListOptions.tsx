@@ -27,7 +27,7 @@ export const FilterListOptions = ({ title, options }: { title: string; options: 
 
   return (
     <VStack align="flex-start" spacing={4}>
-      <Text fontSize="md" fontWeight="bold" color="gray.700" fontFamily="poppins">
+      <Text fontSize="md" fontWeight="bold" fontFamily="poppins">
         {title}
       </Text>
       <CheckboxGroup

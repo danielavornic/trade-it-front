@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
-import { Box, Button, Heading, useDisclosure } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 
 import { Product } from "@/types";
@@ -11,7 +10,6 @@ import {
   ProductOverviewCard,
   ProductsGrid,
   ProductsSlider,
-  BarterModal,
 } from "@/components";
 
 const ProductPage = () => {
@@ -30,7 +28,7 @@ const ProductPage = () => {
 
   return (
     <>
-      <Layout>
+      <Layout title={data?.name || "Product"}>
         {isSuccess && (
           <>
             <Box as="section" pt={10}>

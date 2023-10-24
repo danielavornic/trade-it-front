@@ -16,10 +16,6 @@
     "name": "Electronics"
   },
   {
-    "id": 5,
-    "name": "Tools, Equipment & Machinery"
-  },
-  {
     "id": 6,
     "name": "Home Decor"
   },
@@ -29,14 +25,10 @@
   },
   {
     "id": 8,
-    "name": "Beauty & Personal Care"
+    "name": "Beauty"
   },
   {
     "id": 9,
-    "name": "Sports & Outdoors"
-  },
-  {
-    "id": 10,
-    "name": "Groceries"
+    "name": "Sports"
   }
 ]

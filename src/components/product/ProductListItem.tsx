@@ -10,7 +10,7 @@ export const ProductListItem = ({ product }: { product: Product }) => {
   return (
     <Link
       style={{ width: "100%" }}
-      href={'/product-details/${product.id}'}
+      href={`/product/${product.id}`}
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -18,7 +18,7 @@ export const ProductListItem = ({ product }: { product: Product }) => {
         <HStack spacing={4}>
           <Image
             src={img}
-            alt={'Image of ${name}'}
+            alt={`Image of ${name}`}
             h="100%"
             maxH="100%"
             objectFit="cover"

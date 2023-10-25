@@ -1,18 +1,27 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
-import { Box, Button, Heading, useDisclosure } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 
 import { Product } from "@/types";
 import { getProduct, getProducts } from "@/data";
+import { products as productsApi } from "@/api";
 import {
   Layout,
   ProductDetailsCard,
   ProductOverviewCard,
   ProductsGrid,
   ProductsSlider,
-  BarterModal,
 } from "@/components";
+
+export async function getServerSideProps(context: any) {
+  const { id } = context.query;
+  const product = await getProduct(Number(id));
+  return {
+    props: {
+      product,
+    },
+  };
+}
 
 const ProductPage = () => {
   const router = useRouter();
@@ -20,17 +29,19 @@ const ProductPage = () => {
 
   const { data, isSuccess } = useQuery({
     queryKey: ["product", id],
+    // queryFn: () => productsApi.getById(Number(id)),
     queryFn: () => getProduct(Number(id)),
   });
 
   const { data: products } = useQuery({
     queryKey: ["related-products"],
+    // queryFn: () => productsApi.getList({ related_to:  Number(id) }),
     queryFn: getProducts,
   });
 
   return (
     <>
-      <Layout>
+      <Layout title={data?.name || "Product"}>
         {isSuccess && (
           <>
             <Box as="section" pt={10}>

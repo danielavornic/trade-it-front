@@ -78,6 +78,22 @@ const AddProductPage = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [imageUrl, setImageUrl] = useState(FALLBACK_IMAGE);
 
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+
+    const file = e.target.files[0];
+    setSelectedImage(file);
+
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImageUrl(imageUrl); // Set the URL as the imageUrl state
+    } else {
+      setImageUrl(FALLBACK_IMAGE); // Set a fallback image if no image is selected
+    }
+  };
+
   // const { mutate: addMutation } = useMutation(products.add, {
   //   onSuccess: () => {
   //     toastNotification("Product added succesfully", "success");
@@ -120,7 +136,7 @@ const AddProductPage = () => {
   };
 
   return (
-    <Layout title="Add item">
+    <Layout title="Add product">
       <HStack as="section" mb={20} h="full" alignItems="start" justifyContent="space-between">
         <VStack w="20%" alignItems="start">
           <HStack w="full" justifyContent="space-between" alignItems="baseline">
@@ -282,7 +298,13 @@ const AddProductPage = () => {
                     borderColor="gray.200"
                   >
                     <Image src={imageUrl} alt="product" w="full" mb={6} />
-                    <input type="file" accept="image/*" id="file-input" className="file-input" />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="file-input"
+                      className="file-input"
+                      onChange={handleImageChange}
+                    />
                     <label htmlFor="file-input" className="file-input-label">
                       Choose file
                     </label>

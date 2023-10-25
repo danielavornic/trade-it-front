@@ -1,11 +1,23 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useAuth } from "@/hooks";
 import { Flex, Stack, Heading } from "@chakra-ui/react";
 import { Layout, SignInCard } from "@/components";
 
 const signin = () => {
+  const { user } = useAuth();
+  const { push } = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      push("/");
+    }
+  }, [user]);
+
   return (
     <Layout title="Sign In">
       <Flex align="center" justify="center">
-        <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
+        <Stack spacing={8} mx="auto" maxW="lg" px={6}>
           <Stack align="center">
             <Heading as="h1" fontSize="4xl">
               Sign in to your account

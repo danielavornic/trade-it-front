@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Modal,
   ModalOverlay,
@@ -13,12 +13,15 @@ import {
   Textarea,
   VStack,
   Box,
+  useToast,
 } from "@chakra-ui/react";
 
 import { getProducts } from "@/data";
 import { Product } from "@/types";
 import { useAuth } from "@/hooks";
 import { ProductCheckbox } from "@/components";
+import { barters } from "@/api/barter";
+import { useRouter } from "next/router";
 
 interface BarterModalProps {
   isOpen: boolean;
@@ -30,13 +33,33 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
   if (!product) return null;
 
   const { user } = useAuth();
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const [productId, setProductId] = useState<number | null>(null);
   const [message, setMessage] = useState("");
+  const toast = useToast();
 
   const { data: products, isSuccess } = useQuery({
     queryKey: ["my-products"],
     queryFn: getProducts,
   });
+
+  const { mutate } = useMutation(barters.sendProposal, {
+    onSuccess: () => {
+      toastNotification("Barter proposal sent succesfully", "success");
+      queryClient.invalidateQueries(["barters"]);
+      window.scrollTo(0, 0);
+    },
+  });
+
+  const toastNotification = (title: string, status: "success" | "error") =>
+    toast({
+      title,
+      status,
+      duration: 5000,
+      isClosable: true,
+      position: "top-right",
+    });
 
   const resetForm = () => {
     setProductId(null);

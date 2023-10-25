@@ -32,7 +32,6 @@ const initialFormValues = {
   category_id: "",
   condition: "",
   targetProducts: "",
-  city_id: "",
   img: "",
 };
 
@@ -121,7 +120,7 @@ const AddProductPage = () => {
   };
 
   return (
-    <Layout title="Add item">
+    <Layout title="Add product">
       <HStack as="section" mb={20} h="full" alignItems="start" justifyContent="space-between">
         <VStack w="20%" alignItems="start">
           <HStack w="full" justifyContent="space-between" alignItems="baseline">
@@ -245,7 +244,7 @@ const AddProductPage = () => {
                         <option value="USED">Used</option>
                       </Select>
                     </FormControl>
-
+                    {/* 
                     <FormControl id="city_id" isRequired>
                       <FormLabel color="gray.600" fontFamily="poppins" fontWeight="bold">
                         City
@@ -258,7 +257,7 @@ const AddProductPage = () => {
                         <option value="2">Like new</option>
                         <option value="3">Used</option>
                       </Select>
-                    </FormControl>
+                    </FormControl> */}
 
                     <FormControl id="targetProducts" isRequired>
                       <FormLabel color="gray.600" fontFamily="poppins" fontWeight="bold">

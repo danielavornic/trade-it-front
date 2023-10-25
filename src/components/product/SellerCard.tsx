@@ -13,10 +13,15 @@ import {
 import { FaMapMarkerAlt, FaHeart } from "react-icons/fa";
 import { BarterModal } from "..";
 import { Product } from "@/types";
+import { useAuth } from "@/hooks";
+import Link from "next/link";
 
 export const SellerCard = ({ product }: { product: Product }) => {
   const location = "Chișinău, MD";
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { user } = useAuth();
+
+  const showBarterButtons = user !== null && user.id !== product.seller.id;
 
   return (
     <>
@@ -36,15 +41,31 @@ export const SellerCard = ({ product }: { product: Product }) => {
                 {location}
               </Text>
             </HStack>
-            <Button onClick={onOpen} colorScheme="brand" variant="solid" color="white" bg="#0EB085">
-              Initiate Barter
-            </Button>
+            {showBarterButtons ? (
+              <Button
+                onClick={onOpen}
+                colorScheme="brand"
+                variant="solid"
+                color="white"
+                bg="#0EB085"
+              >
+                Initiate Barter
+              </Button>
+            ) : (
+              <Link href={`/signin?next=${encodeURIComponent(`/product/${product.id}`)}`}>
+                <Button colorScheme="gray" variant="outline" color="#0EB085">
+                  Sign in to start bartering
+                </Button>
+              </Link>
+            )}
           </Stack>
-          <HStack justify="space-between" mt={4}>
-            <Button leftIcon={<FaHeart />} colorScheme="gray" variant="outline" color="#0EB085">
-              Save for Later
-            </Button>
-          </HStack>
+          {showBarterButtons && (
+            <HStack justify="space-between" mt={4}>
+              <Button leftIcon={<FaHeart />} colorScheme="gray" variant="outline" color="#0EB085">
+                Save for Later
+              </Button>
+            </HStack>
+          )}
         </CardBody>
       </Card>
       <BarterModal isOpen={isOpen} onClose={onClose} product={product as Product} />

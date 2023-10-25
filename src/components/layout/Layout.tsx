@@ -12,7 +12,7 @@ export const Layout = ({ title, children }: PropsWithChildren<LayoutProps>) => {
   return (
     <>
       <Head>
-        <title>{title ? `${title} | Trade It` : "Trade It"}</title>
+        <title>{title ? `${title} | Trade It` : "Trade It - Bartering made easy"}</title>
       </Head>
 
       <VStack

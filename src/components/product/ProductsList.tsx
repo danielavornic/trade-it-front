@@ -7,7 +7,7 @@ export const ProductsList = ({ products }: { products?: any[] }) => {
   }
 
   return (
-    <VStack spacing={4}>
+    <VStack spacing={4} alignItems="flex-start">
       {products.map((product) => (
         <ProductListItem key={product.id} product={product} />
       ))}

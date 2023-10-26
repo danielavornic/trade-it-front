@@ -16,7 +16,7 @@ export const AuthContext = createContext<AuthContextType>({
   logout: () => Promise.resolve(),
 });
 
-export const AuthProvider: React.FC = ({ children }: React.PropsWithChildren<{}>) => {
+export const AuthProvider = ({ children }: React.PropsWithChildren<{}>) => {
   const [user, setUser] = useState<null | User>(null);
 
   const logout = async () => {

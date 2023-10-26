@@ -45,7 +45,7 @@ export const ProductCategoriesBanner = () => {
         flex={1}
         spacing={2}
         align="flex-start"
-        maxH={360}
+        maxH={400}
         overflowY="auto"
         sx={{
           "::-webkit-scrollbar": {
@@ -76,7 +76,7 @@ export const ProductCategoriesBanner = () => {
         spacing={8}
         align="flex-start"
         flexBasis="50%"
-        height={360}
+        height={400}
         bg={image ? `url(${image})` : "gray.200"}
         backgroundSize="cover"
         backgroundPosition="center"
@@ -91,7 +91,7 @@ export const ProductCategoriesBanner = () => {
           </Text>
         </VStack>
         <Button variant="solid" bg="white" color="gray.900" minW={40}>
-          Learn more
+          View more
         </Button>
       </VStack>
     </Stack>

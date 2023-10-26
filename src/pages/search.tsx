@@ -33,7 +33,7 @@ const SearchPage = () => {
   };
 
   return (
-    <Layout title={`"${q}"`}>
+    <Layout title={q ? `"${q}" results` : "Search"}>
       <HStack as="section" mb={20} h="full" alignItems="start" justifyContent="space-between">
         <VStack w="20%" alignItems="start">
           <HStack w="full" justifyContent="space-between" alignItems="baseline">

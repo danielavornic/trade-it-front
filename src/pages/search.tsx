@@ -55,7 +55,10 @@ const SearchPage = () => {
             <CardBody py={4}>
               <HStack spacing={4} justifyContent="space-between" alignItems="center">
                 <Heading size="md" textAlign="left">
-                  {products?.length} items found for "{q}"
+                  {products?.length} items found 
+                  {!q && category && <span> in {categories?.find((c: any) => c.id === Number(category))?.name}</span>}
+                  {q && !category && <span> for "{q}"</span>}
+                  {q && category && <span> for "{q}" in {categories?.find((c: any) => c.id === Number(category))?.name}</span>}
                 </Heading>
 
                 <HStack spacing={2}>

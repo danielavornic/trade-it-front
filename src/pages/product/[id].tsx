@@ -1,9 +1,6 @@
-import { useRouter } from "next/router";
 import { Box, Heading } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
 
 import { Product } from "@/types";
-import { getProduct, getProducts } from "@/data";
 import { products as productsApi } from "@/api";
 import {
   Layout,
@@ -15,57 +12,56 @@ import {
 
 export async function getServerSideProps(context: any) {
   const { id } = context.query;
-  const product = await getProduct(Number(id));
+
+  const product = await productsApi.getById(Number(id));
+  const categoryProducts = await productsApi.getList({ category: Number(product.category.id) });
+  const relatedProducts = categoryProducts?.filter((p: Product) => p.id !== product.id);
+  const sellerProucts = await productsApi.getList({ seller: Number(product.seller.id) });
+  const fromThisSeller = sellerProucts?.filter((p: Product) => p.id !== product.id);
+
   return {
     props: {
       product,
+      relatedProducts,
+      fromThisSeller,
     },
   };
 }
 
-const ProductPage = () => {
-  const router = useRouter();
-  const { id } = router.query;
-
-  const { data, isSuccess } = useQuery({
-    queryKey: ["product", id],
-    // queryFn: () => productsApi.getById(Number(id)),
-    queryFn: () => getProduct(Number(id)),
-  });
-
-  const { data: products } = useQuery({
-    queryKey: ["related-products"],
-    // queryFn: () => productsApi.getList({ related_to:  Number(id) }),
-    queryFn: getProducts,
-  });
+const ProductPage = ({
+  product,
+  relatedProducts,
+  fromThisSeller,
+}: {
+  product: Product;
+  relatedProducts: Product[];
+  fromThisSeller: Product[];
+}) => {
+  if (!product) {
+    return null;
+  }
 
   return (
-    <>
-      <Layout title={data?.name || "Product"}>
-        {isSuccess && (
-          <>
-            <Box as="section" pt={10}>
-              <ProductOverviewCard product={data as Product} />
-            </Box>
+    <Layout title={product?.name || "Product"}>
+      <Box as="section" pt={10}>
+        <ProductOverviewCard product={product} />
+      </Box>
 
-            <Box as="section" py={20}>
-              <ProductDetailsCard product={data as Product} />
-            </Box>
+      <Box as="section" py={20}>
+        <ProductDetailsCard product={product} />
+      </Box>
 
-            <Box as="section" pb={20}>
-              <Heading as="h2" size="lg" mb="4">
-                Related items
-              </Heading>
-              <ProductsGrid products={products?.slice(0, 4)} />
-            </Box>
+      <Box as="section" pb={20}>
+        <Heading as="h2" size="lg" mb="4">
+          Related items
+        </Heading>
+        <ProductsGrid products={relatedProducts?.slice(0, 4)} />
+      </Box>
 
-            <Box as="section" pb={20}>
-              <ProductsSlider title="More from this seller" products={products} />
-            </Box>
-          </>
-        )}
-      </Layout>
-    </>
+      <Box as="section" pb={20}>
+        <ProductsSlider title="More from this seller" products={fromThisSeller} />
+      </Box>
+    </Layout>
   );
 };
 

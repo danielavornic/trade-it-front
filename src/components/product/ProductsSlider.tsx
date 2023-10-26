@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, VStack, Icon } from "@chakra-ui/react";
+import { Box, Flex, Heading, VStack, Icon, HStack } from "@chakra-ui/react";
 import { BsStars } from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { ProductGridCard } from "@/components";
 
 export const ProductsSlider = ({ title, products }: { title: string; products?: any[] }) => {
-  if (!products) {
+  if (!products || products.length === 0) {
     return null;
   }
 
@@ -40,9 +40,9 @@ export const ProductsSlider = ({ title, products }: { title: string; products?: 
       <Box w="75%">
         <Slider {...settings}>
           {products.map((product, index) => (
-            <Flex px={4} key={index} h="full" transform="translateY(-4px)">
+            <Box px={4} key={index} h="full" transform="translateY(-4px)">
               <ProductGridCard product={product} />
-            </Flex>
+            </Box>
           ))}
         </Slider>
       </Box>

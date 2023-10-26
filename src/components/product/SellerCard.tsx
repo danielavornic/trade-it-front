@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Card,
   Button,
@@ -11,17 +12,19 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { FaMapMarkerAlt, FaHeart } from "react-icons/fa";
-import { BarterModal } from "..";
-import { Product } from "@/types";
+
+import { BarterModal } from "@/components";
 import { useAuth } from "@/hooks";
-import Link from "next/link";
+import { Product } from "@/types";
 
 export const SellerCard = ({ product }: { product: Product }) => {
   const location = "Chișinău, MD";
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useAuth();
 
-  const showBarterButtons = user !== null && user.id !== product.seller.id;
+  const isGuest = user === null;
+  const hasProduct = !isGuest && user.id === product.seller.id;
+  const showBarterButtons = !isGuest && !hasProduct;
 
   return (
     <>
@@ -31,7 +34,7 @@ export const SellerCard = ({ product }: { product: Product }) => {
             <HStack align="center">
               <Avatar bg="#0EB085" size="sm" />
               <Text fontSize="lg" ml={2}>
-                {product.seller.name}
+                {product.seller.username}
               </Text>
             </HStack>
             <Divider my={2} />
@@ -41,7 +44,17 @@ export const SellerCard = ({ product }: { product: Product }) => {
                 {location}
               </Text>
             </HStack>
-            {showBarterButtons ? (
+            {isGuest ? (
+              <Link href={`/signin?next=${encodeURIComponent(`/product/${product.id}`)}`}>
+                <Button colorScheme="gray" variant="outline" color="#0EB085">
+                  Sign in to start bartering
+                </Button>
+              </Link>
+            ) : hasProduct ? (
+              <Button colorScheme="gray" variant="outline" color="#0EB085">
+                Edit
+              </Button>
+            ) : (
               <Button
                 onClick={onOpen}
                 colorScheme="brand"
@@ -51,12 +64,6 @@ export const SellerCard = ({ product }: { product: Product }) => {
               >
                 Initiate Barter
               </Button>
-            ) : (
-              <Link href={`/signin?next=${encodeURIComponent(`/product/${product.id}`)}`}>
-                <Button colorScheme="gray" variant="outline" color="#0EB085">
-                  Sign in to start bartering
-                </Button>
-              </Link>
             )}
           </Stack>
           {showBarterButtons && (

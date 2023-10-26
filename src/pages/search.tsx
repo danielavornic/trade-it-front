@@ -5,7 +5,7 @@ import { Button, Card, CardBody, Divider, HStack, Heading, Icon, VStack } from "
 import { TfiLayoutGrid2Alt } from "react-icons/tfi";
 import { FaThList } from "react-icons/fa";
 
-import { getCategories, getProducts } from "@/data";
+import { products as productsApi, categories as categoriesApi } from "@/api";
 import { FilterListOptions, Layout, ProductsGrid, ProductsList } from "@/components";
 
 const SearchPage = () => {
@@ -15,13 +15,14 @@ const SearchPage = () => {
   const [listingView, setListingView] = useState<"list" | "grid">("list");
 
   const { data: products } = useQuery({
-    queryKey: ["search-results"],
-    queryFn: getProducts,
+    queryKey: ["search-results", q, category],
+    queryFn: () =>
+      productsApi.getList({ name: q as string, category: category ? Number(category) : undefined }),
   });
 
   const { data: categories } = useQuery({
     queryKey: ["filter-categories"],
-    queryFn: getCategories,
+    queryFn: () => categoriesApi.getList(),
   });
 
   const resetFilter = () => {
@@ -82,7 +83,7 @@ const SearchPage = () => {
           </Card>
 
           {listingView === "grid" ? (
-            <ProductsGrid products={products} />
+            <ProductsGrid products={products} cols={3} />
           ) : (
             <ProductsList products={products} />
           )}

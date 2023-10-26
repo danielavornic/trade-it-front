@@ -1,13 +1,12 @@
 import { Product } from "@/types";
-import { Card, Stack, Text, Avatar, HStack, Box, Image, Heading } from "@chakra-ui/react";
+import { Card, Stack, Text, HStack, Box, Image } from "@chakra-ui/react";
 import Link from "next/link";
-import { FaMapMarkerAlt, FaUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 
 const DESCRIPTION_LENGTH = 150;
 
 export const ProductListItem = ({ product }: { product: Product }) => {
-  const { name, description, seller, category, condition, status, targetProducts, img, city } =
-    product;
+  const { name, description, seller, img } = product;
 
   return (
     <Link style={{ width: "100%" }} href={`/product/${product.id}`} rel="noopener noreferrer">
@@ -21,7 +20,7 @@ export const ProductListItem = ({ product }: { product: Product }) => {
         <HStack spacing={10} w="90%">
           <Image
             src={img}
-            alt={`Image of ${name}`}
+            alt={name}
             h="100%"
             maxH="100%"
             objectFit="cover"
@@ -35,12 +34,12 @@ export const ProductListItem = ({ product }: { product: Product }) => {
             <HStack align="center" mb={4} spacing={4}>
               <HStack spacing={2} align="center">
                 <Box as={FaUser} fontSize="sm" color="brand.500" />
-                <Text fontSize="sm">{seller.name}</Text>
+                <Text fontSize="sm">{seller.username}</Text>
               </HStack>
-              <HStack spacing={2}>
+              {/* <HStack spacing={2}>
                 <Box as={FaMapMarkerAlt} fontSize="sm" color="brand.500" />
                 <Text fontSize="sm">{city.name}</Text>
-              </HStack>
+              </HStack> */}
             </HStack>
             <Text fontSize="md">
               {description.length > DESCRIPTION_LENGTH

@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
-import { Button, Heading, Image, Stack, VStack, Text } from "@chakra-ui/react";
+import { Button, Stack, VStack, Text } from "@chakra-ui/react";
 
-import { getCategories } from "@/data";
 import { useQuery } from "@tanstack/react-query";
 import { Category } from "@/types";
+import { categories } from "@/api";
 
 const getImgSrc = (category: Category) =>
   `/assets/images/categories/${category.name.toLowerCase()}.png`;
 
 export const ProductCategoriesBanner = () => {
-  const { data, isSuccess } = useQuery({ queryKey: ["categories-banner"], queryFn: getCategories });
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [image, setImage] = useState<string | null>(null);
+
+  const { data, isSuccess } = useQuery({
+    queryKey: ["categories-banner"],
+    queryFn: () => categories.getList(),
+  });
 
   useEffect(() => {
     if (isSuccess && data) {

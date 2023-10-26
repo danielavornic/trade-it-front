@@ -52,10 +52,7 @@ const ProductPage = ({
       </Box>
 
       <Box as="section" pb={20}>
-        <Heading as="h2" size="lg" mb="4">
-          Related items
-        </Heading>
-        <ProductsGrid products={relatedProducts?.slice(0, 4)} />
+        <ProductsGrid title="Related items" products={relatedProducts?.slice(0, 4)} />
       </Box>
 
       <Box as="section" pb={20}>

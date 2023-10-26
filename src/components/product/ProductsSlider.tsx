@@ -11,6 +11,12 @@ export const ProductsSlider = ({ title, products }: { title: string; products?: 
     return null;
   }
 
+  if (products.length < 3) {
+    for (let i = 0; i < 3 - products.length; i++) {
+      products.push(null);
+    }
+  } 
+
   const settings = {
     infinite: true,
     speed: 500,
@@ -40,9 +46,13 @@ export const ProductsSlider = ({ title, products }: { title: string; products?: 
       <Box w="75%">
         <Slider {...settings}>
           {products.map((product, index) => (
-            <Box px={4} key={index} h="full" transform="translateY(-4px)">
-              <ProductGridCard product={product} />
-            </Box>
+            product ? (
+              <Box px={4} key={index} h="full" transform="translateY(-4px)">
+                <ProductGridCard product={product} />
+              </Box>
+            ) : (
+              <Box px={4} key={index} h="full"/>
+            )
           ))}
         </Slider>
       </Box>

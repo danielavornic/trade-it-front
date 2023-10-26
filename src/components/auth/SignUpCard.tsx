@@ -49,7 +49,7 @@ export const SignUpCard = () => {
       const { token } = data;
       const decodedToken = decodeToken(token) as any;
       const user = {
-        id: decodedToken?.user_id,
+        id: Number(decodedToken?.user_id),
         username: formValues.username,
         name: formValues.name,
         surname: formValues.surname,

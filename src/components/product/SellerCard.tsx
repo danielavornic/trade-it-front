@@ -1,3 +1,6 @@
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   Card,
   Button,
@@ -11,17 +14,25 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { FaMapMarkerAlt, FaHeart } from "react-icons/fa";
-import { BarterModal } from "..";
-import { Product } from "@/types";
+
+import { BarterModal } from "@/components";
 import { useAuth } from "@/hooks";
-import Link from "next/link";
+import { Product } from "@/types";
 
 export const SellerCard = ({ product }: { product: Product }) => {
   const location = "Chișinău, MD";
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useAuth();
+  const { query } = useRouter();
 
-  const showBarterButtons = user !== null && user.id !== product.seller.id;
+  const [isSaved, setIsSaved] = useState(false);
+
+  const isGuest = user === null;
+  const hasProduct = !isGuest && user.id === product.seller.id;
+  const showBarterButtons = !isGuest && !hasProduct;
+
+  // TODO: Check if barter is sent from backend instead of query
+  const isBarterSent = query.barter === "sent";
 
   return (
     <>
@@ -31,7 +42,7 @@ export const SellerCard = ({ product }: { product: Product }) => {
             <HStack align="center">
               <Avatar bg="#0EB085" size="sm" />
               <Text fontSize="lg" ml={2}>
-                {product.seller.name}
+                {product.seller.username}
               </Text>
             </HStack>
             <Divider my={2} />
@@ -41,7 +52,21 @@ export const SellerCard = ({ product }: { product: Product }) => {
                 {location}
               </Text>
             </HStack>
-            {showBarterButtons ? (
+            {isGuest ? (
+              <Link href={`/signin?next=${encodeURIComponent(`/product/${product.id}`)}`}>
+                <Button colorScheme="gray" variant="outline" color="#0EB085">
+                  Sign in to start bartering
+                </Button>
+              </Link>
+            ) : hasProduct ? (
+              <Button colorScheme="gray" variant="outline" color="#0EB085">
+                Edit
+              </Button>
+            ) : isBarterSent ? (
+              <Button colorScheme="gray" variant="outline" color="#0EB085" disabled>
+                View barter
+              </Button>
+            ) : (
               <Button
                 onClick={onOpen}
                 colorScheme="brand"
@@ -51,18 +76,19 @@ export const SellerCard = ({ product }: { product: Product }) => {
               >
                 Initiate Barter
               </Button>
-            ) : (
-              <Link href={`/signin?next=${encodeURIComponent(`/product/${product.id}`)}`}>
-                <Button colorScheme="gray" variant="outline" color="#0EB085">
-                  Sign in to start bartering
-                </Button>
-              </Link>
             )}
           </Stack>
           {showBarterButtons && (
             <HStack justify="space-between" mt={4}>
-              <Button leftIcon={<FaHeart />} colorScheme="gray" variant="outline" color="#0EB085">
-                Save for Later
+              <Button
+                leftIcon={<FaHeart />}
+                width="170px"
+                colorScheme={isSaved ? "brand" : "gray"}
+                variant={isSaved ? "solid" : "outline"}
+                color={isSaved ? "white" : "#0EB085"}
+                onClick={() => setIsSaved(!isSaved)}
+              >
+                {isSaved ? "Saved for later" : "Save for later"}
               </Button>
             </HStack>
           )}

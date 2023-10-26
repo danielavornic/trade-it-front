@@ -1,6 +1,6 @@
 import { Card, HStack, Image, Box, Text, VStack, Spacer, Heading, Badge } from "@chakra-ui/react";
 import { Product } from "@/types";
-import { SellerCard } from "./SellerCard";
+import { SellerCard } from "@/components";
 
 export const ProductOverviewCard = ({ product }: { product: Product }) => {
   const { name, description, img, condition, targetProducts } = product;
@@ -27,12 +27,12 @@ export const ProductOverviewCard = ({ product }: { product: Product }) => {
             <Heading fontSize="4xl" as="h1" fontWeight="bold" mb="4">
               {name}
             </Heading>
-            <Text fontSize="xl" mb="4">
+            <Box fontSize="xl" mb="4">
               <Text color="brand.500" display="inline" fontWeight="bold">
                 Looking for:{" "}
               </Text>
               {targetProducts}
-            </Text>
+            </Box>
             <Text fontSize="lg" color="gray.700">
               {description}
             </Text>

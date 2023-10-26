@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 
-import { getCategories } from "@/data";
+import { categories as categoriesApi } from "@/api";
 import { Category } from "@/types";
 
 export const SearchInput = () => {
@@ -25,10 +25,10 @@ export const SearchInput = () => {
 
   const { data: categories, isSuccess } = useQuery({
     queryKey: ["categories"],
-    queryFn: getCategories,
+    queryFn: () => categoriesApi.getList(),
   });
 
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<string | undefined>("");
   const [search, setSearch] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,10 +45,8 @@ export const SearchInput = () => {
       setSearch(q as string);
     }
 
-    if (categoryUrl) {
-      setCategory(categoryUrl as string);
-    }
-  }, [router.query]);
+    setCategory(categoryUrl as string);
+  }, [q, categoryUrl]);
 
   return (
     <Box as="form" onSubmit={handleSubmit} maxW={600} zIndex={20} position="relative">
@@ -76,8 +74,8 @@ export const SearchInput = () => {
               fontWeight={400}
               color="gray.600"
             >
-              {category && category.split(",").length === 1
-                ? categories?.find((c) => c.id === Number(category))?.name
+              {!!category && category?.split(",").length === 1
+                ? categories?.find((c: Category) => c.id === Number(category))?.name
                 : "All categories"}
             </MenuButton>
             <MenuList>

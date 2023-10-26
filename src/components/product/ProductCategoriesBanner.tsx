@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
-import { Button, Heading, Image, Stack, VStack, Text } from "@chakra-ui/react";
+import { Button, Stack, VStack, Text } from "@chakra-ui/react";
 
-import { getCategories } from "@/data";
 import { useQuery } from "@tanstack/react-query";
 import { Category } from "@/types";
+import { categories } from "@/api";
 
 const getImgSrc = (category: Category) =>
   `/assets/images/categories/${category.name.toLowerCase()}.png`;
 
 export const ProductCategoriesBanner = () => {
-  const { data, isSuccess } = useQuery({ queryKey: ["categories-banner"], queryFn: getCategories });
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [image, setImage] = useState<string | null>(null);
+
+  const { data, isSuccess } = useQuery({
+    queryKey: ["categories-banner"],
+    queryFn: () => categories.getList(),
+  });
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -41,7 +45,7 @@ export const ProductCategoriesBanner = () => {
         flex={1}
         spacing={2}
         align="flex-start"
-        maxH={360}
+        maxH={400}
         overflowY="auto"
         sx={{
           "::-webkit-scrollbar": {
@@ -72,7 +76,7 @@ export const ProductCategoriesBanner = () => {
         spacing={8}
         align="flex-start"
         flexBasis="50%"
-        height={360}
+        height={400}
         bg={image ? `url(${image})` : "gray.200"}
         backgroundSize="cover"
         backgroundPosition="center"
@@ -87,7 +91,7 @@ export const ProductCategoriesBanner = () => {
           </Text>
         </VStack>
         <Button variant="solid" bg="white" color="gray.900" minW={40}>
-          Learn more
+          View more
         </Button>
       </VStack>
     </Stack>

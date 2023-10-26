@@ -1,9 +1,10 @@
-type Condition = "NEW" | "USED" | "LIKE NEW";
-type Status = "AVAILABLE" | "SWAPPED" | "PENDING";
+export type Condition = "NEW" | "USED" | "LIKE NEW";
+export type Status = "AVAILABLE" | "SWAPPED" | "PENDING";
 
 export interface Seller {
   id: number;
   name: string;
+  username: string;
 }
 
 export interface Category {
@@ -27,7 +28,7 @@ export interface Product {
   img: string;
   condition: Condition;
   targetProducts: string;
-  city: City;
+  city?: City;
 }
 
 export interface ProductAdd {
@@ -36,7 +37,6 @@ export interface ProductAdd {
   category_id: number;
   description: string;
   details: string;
-  condition: Condition;
+  condition: string;
   targetProducts: string;
-  img: Blob;
 }

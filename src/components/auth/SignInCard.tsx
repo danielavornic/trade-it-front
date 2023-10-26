@@ -1,16 +1,19 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
+import { decodeToken } from "react-jwt";
 import { Box, FormControl, FormLabel, Link, Input, Stack, Button, Text } from "@chakra-ui/react";
 
 import { useAuth } from "@/hooks";
+import { useMutation } from "@tanstack/react-query";
+import { auth } from "@/api";
 
 const initialFormValues = {
-  email: "",
+  username: "",
   password: "",
 };
 
 export const SignInCard = () => {
-  const { signIn } = useAuth();
+  const { setUser } = useAuth();
   const router = useRouter();
   const [formValues, setFormValues] = useState(initialFormValues);
 
@@ -21,20 +24,39 @@ export const SignInCard = () => {
   const handleSubmit = (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
     try {
-      signIn(formValues.email, formValues.password);
-      const nextUrl = router.query.next as string;
-      router.push(nextUrl || "/");
+      mutate(formValues);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const { mutate } = useMutation(auth.signin, {
+    onSuccess: ({ data }: any) => {
+      const { token } = data;
+      const decodedToken = decodeToken(token) as any;
+      const user = {
+        id: Number(decodedToken?.user_id),
+        name: decodedToken?.firstName,
+        surname: decodedToken?.lastName,
+        username: formValues.username,
+        token,
+      };
+      setUser(user);
+
+      const nextUrl = router.query.next as string;
+      router.push(nextUrl || "/");
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   return (
     <Box rounded="lg" borderWidth={1} borderColor="gray.100" boxShadow="sm" p={8}>
       <Stack spacing={4} as="form" onSubmit={handleSubmit}>
-        <FormControl id="email">
-          <FormLabel>Email address</FormLabel>
-          <Input type="email" value={formValues.email} onChange={handleChange} />
+        <FormControl id="username">
+          <FormLabel>Username</FormLabel>
+          <Input type="text" value={formValues.username} onChange={handleChange} />
         </FormControl>
         <FormControl id="password">
           <FormLabel>Password</FormLabel>
@@ -58,7 +80,11 @@ export const SignInCard = () => {
         <Stack pt={6}>
           <Text align="center">
             No account?{" "}
-            <Link color="brand.500" href="/signin">
+            <Link
+              color="brand.500"
+              href={`/signup${router.query.next ? `?next=${router.query.next}` : ""}`}
+              fontWeight="bold"
+            >
               Sign up
             </Link>
           </Text>

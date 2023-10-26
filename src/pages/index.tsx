@@ -4,22 +4,17 @@ import { Box, Button, HStack, Heading, VStack, Text, Flex, Icon } from "@chakra-
 import { MdOutlineSwapVerticalCircle } from "react-icons/md";
 import { LuHeartHandshake } from "react-icons/lu";
 
-import { getProducts } from "@/data";
 import { products as productsApi } from "@/api";
 import { Layout, ProductCategoriesBanner, ProductsGrid, ProductsSlider } from "@/components";
 
 export default function Home() {
-  const { data: popularProducts } = useQuery({
+  const { data } = useQuery({
     queryKey: ["popular-products"],
-    // queryFn: () => productsApi.getList({ popular: true }),
-    queryFn: () => getProducts(),
+    queryFn: () => productsApi.getList(),
   });
 
-  const { data: featuredProducts } = useQuery({
-    queryKey: ["popular-products"],
-    // queryFn: () => productsApi.getList({ featured: true }),
-    queryFn: () => getProducts(),
-  });
+  const popularProducts = data?.sort(() => Math.random() - 0.5);
+  const featuredProducts = data?.sort(() => Math.random() - 0.5);
 
   return (
     <Layout>
@@ -92,7 +87,7 @@ export default function Home() {
         <Heading as="h2" size="xl" mb="4">
           Recommended items
         </Heading>
-        <ProductsGrid products={featuredProducts?.slice(0, 8)} />
+        <ProductsGrid products={featuredProducts} />
       </Box>
 
       <Box as="section" py={20} bg="brand.500" px={14} borderRadius={10}>

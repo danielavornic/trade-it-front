@@ -20,10 +20,10 @@ import {
   CardBody,
 } from "@chakra-ui/react";
 
-import { getCategories } from "@/data";
-import { products } from "@/api";
+import { products, categories as categoriesApi, images } from "@/api";
 import { useAuth } from "@/hooks";
 import { Layout } from "@/components";
+import { Category, Condition } from "@/types";
 
 const initialFormValues = {
   name: "",
@@ -66,17 +66,17 @@ const FALLBACK_IMAGE = "/assets/images/fallback.png";
 
 const AddProductPage = () => {
   const router = useRouter();
-  const toast = useToast();
   const queryClient = useQueryClient();
   const { user } = useAuth();
 
-  const { data: categories, isSuccess } = useQuery({
+  const { data: categories } = useQuery({
     queryKey: ["categories"],
-    queryFn: getCategories,
+    queryFn: () => categoriesApi.getList(),
   });
 
   const [formValues, setFormValues] = useState(initialFormValues);
   const [imageUrl, setImageUrl] = useState(FALLBACK_IMAGE);
+  const [productId, setProductId] = useState("");
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
@@ -88,29 +88,26 @@ const AddProductPage = () => {
 
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setImageUrl(imageUrl); // Set the URL as the imageUrl state
+      setImageUrl(imageUrl);
     } else {
-      setImageUrl(FALLBACK_IMAGE); // Set a fallback image if no image is selected
+      setImageUrl(FALLBACK_IMAGE);
     }
   };
 
-  // const { mutate: addMutation } = useMutation(products.add, {
-  //   onSuccess: () => {
-  //     toastNotification("Product added succesfully", "success");
-  //     router.push("/catalog");
-  //     queryClient.invalidateQueries(["catalog"]);
-  //     window.scrollTo(0, 0);
-  //   },
-  // });
+  const { mutate: addProduct } = useMutation(products.add, {
+    onSuccess: ({ product_id }: any) => {
+      setProductId(product_id);
+      addImage({ product_id, image: selectedImage as File });
+    },
+  });
 
-  const toastNotification = (title: string, status: "success" | "error") =>
-    toast({
-      title,
-      status,
-      duration: 5000,
-      isClosable: true,
-      position: "top-right",
-    });
+  const { mutate: addImage } = useMutation(images.add, {
+    onSuccess: () => {
+      router.push(`/product/${productId}`);
+      queryClient.invalidateQueries(["products"]);
+      window.scrollTo(0, 0);
+    },
+  });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>,
@@ -132,7 +129,12 @@ const AddProductPage = () => {
   ) => {
     e.preventDefault();
 
-    alert(JSON.stringify(formValues));
+    addProduct({
+      ...formValues,
+      category_id: Number(formValues.category_id),
+      seller_id: Number(user?.id) || 1,
+      condition: formValues.condition,
+    });
   };
 
   return (
@@ -215,7 +217,7 @@ const AddProductPage = () => {
                         placeholder="Select category"
                         onChange={(val) => handleSelectChange("category_id", val)}
                       >
-                        {categories?.map((category) => (
+                        {categories?.map((category: Category) => (
                           <option value={category.id}>{category.name}</option>
                         ))}
                       </Select>

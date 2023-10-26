@@ -6,6 +6,7 @@ export const axios = $axios.create({
   baseURL: baseUrl,
   headers: {
     "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
     Accept: "application/json",
   },
 });

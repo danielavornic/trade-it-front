@@ -1,5 +1,7 @@
 import { FormEvent, useState } from "react";
+import { decodeToken } from "react-jwt";
 import { useRouter } from "next/router";
+import { useMutation } from "@tanstack/react-query";
 import {
   Box,
   FormControl,
@@ -15,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
+import { auth } from "@/api";
 import { useAuth } from "@/hooks";
 
 const initialFormValues = {
@@ -26,8 +29,8 @@ const initialFormValues = {
 };
 
 export const SignUpCard = () => {
-  const { signUp } = useAuth();
   const router = useRouter();
+  const { setUser } = useAuth();
 
   const [formValues, setFormValues] = useState(initialFormValues);
   const [showPassword, setShowPassword] = useState(false);
@@ -38,9 +41,28 @@ export const SignUpCard = () => {
 
   const handleSubmit = (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
-    signUp(formValues);
-    router.push("/");
+    mutate(formValues);
   };
+
+  const { mutate } = useMutation(auth.signup, {
+    onSuccess: ({ data }: any) => {
+      const { token } = data;
+      const decodedToken = decodeToken(token) as any;
+      const user = {
+        id: Number(decodedToken?.user_id),
+        username: formValues.username,
+        name: formValues.name,
+        surname: formValues.surname,
+        token,
+      };
+      setUser(user);
+
+      router.push("/");
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   return (
     <Stack spacing={4} mx="auto" maxW="lg" px={6}>

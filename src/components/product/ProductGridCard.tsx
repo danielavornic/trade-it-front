@@ -7,7 +7,7 @@ export const ProductGridCard = ({ product }: { product: Product }) => {
   const { id, name, img } = product;
 
   return (
-    <Link href={`/product/${id}`}>
+    <Link href={`/product/${id}`} style={{ height: "100%" }}>
       <Card
         shadow="sm"
         py={3}
@@ -16,8 +16,8 @@ export const ProductGridCard = ({ product }: { product: Product }) => {
         transition="all 0.2s"
       >
         <CardBody bg="white">
-          <Image src={img} alt={name} borderRadius="lg" bg="gray.50" />
-          <Text fontSize="xl" fontFamily="poppins" fontWeight={600} mt={6}>
+          <Image src={img} alt={name} borderRadius="lg" bg="gray.50" height="280px" />
+          <Text fontSize="xl" fontFamily="poppins" fontWeight={600} mt={6} height="60px">
             {name}
           </Text>
         </CardBody>

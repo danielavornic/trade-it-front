@@ -118,7 +118,7 @@ export const Header = () => {
                     <Avatar
                       w="40px"
                       h="40px"
-                      name={user.name + " " + user.surname}
+                      name={user.username}
                       colorScheme="brand"
                       bg="brand.500"
                       color="white"

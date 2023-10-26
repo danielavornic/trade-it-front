@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 
 import { getProducts } from "@/data";
+import { products as productsApi } from "@/api";
 import { Product } from "@/types";
 import { useAuth } from "@/hooks";
 import { ProductCheckbox } from "@/components";
@@ -37,29 +38,20 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
   const queryClient = useQueryClient();
   const [productId, setProductId] = useState<number | null>(null);
   const [message, setMessage] = useState("");
-  const toast = useToast();
 
   const { data: products, isSuccess } = useQuery({
     queryKey: ["my-products"],
-    queryFn: getProducts,
+    queryFn: () => productsApi.getList({ seller: user?.id }),
   });
 
   const { mutate } = useMutation(barters.sendProposal, {
     onSuccess: () => {
-      toastNotification("Barter proposal sent succesfully", "success");
+      onClose();
+      router.push({ pathname: `/product/${product.id}`, query: { barter: "sent" } });
       queryClient.invalidateQueries(["barters"]);
       window.scrollTo(0, 0);
     },
   });
-
-  const toastNotification = (title: string, status: "success" | "error") =>
-    toast({
-      title,
-      status,
-      duration: 5000,
-      isClosable: true,
-      position: "top-right",
-    });
 
   const resetForm = () => {
     setProductId(null);
@@ -69,18 +61,14 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert(
-      JSON.stringify(
-        {
-          user_id: user?.id,
-          offered_product_id: product.id,
-          desired_product_id: productId,
-          message,
-        },
-        null,
-        2,
-      ),
-    );
+
+    if (!productId) return;
+
+    mutate({
+      offered_product_id: productId,
+      desired_product_id: product.id,
+      message,
+    });
 
     resetForm();
   };

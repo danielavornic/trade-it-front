@@ -14,7 +14,7 @@ export const ProductOverviewCard = ({ product }: { product: Product }) => {
           margin="20px"
           width="400px"
           height="400px"
-          objectFit="cover"
+          objectFit="contain"
           borderRadius="md"
           border="1px solid"
           borderColor="gray.200"

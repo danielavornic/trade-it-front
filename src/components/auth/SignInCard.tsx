@@ -42,9 +42,13 @@ export const SignInCard = () => {
         token,
       };
       setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
 
-      const nextUrl = router.query.next as string;
-      router.push(nextUrl || "/");
+      // const redirectProductId = decodeURIComponent(String(router.query.redirectProductId || "")).trim();
+      // if (redirectProductId)
+      //   router.push(`/product/${redirectProductId}`);
+      // else
+      //   router.push("/");
     },
     onError: (error) => {
       console.log(error);
@@ -82,8 +86,7 @@ export const SignInCard = () => {
             No account?{" "}
             <Link
               color="brand.500"
-              href={`/signup${router.query.next ? `?next=${router.query.next}` : ""}`}
-              fontWeight="bold"
+              href={`/signup?redirectProductId=${encodeURIComponent(String(router.query.redirectProductId))}`}
             >
               Sign up
             </Link>

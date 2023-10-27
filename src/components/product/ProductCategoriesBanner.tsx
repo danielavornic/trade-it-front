@@ -4,6 +4,7 @@ import { Button, Stack, VStack, Text } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { Category } from "@/types";
 import { categories } from "@/api";
+import Link from "next/link";
 
 const getImgSrc = (category: Category) =>
   `/assets/images/categories/${category.name.toLowerCase()}.png`;
@@ -90,9 +91,11 @@ export const ProductCategoriesBanner = () => {
             {selectedCategory?.name}
           </Text>
         </VStack>
-        <Button variant="solid" bg="white" color="gray.900" minW={40}>
-          View more
-        </Button>
+        <Link href={`/search?category=${selectedCategory?.id}`}>
+          <Button variant="solid" bg="white" color="gray.900" minW={40}>
+            View more
+          </Button>
+        </Link>
       </VStack>
     </Stack>
   );

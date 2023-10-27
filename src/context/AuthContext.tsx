@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { User } from "@/types";
 
 type AuthState = {
@@ -22,6 +22,13 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<{}>) => {
   const logout = async () => {
     setUser(null);
   };
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setUser(JSON.parse(user));
+    }
+  }, []);
 
   return <AuthContext.Provider value={{ user, setUser, logout }}>{children}</AuthContext.Provider>;
 };

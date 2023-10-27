@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Modal,
@@ -13,16 +14,13 @@ import {
   Textarea,
   VStack,
   Box,
-  useToast,
+  Text
 } from "@chakra-ui/react";
 
-import { getProducts } from "@/data";
-import { products as productsApi } from "@/api";
+import { products as productsApi, barters } from "@/api";
 import { Product } from "@/types";
 import { useAuth } from "@/hooks";
 import { ProductCheckbox } from "@/components";
-import { barters } from "@/api/barter";
-import { useRouter } from "next/router";
 
 interface BarterModalProps {
   isOpen: boolean;
@@ -94,7 +92,22 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
               </Heading>
               <Box maxH="220px" overflowY="auto" className="small-scrollbar">
                 <VStack spacing={4} width="full" alignItems="start" pr={2}>
-                  {isSuccess &&
+                  {isSuccess && (
+                    products?.length === 0 && (
+                      <>
+                        <Text color="gray.500">You don't have any products.</Text>
+                        <Button
+                          colorScheme="brand"
+                          variant="outline"
+                          size='sm'
+                          onClick={() => router.push("/product/add")}
+                        >
+                          Add product
+                        </Button>
+                      </>
+                    )
+                  )}
+                  {isSuccess && products?.length > 0 &&
                     products?.map((product) => (
                       <ProductCheckbox
                         key={product.id}
@@ -122,7 +135,7 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="brand" mr={3} type="submit" form="barter-form">
+          <Button colorScheme="brand" mr={3} type="submit" form="barter-form" isDisabled={products?.length === 0}>
             Submit
           </Button>
           <Button variant="ghost" onClick={resetForm}>

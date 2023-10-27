@@ -1,52 +1,77 @@
+import { Layout, ProductsGrid, ProductsList } from "@/components";
+import { useAuth } from "@/hooks";
+import { HStack, VStack, Heading, Divider, Button, Card, CardBody, Icon } from "@chakra-ui/react";
 import { useState } from "react";
-import { useRouter } from "next/router";
-import { useQuery } from "@tanstack/react-query";
-import { Button, Card, CardBody, Divider, HStack, Heading, Icon, VStack } from "@chakra-ui/react";
-import { TfiLayoutGrid2Alt } from "react-icons/tfi";
 import { FaThList } from "react-icons/fa";
+import { TfiLayoutGrid2Alt } from "react-icons/tfi";
+import {products as productsApi} from "@/api";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 
-import { products as productsApi, categories as categoriesApi } from "@/api";
-import { FilterListOptions, Layout, ProductsGrid, ProductsList } from "@/components";
+const sidebarItems = [
+  {
+    label: "Profile",
+    href: "/account",
+  },
+  {
+    label: "My products",
+    href: "/account/products",
+  },
+  {
+    label: "Add product",
+    href: "/product/add",
+  },
+  {
+    label: "Transactions",
+    href: "/account/transactions",
+  },
+  {
+    label: "Reviews",
+    href: "/account/reviews",
+  },
+  {
+    label: "Settings",
+    href: "/account/settings",
+  },
+];
 
-const SearchPage = () => {
-  const router = useRouter();
-  const { q, category } = router.query;
-
+const MyAccount = () => {
   const [listingView, setListingView] = useState<"list" | "grid">("list");
+  const {user} = useAuth();
+  const router = useRouter();
 
   const { data: products } = useQuery({
-    queryKey: ["search-results", q, category],
+    queryKey: ["my-products"],
     queryFn: () =>
-      productsApi.getList({ name: q as string, category: category ? Number(category) : undefined }),
+      productsApi.getList({ seller: Number(user?.id) }),
   });
-
-  const { data: categories } = useQuery({
-    queryKey: ["filter-categories"],
-    queryFn: () => categoriesApi.getList(),
-  });
-
-  const resetFilter = () => {
-    router.push({
-      pathname: "/search",
-      query: { q: router.query.q },
-    });
-  };
-
+  
   return (
-    <Layout title={q ? `"${q}" results` : "Search"}>
+    <Layout title={"My products"}>
       <HStack as="section" mb={20} h="full" alignItems="start" justifyContent="space-between">
         <VStack w="20%" alignItems="start">
           <HStack w="full" justifyContent="space-between" alignItems="baseline">
             <Heading size="md" textTransform="uppercase" textAlign="left">
-              Filters
+              Account
             </Heading>
-            <Button variant="link" size="sm" color="gray.500" onClick={resetFilter}>
-              Reset filters
-            </Button>
           </HStack>
           <Divider my={3} />
-          <VStack spacing={4} w="full" alignItems="start">
-            <FilterListOptions title="Categories" options={categories as any} />
+
+          <VStack w="full" alignItems="start">
+            {sidebarItems.map((item) => (
+              <Button
+                w="full"
+                fontWeight={router.pathname === item.href ? "bold" : "normal"}
+                variant="ghost"
+                justifyContent="flex-start"
+                color="gray.600"
+                key={item.label}
+                onClick={() => router.push(item.href)}
+                fontFamily="poppins"
+              >
+                {item.label}
+              </Button>
+            ))}
           </VStack>
         </VStack>
 
@@ -55,10 +80,7 @@ const SearchPage = () => {
             <CardBody py={4}>
               <HStack spacing={4} justifyContent="space-between" alignItems="center">
                 <Heading size="md" textAlign="left">
-                  {products?.length} items found 
-                  {!q && category && <span> in {categories?.find((c: any) => c.id === Number(category))?.name}</span>}
-                  {q && !category && <span> for "{q}"</span>}
-                  {q && category && <span> for "{q}" in {categories?.find((c: any) => c.id === Number(category))?.name}</span>}
+                  My products
                 </Heading>
 
                 <HStack spacing={2}>
@@ -93,7 +115,7 @@ const SearchPage = () => {
         </VStack>
       </HStack>
     </Layout>
-  );
-};
+  )
+}
 
-export default SearchPage;
+export default MyAccount

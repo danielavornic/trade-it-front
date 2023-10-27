@@ -16,7 +16,7 @@ export const ProductGridCard = ({ product }: { product: Product }) => {
         transition="all 0.2s"
       >
         <CardBody bg="white">
-          <Image src={img} alt={name} borderRadius="lg" bg="gray.50" height="280px" />
+          <Image src={img} alt={name} borderRadius="lg" bg="gray.50" height="280px" objectFit='contain' />
           <Text fontSize="xl" fontFamily="poppins" fontWeight={600} mt={6} height="60px">
             {name}
           </Text>

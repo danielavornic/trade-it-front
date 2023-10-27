@@ -36,7 +36,7 @@ export const SellerCard = ({ product }: { product: Product }) => {
 
   return (
     <>
-      <Card shadow="none" border="1px solid" borderColor="gray.200">
+      <Card shadow="none" border="1px solid" borderColor="gray.200" minWidth='250px'>
         <CardBody>
           <Stack>
             <HStack align="center">
@@ -53,7 +53,7 @@ export const SellerCard = ({ product }: { product: Product }) => {
               </Text>
             </HStack>
             {isGuest ? (
-              <Link href={`/signin?next=${encodeURIComponent(`/product/${product.id}`)}`}>
+              <Link href={{ pathname: '/signin', query: { redirectProductId: product.id }}}>
                 <Button colorScheme="gray" variant="outline" color="#0EB085">
                   Sign in to start bartering
                 </Button>
@@ -79,18 +79,18 @@ export const SellerCard = ({ product }: { product: Product }) => {
             )}
           </Stack>
           {showBarterButtons && (
-            <HStack justify="space-between" mt={4}>
-              <Button
-                leftIcon={<FaHeart />}
-                width="170px"
-                colorScheme={isSaved ? "brand" : "gray"}
-                variant={isSaved ? "solid" : "outline"}
-                color={isSaved ? "white" : "#0EB085"}
-                onClick={() => setIsSaved(!isSaved)}
-              >
-                {isSaved ? "Saved for later" : "Save for later"}
-              </Button>
-            </HStack>
+            <Button
+              mt={4}
+              leftIcon={<FaHeart />}
+              minWidth="170px"
+              width='100%'
+              colorScheme={isSaved ? "brand" : "gray"}
+              variant={isSaved ? "solid" : "outline"}
+              color={isSaved ? "white" : "#0EB085"}
+              onClick={() => setIsSaved(!isSaved)}
+            >
+              {isSaved ? "Saved for later" : "Save for later"}
+            </Button>
           )}
         </CardBody>
       </Card>

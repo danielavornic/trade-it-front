@@ -25,7 +25,7 @@ const accountItems = [
     href: "/account",
   },
   {
-    label: "Products",
+    label: "My products",
     href: "/account/products",
   },
   {
@@ -118,7 +118,7 @@ export const Header = () => {
                     <Avatar
                       w="40px"
                       h="40px"
-                      name={user.name + " " + user.surname}
+                      name={user.username}
                       colorScheme="brand"
                       bg="brand.500"
                       color="white"
@@ -134,6 +134,7 @@ export const Header = () => {
                     <MenuItem
                       onClick={() => {
                         logout();
+                        localStorage.removeItem("user");
                         router.push("/");
                       }}
                     >

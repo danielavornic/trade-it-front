@@ -56,8 +56,7 @@ export const SignUpCard = () => {
         token,
       };
       setUser(user);
-
-      router.push("/");
+      localStorage.setItem("user", JSON.stringify(user));
     },
     onError: (error) => {
       console.log(error);

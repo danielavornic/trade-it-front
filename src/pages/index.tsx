@@ -13,8 +13,8 @@ export default function Home() {
     queryFn: () => productsApi.getList(),
   });
 
-  const popularProducts = data?.sort(() => Math.random() - 0.5);
-  const featuredProducts = data?.sort(() => Math.random() - 0.5);
+  const popularProducts = data?.sort(() => Math.random() - 0.5).slice(0, 8);
+  const featuredProducts = data?.sort(() => Math.random() - 0.5).slice(0, 8);
 
   return (
     <Layout>
@@ -84,10 +84,7 @@ export default function Home() {
       </HStack>
 
       <Box as="section" py={20}>
-        <Heading as="h2" size="xl" mb="4">
-          Recommended items
-        </Heading>
-        <ProductsGrid products={featuredProducts} />
+        <ProductsGrid title="Recommended items" products={featuredProducts} />
       </Box>
 
       <Box as="section" py={20} bg="brand.500" px={14} borderRadius={10}>

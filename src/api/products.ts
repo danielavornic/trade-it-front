@@ -26,11 +26,14 @@ export const products = {
 const productFactory = (json: any): Product => {
   const params = typeof json === "object" ? json : {};
 
+  let img = params.imageURL[0];
+  img = img.replace(/.*:9000/, process.env.NEXT_PUBLIC_MINIO_BASE_URL).split("?")[0];
+
   return {
     id: params.id || 0,
     name: params.productName || "",
     description: params.description || "",
-    img: params.imageURL[0] || "",
+    img,
     category: {
       id: params.category.categoryId || 0,
       name: params.category.categoryName || "",

@@ -25,7 +25,7 @@ const accountItems = [
     href: "/account",
   },
   {
-    label: "Products",
+    label: "My products",
     href: "/account/products",
   },
   {

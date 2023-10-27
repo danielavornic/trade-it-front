@@ -53,7 +53,7 @@ export const SellerCard = ({ product }: { product: Product }) => {
               </Text>
             </HStack>
             {isGuest ? (
-              <Link href={`/signin?next=${encodeURIComponent(`/product/${product.id}`)}`}>
+              <Link href={{ pathname: '/signin', query: { redirectProductId: product.id }}}>
                 <Button colorScheme="gray" variant="outline" color="#0EB085">
                   Sign in to start bartering
                 </Button>

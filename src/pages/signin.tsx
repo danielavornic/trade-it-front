@@ -6,11 +6,12 @@ import { Layout, SignInCard } from "@/components";
 
 const signin = () => {
   const { user } = useAuth();
-  const { push } = useRouter();
+  const { push, query } = useRouter();
 
   useEffect(() => {
     if (user) {
-      push("/");
+      const redirectProductId = decodeURIComponent(String(query.redirectProductId))
+      push({ pathname: `/product/${redirectProductId}` || "/" });
     }
   }, [user]);
 

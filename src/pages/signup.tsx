@@ -11,7 +11,11 @@ const signup = () => {
   useEffect(() => {
     if (user) {
       const redirectProductId = decodeURIComponent(String(query.redirectProductId))
-      push({ pathname: `/product/${redirectProductId}` || "/" });
+      if (!!redirectProductId && redirectProductId !== 'undefined') {
+        push({ pathname: `/product/${redirectProductId}` })
+      } else {
+        push("/");
+      }
     }
   }, [user]);
 

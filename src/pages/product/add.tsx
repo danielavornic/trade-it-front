@@ -217,8 +217,8 @@ const AddProductPage = () => {
                         placeholder="Select category"
                         onChange={(val) => handleSelectChange("category_id", val)}
                       >
-                        {categories?.map((category: Category) => (
-                          <option value={category.id}>{category.name}</option>
+                        {categories?.map(({ id, name }: Category) => (
+                          <option key={id} value={id}>{name}</option>
                         ))}
                       </Select>
                     </FormControl>

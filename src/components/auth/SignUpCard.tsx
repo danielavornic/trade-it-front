@@ -56,6 +56,7 @@ export const SignUpCard = () => {
         token,
       };
       setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
 
       router.push("/");
     },

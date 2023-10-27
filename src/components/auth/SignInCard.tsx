@@ -42,6 +42,7 @@ export const SignInCard = () => {
         token,
       };
       setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
 
       const nextUrl = router.query.next as string;
       router.push(nextUrl || "/");

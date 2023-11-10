@@ -3,9 +3,10 @@
     "id": 1,
     "seller": {
       "id": 123,
-      "name": "John Doe"
+      "name": "John Doe",
+      "username": "johndoe"
     },
-    "name": "Product 1",
+    "productName": "Product 1",
     "category": {
       "id": 1,
       "name": "Electronics"
@@ -25,9 +26,10 @@
     "id": 2,
     "seller": {
       "id": 124,
-      "name": "Jane Smith"
+      "name": "Jane Smith",
+      "username": "janesmith"
     },
-    "name": "Product 2",
+    "productName": "Product 2",
     "category": {
       "id": 2,
       "name": "Clothing"
@@ -47,9 +49,10 @@
     "id": 3,
     "seller": {
       "id": 125,
-      "name": "Alice Johnson"
+      "name": "Alice Johnson",
+      "username": "alicejohnson"
     },
-    "name": "Product 3",
+    "productName": "Product 3",
     "category": {
       "id": 3,
       "name": "Books"
@@ -69,9 +72,10 @@
     "id": 4,
     "seller": {
       "id": 126,
-      "name": "Robert Wilson"
+      "name": "Robert Wilson",
+      "username": "robertwilson"
     },
-    "name": "Product 4",
+    "productName": "Product 4",
     "category": {
       "id": 1,
       "name": "Electronics"
@@ -91,9 +95,10 @@
     "id": 5,
     "seller": {
       "id": 127,
-      "name": "Eva Martinez"
+      "name": "Eva Martinez",
+      "username": "evamartinez"
     },
-    "name": "Product 5",
+    "productName": "Product 5",
     "category": {
       "id": 4,
       "name": "Furniture"
@@ -113,9 +118,10 @@
     "id": 6,
     "seller": {
       "id": 128,
-      "name": "Michael Brown"
+      "name": "Michael Brown",
+      "username": "michaelbrown"
     },
-    "name": "Product 6",
+    "productName": "Product 6",
     "category": {
       "id": 5,
       "name": "Toys"
@@ -135,9 +141,10 @@
     "id": 7,
     "seller": {
       "id": 129,
-      "name": "Sophia Davis"
+      "name": "Sophia Davis",
+      "username": "sophiadavis"
     },
-    "name": "Product 7",
+    "productName": "Product 7",
     "category": {
       "id": 2,
       "name": "Sports"
@@ -157,9 +164,10 @@
     "id": 8,
     "seller": {
       "id": 130,
-      "name": "David Lee"
+      "name": "David Lee",
+      "username": "davidlee"
     },
-    "name": "Product 8",
+    "productName": "Product 8",
     "category": {
       "id": 3,
       "name": "Beauty"
@@ -179,9 +187,10 @@
     "id": 9,
     "seller": {
       "id": 131,
-      "name": "Olivia White"
+      "name": "Olivia White",
+      "username": "oliviawhite"
     },
-    "name": "Product 9",
+    "productName": "Product 9",
     "category": {
       "id": 6,
       "name": "Home Decor"
@@ -201,9 +210,10 @@
     "id": 10,
     "seller": {
       "id": 132,
-      "name": "William Smith"
+      "name": "William Smith",
+      "username": "williamsmith"
     },
-    "name": "Product 10",
+    "productName": "Product 10",
     "category": {
       "id": 4,
       "name": "Furniture"

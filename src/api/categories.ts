@@ -11,8 +11,14 @@ export const categories = {
 const categoryFactory = (json: any): Category => {
   const params = typeof json === "object" ? json : {};
 
+  // From java backend
+  // return {
+  //   id: params.categoryId || 0,
+  //   name: params.categoryName || "",
+  // };
+
   return {
-    id: params.categoryId || 0,
-    name: params.categoryName || "",
+    id: params.id || 0,
+    name: params.name || "",
   };
 };

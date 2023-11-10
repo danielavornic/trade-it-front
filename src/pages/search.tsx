@@ -5,7 +5,7 @@ import { Button, Card, CardBody, Divider, HStack, Heading, Icon, VStack } from "
 import { TfiLayoutGrid2Alt } from "react-icons/tfi";
 import { FaThList } from "react-icons/fa";
 
-import { products as productsApi, categories as categoriesApi } from "@/api";
+import { products as productsApi, categories as categoriesApi, cities as citiesApi } from "@/api";
 import { FilterListOptions, Layout, ProductsGrid, ProductsList } from "@/components";
 
 const SearchPage = () => {
@@ -23,6 +23,11 @@ const SearchPage = () => {
   const { data: categories } = useQuery({
     queryKey: ["filter-categories"],
     queryFn: () => categoriesApi.getList(),
+  });
+
+  const { data: cities } = useQuery({
+    queryKey: ["filter-cities"],
+    queryFn: () => citiesApi.getList(),
   });
 
   const resetFilter = () => {
@@ -46,7 +51,8 @@ const SearchPage = () => {
           </HStack>
           <Divider my={3} />
           <VStack spacing={4} w="full" alignItems="start">
-            <FilterListOptions title="Categories" options={categories as any} />
+            <FilterListOptions title="Categories" name="category" options={categories as any} />
+            <FilterListOptions title="Cities" name="city" options={cities as any} />
           </VStack>
         </VStack>
 
@@ -55,10 +61,17 @@ const SearchPage = () => {
             <CardBody py={4}>
               <HStack spacing={4} justifyContent="space-between" alignItems="center">
                 <Heading size="md" textAlign="left">
-                  {products?.length} items found 
-                  {!q && category && <span> in {categories?.find((c: any) => c.id === Number(category))?.name}</span>}
+                  {products?.length} items found
+                  {!q && category && (
+                    <span> in {categories?.find((c: any) => c.id === Number(category))?.name}</span>
+                  )}
                   {q && !category && <span> for "{q}"</span>}
-                  {q && category && <span> for "{q}" in {categories?.find((c: any) => c.id === Number(category))?.name}</span>}
+                  {q && category && (
+                    <span>
+                      {" "}
+                      for "{q}" in {categories?.find((c: any) => c.id === Number(category))?.name}
+                    </span>
+                  )}
                 </Heading>
 
                 <HStack spacing={2}>

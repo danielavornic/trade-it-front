@@ -10,20 +10,18 @@ import {
   HStack,
   Heading,
   VStack,
-  useToast,
   Image,
   Input,
   Textarea,
   Select,
-  Divider,
   Card,
   CardBody,
 } from "@chakra-ui/react";
 
-import { products, categories as categoriesApi, images } from "@/api";
+import { products, categories as categoriesApi, images, cities } from "@/api";
 import { useAuth } from "@/hooks";
-import { Layout } from "@/components";
-import { Category, Condition } from "@/types";
+import { AccountSidebar, Layout } from "@/components";
+import { Category } from "@/types";
 
 const initialFormValues = {
   name: "",
@@ -34,33 +32,6 @@ const initialFormValues = {
   targetProducts: "",
   img: "",
 };
-
-const sidebarItems = [
-  {
-    label: "Profile",
-    href: "/account",
-  },
-  {
-    label: "Products",
-    href: "/account/products",
-  },
-  {
-    label: "Add product",
-    href: "/products/add",
-  },
-  {
-    label: "Transactions",
-    href: "/account/transactions",
-  },
-  {
-    label: "Reviews",
-    href: "/account/reviews",
-  },
-  {
-    label: "Settings",
-    href: "/account/settings",
-  },
-];
 
 const FALLBACK_IMAGE = "/assets/images/fallback.png";
 
@@ -109,6 +80,11 @@ const AddProductPage = () => {
     },
   });
 
+  const { data: citiesData } = useQuery({
+    queryKey: ["cities"],
+    queryFn: () => cities.getList(),
+  });
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>,
   ) =>
@@ -140,31 +116,7 @@ const AddProductPage = () => {
   return (
     <Layout title="Add product">
       <HStack as="section" mb={20} h="full" alignItems="start" justifyContent="space-between">
-        <VStack w="20%" alignItems="start">
-          <HStack w="full" justifyContent="space-between" alignItems="baseline">
-            <Heading size="md" textTransform="uppercase" textAlign="left">
-              Account
-            </Heading>
-          </HStack>
-          <Divider my={3} />
-
-          <VStack w="full" alignItems="start">
-            {sidebarItems.map((item) => (
-              <Button
-                w="full"
-                fontWeight={router.pathname === item.href ? "bold" : "normal"}
-                variant="ghost"
-                justifyContent="flex-start"
-                color="gray.600"
-                key={item.label}
-                onClick={() => router.push(item.href)}
-                fontFamily="poppins"
-              >
-                {item.label}
-              </Button>
-            ))}
-          </VStack>
-        </VStack>
+        <AccountSidebar />
 
         <Box w="75%">
           <Card shadow="sm" w="full" border="1px solid" borderColor="gray.100">
@@ -218,7 +170,9 @@ const AddProductPage = () => {
                         onChange={(val) => handleSelectChange("category_id", val)}
                       >
                         {categories?.map(({ id, name }: Category) => (
-                          <option key={id} value={id}>{name}</option>
+                          <option key={id} value={id}>
+                            {name}
+                          </option>
                         ))}
                       </Select>
                     </FormControl>
@@ -262,7 +216,7 @@ const AddProductPage = () => {
                         <option value="USED">Used</option>
                       </Select>
                     </FormControl>
-                    {/* 
+
                     <FormControl id="city_id" isRequired>
                       <FormLabel color="gray.600" fontFamily="poppins" fontWeight="bold">
                         City
@@ -271,11 +225,14 @@ const AddProductPage = () => {
                         placeholder="Select city"
                         onChange={(val) => handleSelectChange("city_id", val)}
                       >
-                        <option value="1">New</option>
-                        <option value="2">Like new</option>
-                        <option value="3">Used</option>
+                        {citiesData &&
+                          citiesData.map((city: any) => (
+                            <option key={city.id} value={city.id}>
+                              {city.name}
+                            </option>
+                          ))}
                       </Select>
-                    </FormControl> */}
+                    </FormControl>
 
                     <FormControl id="targetProducts" isRequired>
                       <FormLabel color="gray.600" fontFamily="poppins" fontWeight="bold">

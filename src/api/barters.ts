@@ -1,8 +1,8 @@
 import { axios } from "@/lib";
-import { BarterAdd } from "@/types";
+import { BarterOffer } from "@/types";
 
 export const barters = {
-  sendProposal: (proposal: BarterAdd): Promise<{ proposal_id: number }> => {
+  sendProposal: (proposal: BarterOffer): Promise<{ proposal_id: number }> => {
     return axios.post("/barters/add", proposal);
   },
 };

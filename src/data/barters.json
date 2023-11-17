@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "offered_by": {
+      "user_id": 789,
+      "username": "seller123",
+      "product": {
+        "product_id": 4,
+        "name": "Laptop",
+        "imageURL": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494"
+      }
+    },
+    "requested_from": {
+      "user_id": 101112,
+      "username": "buyer456",
+      "product": {
+        "product_id": 7,
+        "name": "Camera",
+        "imageURL": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494"
+      }
+    },
+    "status": "pending",
+    "initiated_at": "2023-11-07T12:00:00Z",
+    "last_updated": "2023-11-07T15:30:00Z",
+    "message": "I'm interested in trading my laptop for your camera."
+  },
+  {
+    "id": 2,
+    "offered_by": {
+      "user_id": 790,
+      "username": "seller124",
+      "product": {
+        "product_id": 5,
+        "name": "Smartphone",
+        "imageURL": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494"
+      }
+    },
+    "requested_from": {
+      "user_id": 101113,
+      "username": "buyer457",
+      "product": {
+        "product_id": 9,
+        "name": "Tablet",
+        "imageURL": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494"
+      }
+    },
+    "status": "accepted",
+    "initiated_at": "2023-11-08T10:00:00Z",
+    "last_updated": "2023-11-08T11:30:00Z",
+    "message": "Would you like to trade your tablet for my smartphone?",
+    "reply": "Yes, I agree to this trade."
+  },
+  {
+    "id": 3,
+    "offered_by": {
+      "user_id": 791,
+      "username": "seller125",
+      "product": {
+        "product_id": 8,
+        "name": "Headphones",
+        "imageURL": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494"
+      }
+    },
+    "requested_from": {
+      "user_id": 101114,
+      "username": "buyer458",
+      "product": {
+        "product_id": 1,
+        "name": "Speaker",
+        "imageURL": "https://www.umusic.ca/cdn/shop/products/DELREYLANAULTRAVIOLE_2048x_1.png?v=1680021494"
+      }
+    },
+    "status": "completion_pending",
+    "initiated_at": "2023-11-09T09:00:00Z",
+    "last_updated": "2023-11-09T10:30:00Z",
+    "message": "Interested in exchanging my headphones for your speaker?",
+    "reply": "Thank you, but I'm not interested in this trade."
+  }
+]

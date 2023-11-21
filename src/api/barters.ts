@@ -12,4 +12,8 @@ export const barters = {
   updateStatus: async (id: number, status: string, user_id: number): Promise<void> => {
     await axios.patch(`/barters/${id}`, { status, user_id });
   },
+  getByUserId: async (id: number): Promise<Barter[]> => {
+    const { data } = await axios.get(`/users/${id}/barters`);
+    return data;
+  },
 };

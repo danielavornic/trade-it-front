@@ -82,13 +82,77 @@ const TransactionPage = () => {
           <Card shadow="sm " w="full" border="1px solid" borderColor="gray.100">
             <CardBody py={4}>
               <HStack spacing={4} justifyContent="space-between" alignItems="center">
-                <Heading size="md" textAlign="left">
-                  Transaction #{id}
-                </Heading>
+                <HStack spacing={4} alignItems="center">
+                  <Heading size="md" textAlign="left">
+                    Transaction #{id}
+                  </Heading>
 
-                <Text fontSize="md" color="gray.500">
-                  {formattedDate}
-                </Text>
+                  <Text fontSize="md" color="gray.500">
+                    {formattedDate}
+                  </Text>
+                </HStack>
+
+                <HStack justifyContent="flex-end" fontFamily="poppins">
+                  {status === BarterStatus.Declined && (
+                    <>
+                      <Button isDisabled colorScheme="brand">
+                        Declined
+                      </Button>
+                    </>
+                  )}
+
+                  {status === BarterStatus.Pending && !isSeller && (
+                    <>
+                      <Button colorScheme="red" onClick={() => mutate(BarterStatus.Cancelled)}>
+                        Cancel
+                      </Button>
+                      <Button isDisabled colorScheme="brand">
+                        Pending response...
+                      </Button>
+                    </>
+                  )}
+
+                  {status === BarterStatus.Pending && isSeller && (
+                    <>
+                      <Button colorScheme="red">Decline</Button>
+                      <Button colorScheme="brand" onClick={() => mutate(BarterStatus.Accepted)}>
+                        Accept
+                      </Button>
+                    </>
+                  )}
+
+                  {status === BarterStatus.Accepted && (
+                    <>
+                      <Button colorScheme="red">Cancel</Button>
+                      <Button
+                        colorScheme="brand"
+                        onClick={() => mutate(BarterStatus.CompletionPending)}
+                      >
+                        Mark as complete
+                      </Button>
+                    </>
+                  )}
+
+                  {status === BarterStatus.CompletionPending &&
+                    first_to_complete_id === user?.id && (
+                      <Button isDisabled colorScheme="brand">
+                        Completion pending...
+                      </Button>
+                    )}
+
+                  {status === BarterStatus.CompletionPending &&
+                    first_to_complete_id !== user?.id && (
+                      <Button colorScheme="brand" onClick={() => mutate(BarterStatus.Completed)}>
+                        Complete
+                      </Button>
+                    )}
+
+                  {status === BarterStatus.Completed && (
+                    <Button isDisabled colorScheme="brand">
+                      Completed
+                    </Button>
+                  )}
+                </HStack>
               </HStack>
             </CardBody>
           </Card>
@@ -133,63 +197,6 @@ const TransactionPage = () => {
               </VStack>
             )}
           </VStack>
-
-          <HStack justifyContent="flex-end">
-            {status === BarterStatus.Declined && (
-              <>
-                <Button isDisabled colorScheme="brand">
-                  Declined
-                </Button>
-              </>
-            )}
-
-            {status === BarterStatus.Pending && !isSeller && (
-              <>
-                <Button isDisabled colorScheme="brand">
-                  Pending response...
-                </Button>
-                <Button colorScheme="red" onClick={() => mutate(BarterStatus.Cancelled)}>
-                  Cancel
-                </Button>
-              </>
-            )}
-
-            {status === BarterStatus.Pending && isSeller && (
-              <>
-                <Button colorScheme="brand" onClick={() => mutate(BarterStatus.Accepted)}>
-                  Accept
-                </Button>
-                <Button colorScheme="red">Decline</Button>
-              </>
-            )}
-
-            {status === BarterStatus.Accepted && (
-              <>
-                <Button colorScheme="brand" onClick={() => mutate(BarterStatus.CompletionPending)}>
-                  Mark as complete
-                </Button>
-                <Button colorScheme="red">Cancel</Button>
-              </>
-            )}
-
-            {status === BarterStatus.CompletionPending && first_to_complete_id === user?.id && (
-              <Button isDisabled colorScheme="brand">
-                Completion pending...
-              </Button>
-            )}
-
-            {status === BarterStatus.CompletionPending && first_to_complete_id !== user?.id && (
-              <Button colorScheme="brand" onClick={() => mutate(BarterStatus.Completed)}>
-                Complete
-              </Button>
-            )}
-
-            {status === BarterStatus.Completed && (
-              <Button isDisabled colorScheme="brand">
-                Completed
-              </Button>
-            )}
-          </HStack>
         </VStack>
       </HStack>
     </Layout>

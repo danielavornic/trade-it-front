@@ -7,6 +7,10 @@ const sidebarItems = [
     href: "/account",
   },
   {
+    label: "My transactions",
+    href: "/account/transactions",
+  },
+  {
     label: "My products",
     href: "/account/products",
   },
@@ -15,13 +19,13 @@ const sidebarItems = [
     href: "/product/add",
   },
   {
-    label: "Transactions",
-    href: "/account/transactions",
+    label: "Messages",
+    href: "/chat",
   },
-  {
-    label: "Reviews",
-    href: "/account/reviews",
-  },
+  // {
+  //   label: "Reviews",
+  //   href: "/account/reviews",
+  // },
   {
     label: "Settings",
     href: "/account/settings",

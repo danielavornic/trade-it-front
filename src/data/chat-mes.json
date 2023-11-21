@@ -1,0 +1,58 @@
+{
+  "id": 1,
+  "user1": {
+    "id": 101,
+    "username": "user1",
+    "email": "user1@example.com"
+  },
+  "user2": {
+    "id": 102,
+    "username": "user2",
+    "email": "user2@example.com"
+  },
+  "lastMessage": {
+    "id": 5,
+    "sender": {
+      "id": 101,
+      "username": "user1",
+      "email": "user1@example.com"
+    },
+    "text": "See you soon!",
+    "timestamp": "2023-11-21T11:00:00Z",
+    "lastMessage": true
+  },
+  "isRead": false,
+  "timestamp": "2023-11-21T11:00:00Z",
+  "messages": [
+    {
+      "id": 1,
+      "sender": {
+        "id": 1,
+        "username": "user1",
+        "email": "user1@example.com"
+      },
+      "text": "Hello, how are you?",
+      "timestamp": "2023-11-21T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "sender": {
+        "id": 2,
+        "username": "user2",
+        "email": "user2@example.com"
+      },
+      "text": "I'm good, thanks!",
+      "timestamp": "2023-11-21T10:05:00Z"
+    },
+    {
+      "id": 3,
+      "sender": {
+        "id": 1,
+        "username": "user3",
+        "email": "user3@example.com"
+      },
+      "text": "Glad to hear that.",
+      "timestamp": "2023-11-21T10:10:00Z"
+    }
+  ]
+}

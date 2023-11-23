@@ -94,7 +94,7 @@ export const Header = () => {
             {user ? (
               <>
                 <IconButton
-                  onClick={() => handleButtonClick("bell")}
+                  onClick={() => router.push("/chat")}
                   aria-label="View messages"
                   icon={<FiMessageSquare />}
                   rounded="full"

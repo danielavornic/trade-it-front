@@ -49,7 +49,7 @@ export const SearchInput = () => {
   }, [q, categoryUrl]);
 
   return (
-    <Box as="form" onSubmit={handleSubmit} maxW={600} zIndex={20} position="relative">
+    <Box as="form" onSubmit={handleSubmit} zIndex={20} position="relative">
       <InputGroup size="lg" colorScheme="brand">
         <InputLeftElement pointerEvents="none">
           <SearchIcon color="gray.300" />
@@ -59,6 +59,7 @@ export const SearchInput = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           pr="224px"
+          width="600px"
           colorScheme="brand"
           fontSize={16}
         />

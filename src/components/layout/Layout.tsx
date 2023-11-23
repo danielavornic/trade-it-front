@@ -6,9 +6,16 @@ import { Footer, Header } from "@/components";
 
 interface LayoutProps {
   title?: string;
+  isFull?: boolean;
+  hasFooter?: boolean;
 }
 
-export const Layout = ({ title, children }: PropsWithChildren<LayoutProps>) => {
+export const Layout = ({
+  title,
+  isFull,
+  hasFooter = true,
+  children,
+}: PropsWithChildren<LayoutProps>) => {
   return (
     <>
       <Head>
@@ -27,15 +34,16 @@ export const Layout = ({ title, children }: PropsWithChildren<LayoutProps>) => {
       >
         <Header />
         <Container
-          maxW={["container.sm", "container.md", "container.lg", "8xl"]}
-          h="full"
+          maxW={!isFull ? ["container.sm", "container.md", "container.lg", "8xl"] : "100%"}
+          h={!isFull ? "100%" : "auto"}
           flex="1"
-          py={10}
+          py={isFull ? 0 : 16}
           as="main"
+          px={isFull ? 0 : [4, 8, 12, 16]}
         >
           {children}
         </Container>
-        <Footer />
+        {hasFooter && <Footer />}
       </VStack>
     </>
   );

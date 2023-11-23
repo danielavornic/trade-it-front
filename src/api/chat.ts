@@ -1,8 +1,8 @@
 import { axios } from "@/lib";
-import { ChatRoom } from "@/types";
+import { ChatRoom, ChatRoomListItem } from "@/types";
 
 export const chat = {
-  getChatListByUserId: async (userId: number): Promise<ChatRoom[]> => {
+  getChatListByUserId: async (userId: number): Promise<ChatRoomListItem[]> => {
     const { data } = await axios.get(`/chat/${userId}`);
     return data;
   },

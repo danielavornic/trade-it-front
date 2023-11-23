@@ -3,13 +3,32 @@ export interface Message {
   sender: {
     id: number;
     username: string;
-    email: string;
   };
   text: string;
   timestamp: string;
 }
 
 export interface ChatRoom {
+  id: number;
+  user1: {
+    id: number;
+    username: string;
+    email: string;
+    name: string;
+    surname: string;
+  };
+  user2: {
+    id: number;
+    username: string;
+    email: string;
+    name: string;
+    surname: string;
+  };
+  isRead: boolean;
+  messages: Message[];
+}
+
+export interface ChatRoomListItem {
   id: number;
   user1: {
     id: number;
@@ -23,6 +42,4 @@ export interface ChatRoom {
   };
   lastMessage: Message;
   isRead: boolean;
-  timestamp: string;
-  messages: Message[];
 }

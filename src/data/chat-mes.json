@@ -3,26 +3,18 @@
   "user1": {
     "id": 101,
     "username": "user1",
-    "email": "user1@example.com"
+    "email": "user1@example.com",
+    "name": "User 1",
+    "surname": "Surname 1"
   },
   "user2": {
     "id": 102,
     "username": "user2",
-    "email": "user2@example.com"
-  },
-  "lastMessage": {
-    "id": 5,
-    "sender": {
-      "id": 101,
-      "username": "user1",
-      "email": "user1@example.com"
-    },
-    "text": "See you soon!",
-    "timestamp": "2023-11-21T11:00:00Z",
-    "lastMessage": true
+    "email": "user2@example.com",
+    "name": "User 2",
+    "surname": "Surname 2"
   },
   "isRead": false,
-  "timestamp": "2023-11-21T11:00:00Z",
   "messages": [
     {
       "id": 1,

@@ -13,6 +13,14 @@ import {
   MenuList,
   MenuDivider,
   IconButton,
+  AvatarBadge,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
 } from "@chakra-ui/react";
 import { FiMessageSquare, FiBell } from "react-icons/fi";
 
@@ -93,21 +101,55 @@ export const Header = () => {
           <Flex alignItems={"center"}>
             {user ? (
               <>
-                <IconButton
-                  onClick={() => router.push("/chat")}
-                  aria-label="View messages"
-                  icon={<FiMessageSquare />}
-                  rounded="full"
-                />
-                <IconButton
-                  onClick={() => handleButtonClick("bell")}
-                  aria-label="View notifications"
-                  icon={<FiBell />}
-                  rounded="full"
-                  ml={4}
-                  mr={4}
-                />
-                <Menu>
+                <Box position="relative">
+                  {/* TODO: add chat */}
+                  <Box
+                    position="absolute"
+                    right="0"
+                    top="0"
+                    boxSize="0.75em"
+                    bg="accent.500"
+                    rounded="full"
+                    zIndex={2}
+                  />
+                  <IconButton
+                    onClick={() => router.push("/chat")}
+                    aria-label="View messages"
+                    icon={<FiMessageSquare />}
+                    rounded="full"
+                  />
+                </Box>
+                <Box position="relative" ml={4} mr={4}>
+                  {/* TODO: add notifications */}
+                  <Box
+                    position="absolute"
+                    right="0"
+                    top="0"
+                    boxSize="0.75em"
+                    bg="accent.500"
+                    rounded="full"
+                    zIndex={2}
+                  />
+                  <Popover placement="top-end">
+                    <PopoverTrigger>
+                      <IconButton
+                        onClick={() => handleButtonClick("bell")}
+                        aria-label="View notifications"
+                        icon={<FiBell />}
+                        rounded="full"
+                      />
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <PopoverArrow />
+                      <PopoverBody>
+                        <Box w="full" h="full" p={3} textAlign="center">
+                          No notifications yet
+                        </Box>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                </Box>
+                <Menu placement="top-end">
                   <MenuButton
                     as={Button}
                     rounded={"full"}

@@ -19,14 +19,6 @@ const sidebarItems = [
     href: "/product/add",
   },
   {
-    label: "Messages",
-    href: "/chat",
-  },
-  // {
-  //   label: "Reviews",
-  //   href: "/account/reviews",
-  // },
-  {
     label: "Settings",
     href: "/account/settings",
   },

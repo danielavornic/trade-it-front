@@ -57,6 +57,8 @@ export const SignUpCard = () => {
       };
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
+
+      router.push("/email-confirm");
     },
     onError: (error) => {
       console.log(error);

@@ -34,12 +34,14 @@ export const SellerCard = ({ product }: { product: Product }) => {
       <Card shadow="none" border="1px solid" borderColor="gray.200" minWidth="250px">
         <CardBody>
           <Stack>
-            <HStack align="center">
-              <Avatar bg="#0EB085" size="sm" />
-              <Text fontSize="lg" ml={2}>
-                {product.seller.username}
-              </Text>
-            </HStack>
+            <Link href={`/users/${product.seller.id}`}>
+              <HStack align="center">
+                <Avatar bg="#0EB085" size="sm" />
+                <Text fontSize="lg" ml={2}>
+                  {product.seller.username}
+                </Text>
+              </HStack>
+            </Link>
             <Divider my={2} />
             <HStack spacing={2} mb={2}>
               <Box as={FaMapMarkerAlt} fontSize="xl" fontWeight="semibold" color="gray.500" />

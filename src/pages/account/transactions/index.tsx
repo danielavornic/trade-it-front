@@ -7,11 +7,8 @@ import { AccountSidebar, BarterCard, Layout, isAuth } from "@/components";
 
 const MyTransactions = () => {
   const { user } = useAuth();
-  if (!user) {
-    return null;
-  }
 
-  const { id } = user;
+  const { id } = user || { id: null };
 
   const { data } = useQuery({
     queryKey: ["my-barters", id],

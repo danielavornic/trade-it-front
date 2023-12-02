@@ -1,10 +1,12 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { decodeToken } from "react-jwt";
+import { useMutation } from "@tanstack/react-query";
+import Cookies from "js-cookie";
+
 import { Box, FormControl, FormLabel, Link, Input, Stack, Button, Text } from "@chakra-ui/react";
 
 import { useAuth } from "@/hooks";
-import { useMutation } from "@tanstack/react-query";
 import { auth } from "@/api";
 
 const initialFormValues = {
@@ -42,7 +44,7 @@ export const SignInCard = () => {
         token,
       };
       setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
+      Cookies.set("user", JSON.stringify(user));
 
       // const redirectProductId = decodeURIComponent(String(router.query.redirectProductId || "")).trim();
       // if (redirectProductId)
@@ -86,7 +88,9 @@ export const SignInCard = () => {
             No account?{" "}
             <Link
               color="brand.500"
-              href={`/signup?redirectProductId=${encodeURIComponent(String(router.query.redirectProductId))}`}
+              href={`/signup?redirectProductId=${encodeURIComponent(
+                String(router.query.redirectProductId),
+              )}`}
             >
               Sign up
             </Link>

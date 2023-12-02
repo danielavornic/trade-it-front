@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import Cookies from "js-cookie";
 import { User } from "@/types";
 
 type AuthState = {
@@ -24,7 +25,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<{}>) => {
   };
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
+    const user = Cookies.get("user");
     if (user) {
       setUser(JSON.parse(user));
     }

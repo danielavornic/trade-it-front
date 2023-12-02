@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
-import { decodeToken } from "react-jwt";
 import { useRouter } from "next/router";
+import { decodeToken } from "react-jwt";
+import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
 import {
   Box,
@@ -55,8 +56,11 @@ export const SignUpCard = () => {
         surname: formValues.surname,
         token,
       };
+      // TODO: remove this after backend implementation
       setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
+      Cookies.set("user", JSON.stringify(user));
+
+      router.push("/email-confirm");
     },
     onError: (error) => {
       console.log(error);

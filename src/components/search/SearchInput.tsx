@@ -48,6 +48,18 @@ export const SearchInput = () => {
     setCategory(categoryUrl as string);
   }, [q, categoryUrl]);
 
+  const handeCategoryChange = (value: string) => {
+    setCategory(value);
+    router.replace(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, category: value },
+      },
+      undefined,
+      { shallow: true },
+    );
+  };
+
   return (
     <Box as="form" onSubmit={handleSubmit} zIndex={20} position="relative">
       <InputGroup size="lg" colorScheme="brand">
@@ -84,7 +96,7 @@ export const SearchInput = () => {
                 categories.map((category: Category) => (
                   <MenuItem
                     key={category.id}
-                    onClick={() => setCategory(category.name)}
+                    onClick={() => handeCategoryChange(category.id.toString())}
                     value={category.name}
                     fontSize={14}
                   >

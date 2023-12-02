@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "@/hooks";
 import { TfiLayoutGrid2Alt } from "react-icons/tfi";
 import { FaThList } from "react-icons/fa";
 import { HStack, VStack, Heading, Button, Card, CardBody, Icon } from "@chakra-ui/react";
+
+import { useAuth } from "@/hooks";
 import { products as productsApi } from "@/api";
-import { AccountSidebar, Layout, ProductsGrid, ProductsList } from "@/components";
+import { AccountSidebar, Layout, ProductsGrid, ProductsList, isAuth } from "@/components";
 
 const MyAccount = () => {
   const [listingView, setListingView] = useState<"list" | "grid">("list");
@@ -64,4 +65,4 @@ const MyAccount = () => {
   );
 };
 
-export default MyAccount;
+export default isAuth(MyAccount);

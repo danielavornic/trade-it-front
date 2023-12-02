@@ -43,6 +43,7 @@ export const SignInCard = () => {
         username: formValues.username,
         token,
       };
+      // TODO: remove this after backend implementation
       setUser(user);
       Cookies.set("user", JSON.stringify(user));
 

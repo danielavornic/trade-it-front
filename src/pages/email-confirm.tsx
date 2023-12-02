@@ -1,7 +1,7 @@
 import { Flex, Stack, Heading } from "@chakra-ui/react";
-import { EmailConfirmCard, Layout } from "@/components";
+import { EmailConfirmCard, Layout, isNotAuth } from "@/components";
 
-const emailConfirm = () => {
+const EmailConfirm = () => {
   return (
     <Layout title="Check your email">
       <Flex align="center" justify="center">
@@ -18,4 +18,5 @@ const emailConfirm = () => {
   );
 };
 
-export default emailConfirm;
+// TODO: wrap in isNotAuth HOC
+export default EmailConfirm;

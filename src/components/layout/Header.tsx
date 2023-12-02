@@ -134,7 +134,6 @@ export const Header = () => {
                     <MenuItem
                       onClick={() => {
                         logout();
-                        localStorage.removeItem("user");
                         router.push("/");
                       }}
                     >

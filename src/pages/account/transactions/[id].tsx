@@ -1,5 +1,5 @@
 import { barters } from "@/api";
-import { AccountSidebar, Layout, ProductCheckbox } from "@/components";
+import { AccountSidebar, Layout, ProductCheckbox, isAuth } from "@/components";
 import { useAuth } from "@/hooks";
 import { Barter, BarterStatus, Product } from "@/types";
 import { HStack, Box, Card, CardBody, Heading, VStack, Text, Button } from "@chakra-ui/react";
@@ -203,4 +203,4 @@ const TransactionPage = () => {
   );
 };
 
-export default TransactionPage;
+export default isAuth(TransactionPage);

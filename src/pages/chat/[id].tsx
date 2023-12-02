@@ -1,10 +1,11 @@
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
+
 import { chat } from "@/api";
-import { ChatHeader, ChatLayout, ChatBody, ChatFooter } from "@/components";
 import { useAuth } from "@/hooks";
 import { Message } from "@/types";
-import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { ChatHeader, ChatLayout, ChatBody, ChatFooter, isAuth } from "@/components";
 
 // import SockJS from "sockjs-client";
 // import Stomp from "stompjs";
@@ -75,4 +76,4 @@ const ChatRoom = () => {
   );
 };
 
-export default ChatRoom;
+export default isAuth(ChatRoom);

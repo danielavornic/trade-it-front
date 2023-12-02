@@ -1,8 +1,9 @@
-import { barters } from "@/api";
-import { AccountSidebar, BarterCard, Layout } from "@/components";
-import { useAuth } from "@/hooks";
-import { HStack, VStack, Card, CardBody, Heading } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
+import { HStack, VStack, Card, CardBody, Heading } from "@chakra-ui/react";
+
+import { barters } from "@/api";
+import { useAuth } from "@/hooks";
+import { AccountSidebar, BarterCard, Layout, isAuth } from "@/components";
 
 const MyTransactions = () => {
   const { user } = useAuth();
@@ -42,4 +43,4 @@ const MyTransactions = () => {
   );
 };
 
-export default MyTransactions;
+export default isAuth(MyTransactions);

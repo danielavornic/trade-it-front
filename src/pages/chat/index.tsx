@@ -1,6 +1,6 @@
 import { Flex, VStack, Icon, Heading, Text } from "@chakra-ui/react";
 import { PiWechatLogoLight } from "react-icons/pi";
-import { ChatLayout } from "@/components";
+import { ChatLayout, isAuth } from "@/components";
 
 const Chat = () => {
   return (
@@ -20,4 +20,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default isAuth(Chat);

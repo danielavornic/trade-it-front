@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }: React.PropsWithChildren<{}>) => {
 
   const logout = async () => {
     setUser(null);
+    Cookies.remove("user");
   };
 
   useEffect(() => {

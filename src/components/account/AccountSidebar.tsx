@@ -2,10 +2,10 @@ import { VStack, HStack, Heading, Divider, Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 const sidebarItems = [
-  {
-    label: "Profile",
-    href: "/account",
-  },
+  // {
+  //   label: "Profile",
+  //   href: "/account",
+  // },
   {
     label: "My transactions",
     href: "/account/transactions",

@@ -46,7 +46,7 @@ export const ProductCategoriesBanner = () => {
         flex={1}
         spacing={2}
         align="flex-start"
-        maxH={400}
+        maxH={380}
         overflowY="auto"
         sx={{
           "::-webkit-scrollbar": {
@@ -77,8 +77,8 @@ export const ProductCategoriesBanner = () => {
         spacing={8}
         align="flex-start"
         flexBasis="50%"
-        height={400}
-        bg={image ? `url(${image})` : "gray.200"}
+        height={380}
+        bg={image ? `url('${image}')` : "gray.200"}
         backgroundSize="cover"
         backgroundPosition="center"
         width="full"

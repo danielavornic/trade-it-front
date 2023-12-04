@@ -8,7 +8,7 @@ const Chat = () => {
       <Flex w="100%" h="100%" p={8} rounded="md" alignItems="center" justifyContent="center">
         <VStack spacing={4} alignItems="center">
           <Icon as={PiWechatLogoLight} w={28} h={28} color="brand.500" mb={8} mt={-10} />
-          <Heading as="h1" size="xl">
+          <Heading as="h1" size="lg">
             Your messages
           </Heading>
           <Text fontSize="lg" textAlign="center" color="gray.700" mb={4}>

@@ -13,25 +13,17 @@ import {
   MenuList,
   MenuDivider,
   IconButton,
-  AvatarBadge,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
 } from "@chakra-ui/react";
-import { FiMessageSquare, FiBell } from "react-icons/fi";
+import { FiMessageSquare } from "react-icons/fi";
 
 import { useAuth } from "@/hooks";
-import { SearchInput } from "@/components";
+import { NotificationsHeader, SearchInput } from "@/components";
 
 const accountItems = [
-  {
-    label: "Profile",
-    href: "/account",
-  },
+  // {
+  //   label: "Profile",
+  //   href: "/account",
+  // },
   {
     label: "My products",
     href: "/account/products",
@@ -44,10 +36,10 @@ const accountItems = [
     label: "Transactions",
     href: "/account/transactions",
   },
-  {
-    label: "Reviews",
-    href: "/account/reviews",
-  },
+  // {
+  //   label: "Reviews",
+  //   href: "/account/reviews",
+  // },
   {
     label: "Settings",
     href: "/account/settings",
@@ -57,20 +49,6 @@ const accountItems = [
 export const Header = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
-
-  const handleButtonClick = (buttonName: string) => {
-    switch (buttonName) {
-      case "message":
-        console.log("Message button clicked");
-        break;
-      case "bell":
-        console.log("Bell button clicked");
-        break;
-      case "profile":
-        console.log("Profile button clicked");
-        break;
-    }
-  };
 
   return (
     <Box shadow="sm" py={2} bg="white">
@@ -119,36 +97,7 @@ export const Header = () => {
                     rounded="full"
                   />
                 </Box>
-                <Box position="relative" ml={4} mr={4}>
-                  {/* TODO: add notifications */}
-                  <Box
-                    position="absolute"
-                    right="0"
-                    top="0"
-                    boxSize="0.75em"
-                    bg="accent.500"
-                    rounded="full"
-                    zIndex={2}
-                  />
-                  <Popover placement="top-end">
-                    <PopoverTrigger>
-                      <IconButton
-                        onClick={() => handleButtonClick("bell")}
-                        aria-label="View notifications"
-                        icon={<FiBell />}
-                        rounded="full"
-                      />
-                    </PopoverTrigger>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverBody>
-                        <Box w="full" h="full" p={3} textAlign="center">
-                          No notifications yet
-                        </Box>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Popover>
-                </Box>
+                <NotificationsHeader />
                 <Menu placement="top-end">
                   <MenuButton
                     as={Button}

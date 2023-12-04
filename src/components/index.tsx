@@ -5,3 +5,4 @@ export * from "./product";
 export * from "./barter";
 export * from "./account";
 export * from "./chat";
+export * from "./notifications";

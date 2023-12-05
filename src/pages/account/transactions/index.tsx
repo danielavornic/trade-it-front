@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { HStack, VStack, Card, CardBody, Heading } from "@chakra-ui/react";
+import { HStack, VStack, Card, CardBody, Heading, Text } from "@chakra-ui/react";
 
 import { barters } from "@/api";
 import { useAuth } from "@/hooks";
@@ -32,7 +32,7 @@ const MyTransactions = () => {
           </Card>
 
           <VStack w="full" alignItems="start" spacing={8}>
-            {data?.map((barter) => <BarterCard barter={barter} key={barter.id} />)}
+            {data && data?.length > 0 ? data?.map((barter) => <BarterCard barter={barter} key={barter.id} />) : <Text>No transactions found.</Text>}
           </VStack>
         </VStack>
       </HStack>

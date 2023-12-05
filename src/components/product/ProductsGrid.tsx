@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, GridItem, Heading } from "@chakra-ui/react";
+import { Grid, GridItem, Heading, Text } from "@chakra-ui/react";
 
 import { Product } from "@/types";
 import { ProductGridCard } from "@/components";
@@ -12,7 +12,7 @@ interface Props {
 
 export const ProductsGrid = ({ title, products, cols }: Props) => {
   if (!products || products.length === 0) {
-    return null;
+    return <Text>No products found.</Text>;
   }
 
   return (

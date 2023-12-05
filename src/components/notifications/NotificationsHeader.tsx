@@ -75,7 +75,7 @@ export const NotificationsHeader = () => {
             {notifications?.length > 0 ? (
               notifications.map((notification, i) => (
                 <>
-                  <NotificationItem key={notification.id} notification={notification} />
+                  <NotificationItem key={i} notification={notification} />
                   {i < notifications.length - 1 && <Divider />}
                 </>
               ))

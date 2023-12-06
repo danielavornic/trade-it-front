@@ -31,7 +31,7 @@ export const SellerCard = ({ product }: { product: Product }) => {
 
   return (
     <>
-      <Card shadow="none" border="1px solid" borderColor="gray.200" minWidth="250px">
+      <Card shadow="none" border="3px solid" borderColor="gray.200" minWidth="250px">
         <CardBody>
           <Stack>
             <Link href={`/users/${product.seller.id}`}>
@@ -51,7 +51,7 @@ export const SellerCard = ({ product }: { product: Product }) => {
             </HStack>
             {isGuest ? (
               <Link href={{ pathname: "/signin", query: { redirectProductId: product.id } }}>
-                <Button colorScheme="gray" variant="outline" color="#0EB085">
+                <Button colorScheme="gray" borderColor="gray.300" variant="outline" color="#0EB085">
                   Sign in to start bartering
                 </Button>
               </Link>

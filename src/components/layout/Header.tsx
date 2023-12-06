@@ -46,10 +46,11 @@ const accountItems = [
   },
 ];
 
+
 export const Header = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
-
+  
   return (
     <Box shadow="sm" py={2} bg="white">
       <Container maxW={["container.sm", "container.md", "container.lg", "8xl"]} as="header">

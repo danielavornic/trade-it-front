@@ -56,9 +56,6 @@ export const SignUpCard = () => {
         surname: formValues.surname,
         token,
       };
-      // TODO: remove this after backend implementation
-      setUser(user);
-      Cookies.set("user", JSON.stringify(user));
 
       router.push("/email-confirm");
     },

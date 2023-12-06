@@ -38,20 +38,19 @@ export const SignInCard = () => {
       const decodedToken = decodeToken(token) as any;
       const user = {
         id: Number(decodedToken?.user_id),
-        name: decodedToken?.firstName,
-        surname: decodedToken?.lastName,
-        username: formValues.username,
+        username: decodedToken?.sub,
         token,
       };
-      // TODO: remove this after backend implementation
       setUser(user);
-      Cookies.set("user", JSON.stringify(user));
+      Cookies.set("token", JSON.stringify(token), {
+        expires: token.exp,
+      });
 
-      // const redirectProductId = decodeURIComponent(String(router.query.redirectProductId || "")).trim();
-      // if (redirectProductId)
-      //   router.push(`/product/${redirectProductId}`);
-      // else
-      //   router.push("/");
+      const redirectProductId = decodeURIComponent(
+        String(router.query.redirectProductId || ""),
+      ).trim();
+      if (redirectProductId) router.push(`/product/${redirectProductId}`);
+      else router.push("/");
     },
     onError: (error) => {
       console.log(error);

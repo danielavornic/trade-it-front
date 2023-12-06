@@ -10,14 +10,7 @@ export interface Message {
 
 export interface ChatRoom {
   id: number;
-  user1: {
-    id: number;
-    username: string;
-    email: string;
-    name: string;
-    surname: string;
-  };
-  user2: {
+  targetUser: {
     id: number;
     username: string;
     email: string;
@@ -30,12 +23,7 @@ export interface ChatRoom {
 
 export interface ChatRoomListItem {
   id: number;
-  user1: {
-    id: number;
-    username: string;
-    email: string;
-  };
-  user2: {
+  targetUser: {
     id: number;
     username: string;
     email: string;

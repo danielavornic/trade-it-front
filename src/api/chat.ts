@@ -6,8 +6,12 @@ export const chat = {
     const { data } = await axios.get(`/chat/${userId}`);
     return data;
   },
-  getChatHistoryByChatRoomId: async (chatRoomId: number): Promise<ChatRoom> => {
-    const { data } = await axios.get(`/chat/history/${chatRoomId}`);
+  getChatHistoryByTargetUserId: async (userId: number, targetUserId: number): Promise<ChatRoom> => {
+    const { data } = await axios.get(`/chat/${targetUserId}`, {
+      headers: {
+        user_id: userId,
+      },
+    });
     return data;
   },
 };

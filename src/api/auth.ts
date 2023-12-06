@@ -8,4 +8,7 @@ export const auth = {
   signup: (credentials: UserWithPassword) => {
     return axios.post("/auth/register", credentials);
   },
+  confirmEmail: (token: string) => {
+    return axios.get(`/confirm?token=${token}`);
+  },
 };

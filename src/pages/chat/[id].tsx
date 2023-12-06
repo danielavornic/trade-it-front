@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 
@@ -7,13 +7,12 @@ import { useAuth } from "@/hooks";
 import { Message } from "@/types";
 import { ChatHeader, ChatLayout, ChatBody, ChatFooter, isAuth } from "@/components";
 
-// import SockJS from "sockjs-client";
-// import Stomp from "stompjs";
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
 
 const ChatRoom = () => {
   const router = useRouter();
   const { id } = router.query;
-  const locale = router.locale as string;
 
   const { user } = useAuth();
 
@@ -21,13 +20,9 @@ const ChatRoom = () => {
   const [message, setMessage] = useState("");
   const [stompClient, setStompClient] = useState<any>(null);
 
-  const {
-    data: serverMessages,
-    isSuccess,
-    isLoading,
-  } = useQuery({
+  const { data: serverMessages, isLoading } = useQuery({
     queryKey: ["chats-history", id, stompClient],
-    queryFn: () => chat.getChatHistoryByChatRoomId(Number(id)),
+    queryFn: () => chat.getChatHistoryByTargetUserId(Number(user?.id), Number(id)),
   });
 
   useEffect(() => {
@@ -62,8 +57,7 @@ const ChatRoom = () => {
     stompClient.send(`/app/sendMessage/${id}`, {}, JSON.stringify(message));
   };
 
-  const otherUser =
-    serverMessages?.user1.id === user?.id ? serverMessages?.user2 : serverMessages?.user1;
+  const otherUser = serverMessages?.targetUser;
   const chatRoomName = otherUser?.username || "";
   const fullName = otherUser?.name + " " + otherUser?.surname;
 

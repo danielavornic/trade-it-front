@@ -40,8 +40,6 @@ export const ChatSidebar = () => {
           <>
             {data.map((chat: ChatRoomListItem) => {
               const isActive = id === String(chat.id);
-              const chatName =
-                user?.id === chat.user1.id ? chat.user2.username : chat.user1.username;
 
               return (
                 <Link key={chat.id} href={`/chat/${chat.id}`} passHref style={{ width: "100%" }}>
@@ -55,7 +53,7 @@ export const ChatSidebar = () => {
                     borderRadius={8}
                     spacing={4}
                   >
-                    <Avatar size="sm" name={chat.user1.username} bg="gray.500" color="white" />
+                    <Avatar size="sm" name={chat.targetUser.username} bg="gray.500" color="white" />
                     <VStack spacing={1} alignItems="flex-start">
                       <HStack alignItems="center" spacing={2}>
                         {!chat.isRead && !isActive ? (
@@ -66,7 +64,7 @@ export const ChatSidebar = () => {
                           fontWeight="bold"
                           color={chat.isRead && !isActive ? "gray.600" : "black"}
                         >
-                          {chatName}
+                          {chat.targetUser.username}
                         </Text>
                       </HStack>
                       <Text size="sm" color="gray.500">

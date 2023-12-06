@@ -83,7 +83,7 @@ export const SearchInput = () => {
               variant="ghost"
               rightIcon={<ChevronDownIcon />}
               size="sm"
-              w="130px"
+              w="160px"
               fontWeight={400}
               color="gray.600"
             >

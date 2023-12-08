@@ -25,16 +25,16 @@ const accountItems = [
   //   href: "/account",
   // },
   {
+    label: "My Transactions",
+    href: "/account/transactions",
+  },
+  {
     label: "My products",
     href: "/account/products",
   },
   {
     label: "Add product",
     href: "/product/add",
-  },
-  {
-    label: "Transactions",
-    href: "/account/transactions",
   },
   // {
   //   label: "Reviews",
@@ -46,11 +46,10 @@ const accountItems = [
   },
 ];
 
-
 export const Header = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
-  
+
   return (
     <Box shadow="sm" py={2} bg="white">
       <Container maxW={["container.sm", "container.md", "container.lg", "8xl"]} as="header">
@@ -119,7 +118,9 @@ export const Header = () => {
                   <MenuList>
                     {accountItems.map((item) => (
                       <MenuItem key={item.label}>
-                        <Link href={item.href}>{item.label}</Link>
+                        <Link href={item.href} style={{ width: "100%" }}>
+                          {item.label}
+                        </Link>
                       </MenuItem>
                     ))}
                     <MenuDivider />

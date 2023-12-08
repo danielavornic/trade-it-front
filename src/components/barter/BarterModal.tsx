@@ -38,7 +38,7 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
   const [message, setMessage] = useState("");
 
   const { data: products, isSuccess } = useQuery({
-    queryKey: ["my-products"],
+    queryKey: ["my-products", user],
     queryFn: () => productsApi.getList({ seller: user?.id }),
   });
 
@@ -46,7 +46,7 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
     onSuccess: () => {
       onClose();
       // TODO: modify this to redirect to the barter page
-      router.push({ pathname: `/account/barters/1`, query: { barter: "sent" } });
+      router.push({ pathname: `/account/transactions/1`, query: { barter: "sent" } });
       queryClient.invalidateQueries(["barters"]);
       window.scrollTo(0, 0);
     },

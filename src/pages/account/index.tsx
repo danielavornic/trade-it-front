@@ -15,7 +15,7 @@ const Account = () => {
 
   const { data: products } = useQuery({
     queryKey: ["my-products", user?.id],
-    queryFn: () => productsApi.getList({ seller: user?.id }),
+    queryFn: () => productsApi.getList({ status: "all", seller: user?.id }),
   });
 
   return (

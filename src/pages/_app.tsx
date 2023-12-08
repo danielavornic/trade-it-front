@@ -41,7 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
         <AuthProvider>
-          <NextProgress options={{ showSpinner: false }} color="#0EB085" height={4} />
+          {/* <NextProgress options={{ showSpinner: false }} color="#0EB085" height={4} /> */}
           <Component {...pageProps} />
         </AuthProvider>
       </ChakraProvider>

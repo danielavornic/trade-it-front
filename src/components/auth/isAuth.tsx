@@ -1,20 +1,23 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import { decodeToken } from "react-jwt";
+
 import { useAuth } from "@/hooks";
 
 export function isAuth(Component: any) {
   return function IsAuth(props: any) {
     const { user } = useAuth();
     const { push } = useRouter();
-    const auth = Boolean(user);
 
     useEffect(() => {
-      if (!auth) {
+      const token = Cookies.get("token");
+      if (!token) {
         push("/signin");
       }
     }, []);
 
-    if (!auth) {
+    if (!Boolean(user)) {
       return null;
     }
 

@@ -3,7 +3,7 @@ import { AccountSidebar, Layout, ProductCheckbox, isAuth } from "@/components";
 import { useAuth } from "@/hooks";
 import { Barter, BarterStatus, Product } from "@/types";
 import { HStack, Box, Card, CardBody, Heading, VStack, Text, Button } from "@chakra-ui/react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -37,11 +37,13 @@ const emptyBarter: Barter = {
 const TransactionPage = () => {
   const { user } = useAuth();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const id = Number(router.query.id);
 
   const { data: barter } = useQuery({
     queryKey: ["barter", id],
     queryFn: () => barters.getById(Number(id)),
+    refetchInterval: 100000,
   });
 
   const { offered_by, requested_from, initiated_at, message, status, first_to_complete_id } =
@@ -71,6 +73,9 @@ const TransactionPage = () => {
 
   const { mutate } = useMutation({
     mutationFn: (status: BarterStatus) => barters.updateStatus(id, status, Number(user?.id)),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["barter"] });
+    },
   });
 
   return (
@@ -97,6 +102,14 @@ const TransactionPage = () => {
                     <>
                       <Button isDisabled colorScheme="brand">
                         Declined
+                      </Button>
+                    </>
+                  )}
+
+                  {status === BarterStatus.Cancelled && (
+                    <>
+                      <Button isDisabled colorScheme="red">
+                        Cancelled
                       </Button>
                     </>
                   )}

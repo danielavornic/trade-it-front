@@ -1,21 +1,24 @@
 import { useAuth } from "@/hooks";
 import { HStack, IconButton, Input } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { useQueryClient } from "@tanstack/react-query";
 import { BsFillSendFill } from "react-icons/bs";
 
-export const ChatFooter = ({ sendMessage, message, setMessage }: any) => {
+export const ChatFooter = ({ sendMessage, message, setMessage, roomId }: any) => {
   const { user } = useAuth();
-  const { query, locale } = useRouter();
+  const queryClient = useQueryClient();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    // sendMessage({
-    //   roomId: Number(query.id),
-    //   senderId: Number(user?.id),
-    //   message,
-    //   language: locale === "en" ? "en-GB" : locale,
-    // });
+    sendMessage({
+      id: Number(roomId),
+      message: String(message),
+      senderId: Number(user?.id),
+    });
+
+    if (roomId === -1) {
+      queryClient.invalidateQueries(["chats-history"]);
+    }
 
     setMessage("");
   };

@@ -16,7 +16,7 @@ const ChatRoom = () => {
 
   const { user } = useAuth();
 
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState("");
   const [stompClient, setStompClient] = useState<any>(null);
 
@@ -29,43 +29,50 @@ const ChatRoom = () => {
     setMessages(serverMessages?.messages || []);
   }, [serverMessages]);
 
-  // useEffect(() => {
-  //   const socket = new SockJS(process.env.NEXT_PUBLIC_SOCKET_BASE_URL as string);
-  //   const client = Stomp.over(socket);
+  useEffect(() => {
+    const socket = new SockJS(process.env.NEXT_PUBLIC_SOCKET_BASE_URL as string);
+    const client = Stomp.over(socket);
 
-  //   client.connect({}, () => {
-  //     client.subscribe(`/topic/${id}`, (message: any) => {
-  //       const receivedMessage = JSON.parse(message.body);
-  //       const mess = {
-  //         senderId: receivedMessage.senderId,
-  //         senderName: receivedMessage.sender,
-  //         messageText: receivedMessage.messageText,
-  //         timestamp: receivedMessage.timestamp,
-  //       };
-  //       setMessages((prev) => [...(prev || []), mess]);
-  //     });
-  //   });
+    client.connect({}, () => {
+      client.subscribe(`/topic/${serverMessages?.id}`, (message: any) => {
+        const receivedMessage = JSON.parse(message.body);
+        const mess = {
+          id: serverMessages?.id ? Number(serverMessages.id) : -1,
+          message: receivedMessage.message,
+          senderId: receivedMessage.senderId,
+        };
+        setMessages((prev) => [...(prev || []), mess]);
+      });
+    });
 
-  //   setStompClient(client);
+    setStompClient(client);
 
-  //   return () => {
-  //     if (stompClient) stompClient.disconnect();
-  //   };
-  // }, [id, router.locale]);
+    return () => {
+      if (stompClient) stompClient.disconnect();
+    };
+  }, [id]);
 
   const sendMessages = (message: Message) => {
+    console.log(message);
     stompClient.send(`/app/sendMessage/${id}`, {}, JSON.stringify(message));
   };
 
   const otherUser = serverMessages?.targetUser;
   const chatRoomName = otherUser?.username || "";
-  const fullName = otherUser?.name + " " + otherUser?.surname;
+  const fullName = otherUser?.name + " " + (otherUser?.surname ?? "");
+
+  console.log(messages);
 
   return (
     <ChatLayout title={chatRoomName} hasHeader hasFooter>
       <ChatHeader title={chatRoomName} description={fullName} />
       <ChatBody messages={messages} isLoading={isLoading} />
-      <ChatFooter sendMessage={sendMessages} message={message} setMessage={setMessage} />
+      <ChatFooter
+        sendMessage={sendMessages}
+        roomId={serverMessages?.id ? serverMessages.id : -1}
+        message={message}
+        setMessage={setMessage}
+      />
     </ChatLayout>
   );
 };

@@ -9,8 +9,12 @@ export const products = {
     name?: string;
     related_to?: number;
     popular?: boolean;
+    status?: string;
   }): Promise<Product[]> => {
-    const { data } = await axios.get("/products", { params: filters });
+    const { data } = await axios.get("/products", {
+      params: { ...filters, ...(filters?.seller ? { status: "all" } : {}) },
+    });
+
     return data.map((product: any) => productFactory(product));
   },
   add: async (product: ProductAdd): Promise<Product> => {

@@ -12,8 +12,11 @@ import { FiBell } from "react-icons/fi";
 
 import { Notification } from "@/types";
 import { NotificationItem } from "@/components";
+import { useAuth } from "@/hooks";
+import { useQuery } from "@tanstack/react-query";
+import { notifications } from "@/api";
 
-const notifications: Notification[] = [
+const notificationsL: Notification[] = [
   {
     id: 1,
     type: "barter_update", // or "barter_proposed"
@@ -53,6 +56,13 @@ const notifications: Notification[] = [
 ];
 
 export const NotificationsHeader = () => {
+  const { user } = useAuth();
+
+  // const { data } = useQuery({
+  //   queryKey: ["notifications"],
+  //   queryFn: () => notifications.getList(Number(user?.id)),
+  // });
+
   return (
     <Box position="relative" ml={4} mr={4}>
       {/* TODO: add notifications */}
@@ -72,11 +82,11 @@ export const NotificationsHeader = () => {
         <PopoverContent>
           <PopoverArrow />
           <PopoverBody maxH={320} overflowY="auto" className="small-scrollbar">
-            {notifications?.length > 0 ? (
-              notifications.map((notification, i) => (
+            {notificationsL?.length > 0 ? (
+              notificationsL.map((notification, i) => (
                 <>
                   <NotificationItem key={i} notification={notification} />
-                  {i < notifications.length - 1 && <Divider />}
+                  {i < notificationsL.length - 1 && <Divider />}
                 </>
               ))
             ) : (

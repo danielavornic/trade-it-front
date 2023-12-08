@@ -17,18 +17,18 @@ export const ProductsGrid = ({ title, products, cols }: Props) => {
 
   return (
     <>
-    {title && (
-      <Heading as="h2" size="xl" mb="4">
-        {title}
-      </Heading>
-    )}
-    <Grid templateColumns={`repeat(${cols || 4}, 1fr)`} gap={6}>
-      {products.map((product) => (
-        <GridItem key={product.id}>
-          <ProductGridCard product={product} />
-        </GridItem>
-      ))}
-    </Grid>
-      </>
+      {title && (
+        <Heading as="h2" size="xl" mb="4">
+          {title}
+        </Heading>
+      )}
+      <Grid templateColumns={`repeat(${cols || 3}, 1fr)`} gap={6} width="full">
+        {products.map((product) => (
+          <GridItem key={product.id}>
+            <ProductGridCard product={product} />
+          </GridItem>
+        ))}
+      </Grid>
+    </>
   );
 };

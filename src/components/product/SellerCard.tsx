@@ -31,7 +31,7 @@ export const SellerCard = ({ product }: { product: Product }) => {
 
   return (
     <>
-      <Card shadow="none" border="3px solid" borderColor="gray.200" minWidth="250px">
+      <Card shadow="none" border="2px solid" borderColor="gray.200" minWidth="250px">
         <CardBody>
           <Stack>
             <Link href={`/users/${product.seller.id}`}>
@@ -56,7 +56,13 @@ export const SellerCard = ({ product }: { product: Product }) => {
                 </Button>
               </Link>
             ) : hasProduct ? (
-              <Button colorScheme="gray" variant="outline" color="#0EB085">
+              <Button
+                colorScheme="gray"
+                isDisabled
+                title="This feature is not yet implemented"
+                variant="outline"
+                color="#0EB085"
+              >
                 Edit
               </Button>
             ) : (
@@ -77,6 +83,8 @@ export const SellerCard = ({ product }: { product: Product }) => {
               leftIcon={<FaHeart />}
               minWidth="170px"
               width="100%"
+              isDisabled
+              title="This feature is not yet implemented"
               colorScheme={isSaved ? "brand" : "gray"}
               variant={isSaved ? "solid" : "outline"}
               color={isSaved ? "white" : "#0EB085"}

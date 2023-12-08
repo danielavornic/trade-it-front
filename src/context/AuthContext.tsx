@@ -8,7 +8,7 @@ type AuthState = {
 };
 
 type AuthContextType = AuthState & {
-  setUser: (user: User) => void;
+  setUser: (user: User | null) => void;
   logout: () => Promise<void>;
 };
 

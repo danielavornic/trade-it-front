@@ -15,6 +15,7 @@ import {
   Button,
   Text,
   Link,
+  useToast,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
@@ -31,7 +32,7 @@ const initialFormValues = {
 
 export const SignUpCard = () => {
   const router = useRouter();
-  const { setUser } = useAuth();
+  const toast = useToast();
 
   const [formValues, setFormValues] = useState(initialFormValues);
   const [showPassword, setShowPassword] = useState(false);
@@ -47,17 +48,18 @@ export const SignUpCard = () => {
 
   const { mutate } = useMutation(auth.signup, {
     onSuccess: ({ data }: any) => {
-      const { token } = data;
-      const decodedToken = decodeToken(token) as any;
-      const user = {
-        id: Number(decodedToken?.user_id),
-        username: formValues.username,
-        name: formValues.name,
-        surname: formValues.surname,
-        token,
-      };
+      if (data.success) {
+        router.push("/email-confirm");
+        return;
+      }
 
-      router.push("/email-confirm");
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     },
     onError: (error) => {
       console.log(error);

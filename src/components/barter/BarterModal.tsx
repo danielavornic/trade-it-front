@@ -29,8 +29,6 @@ interface BarterModalProps {
 }
 
 export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
-  if (!product) return null;
-
   const { user } = useAuth();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -43,7 +41,7 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
   });
 
   const { mutate } = useMutation(barters.sendProposal, {
-    onSuccess: ({data}: any) => {
+    onSuccess: ({ data }: any) => {
       onClose();
       router.push({ pathname: `/account/transactions/${data?.barter_id}` });
       queryClient.invalidateQueries(["barters"]);
@@ -64,7 +62,7 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
 
     mutate({
       offered_product_id: productId,
-      desired_product_id: product.id,
+      desired_product_id: product?.id as number,
       message,
     });
 

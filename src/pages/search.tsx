@@ -10,14 +10,14 @@ import { FilterListOptions, Layout, ProductsGrid, ProductsList } from "@/compone
 
 const SearchPage = () => {
   const router = useRouter();
-  const { q, category } = router.query;
+  const { q, category, city_id } = router.query;
 
   const [listingView, setListingView] = useState<"list" | "grid">("list");
 
   const { data: products } = useQuery({
-    queryKey: ["search-results", q, category],
+    queryKey: ["search-results", q, category, city_id],
     queryFn: () =>
-      productsApi.getList({ name: q as string, category: category ? Number(category) : undefined }),
+      productsApi.getList({ name: q as string, category: category as string, city_id: city_id as string }),
   });
 
   const { data: categories } = useQuery({
@@ -52,7 +52,7 @@ const SearchPage = () => {
           <Divider my={3} />
           <VStack spacing={4} w="full" alignItems="start">
             <FilterListOptions title="Categories" name="category" options={categories as any} />
-            <FilterListOptions title="Cities" name="city" options={cities as any} />
+            <FilterListOptions title="Cities" name="city_id" options={cities as any} />
           </VStack>
         </VStack>
 

@@ -1,4 +1,4 @@
-import { Product } from "@/types";
+import { Product, ProductStatus } from "@/types";
 import { Card, Stack, Text, HStack, Box, Image } from "@chakra-ui/react";
 import Link from "next/link";
 import { FaUser } from "react-icons/fa";
@@ -6,7 +6,7 @@ import { FaUser } from "react-icons/fa";
 const DESCRIPTION_LENGTH = 150;
 
 export const ProductListItem = ({ product }: { product: Product }) => {
-  const { name, description, seller, img } = product;
+  const { name, description, seller, img, status } = product;
 
   return (
     <Link style={{ width: "100%" }} href={`/product/${product.id}`} rel="noopener noreferrer">
@@ -17,7 +17,7 @@ export const ProductListItem = ({ product }: { product: Product }) => {
         _hover={{ transform: "translateY(-4px)" }}
         transition="all 0.2s"
       >
-        <HStack spacing={10} w="90%">
+        <HStack spacing={10} w="100%">
           <Image
             src={img}
             alt={name}
@@ -47,6 +47,12 @@ export const ProductListItem = ({ product }: { product: Product }) => {
                 : description}
             </Text>
           </Stack>
+          {
+            status === 'Unavailable'
+             && <Text color="accent.500" alignSelf="self-start" justifySelf="flex-end" fontSize="sm" fontFamily="poppins">
+              Exchanged
+            </Text>
+          }
         </HStack>
       </Card>
     </Link>

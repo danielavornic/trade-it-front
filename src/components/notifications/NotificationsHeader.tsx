@@ -13,80 +13,101 @@ import { FiBell } from "react-icons/fi";
 import { Notification } from "@/types";
 import { NotificationItem } from "@/components";
 import { useAuth } from "@/hooks";
-import { useQuery } from "@tanstack/react-query";
-import { notifications } from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { notifications as notificationsApi } from "@/api";
+import { useEffect, useState } from "react";
 
-const notificationsL: Notification[] = [
-  {
-    id: 1,
-    type: "barter_update", // or "barter_proposed"
-    barter_id: 123456,
-    title: "Barter Proposal Update",
-    message: "Your barter proposal for the 'Camera' with seller123 has been accepted.",
-    status: "unread", // Can be "unread", "read"
-    timestamp: "2023-11-07T16:00:00Z",
-  },
-  {
-    id: 2,
-    type: "barter_proposed",
-    barter_id: 123456,
-    title: "Barter Proposal",
-    message: "seller123 has proposed a barter for the 'Camera'.",
-    status: "unread",
-    timestamp: "2023-11-07T16:00:00Z",
-  },
-  {
-    id: 3,
-    type: "barter_update",
-    barter_id: 123456,
-    title: "Barter Proposal Update",
-    message: "Your barter proposal for the 'Camera' with seller123 has been accepted.",
-    status: "read",
-    timestamp: "2023-11-07T16:00:00Z",
-  },
-  {
-    id: 4,
-    type: "barter_proposed",
-    barter_id: 123456,
-    title: "Barter Proposal",
-    message: "seller123 has proposed a barter for the 'Camera'.",
-    status: "read",
-    timestamp: "2023-11-07T16:00:00Z",
-  },
-];
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
+
+
+const filterDuplicateNotifications = (notifications: Notification[]) => {
+  const seen: any = {};
+  return notifications.filter((notification) => {
+    const previous = seen[notification.id];
+    seen[notification.id] = true;
+    return !previous;
+  });
+}
 
 export const NotificationsHeader = () => {
   const { user } = useAuth();
 
-  // const { data } = useQuery({
-  //   queryKey: ["notifications"],
-  //   queryFn: () => notifications.getList(Number(user?.id)),
-  // });
+  const [stompClient, setStompClient] = useState<any>(null);
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [isRead, setIsRead] = useState(true);
+
+  const { data } = useQuery({
+    queryKey: ["notifications"],
+    queryFn: () => notificationsApi.getList(Number(user?.id)),
+    onSuccess: (data) => {
+      setNotifications((prev: any) => filterDuplicateNotifications([...prev, ...data]));
+      const unread = data.filter((notification: any) => notification.status === "UNREAD");
+      if (unread.length > 0) {
+        setIsRead(false);
+      }
+    }
+  });
+
+  const {mutate}  = useMutation({
+    mutationFn: () => notificationsApi.markAsRead(Number(user?.id)),
+    onSuccess: () => {
+      setNotifications((prev) => prev.map((notification) => ({ ...notification, status: "READ" })));
+      setIsRead(true);
+    }
+  });
+
+  useEffect(() => {
+    const socket = new SockJS(process.env.NEXT_PUBLIC_SOCKET_BASE_URL as string);
+    const client = Stomp.over(socket);
+
+    client.connect({}, () => {
+      client.subscribe(`/queue/notification/${user?.id}`, (notif: any) => {
+        const receivedNotification = JSON.parse(notif.body);
+        setNotifications((prev) => filterDuplicateNotifications([receivedNotification, ...prev]));
+        setIsRead(false);
+      });
+    });
+
+    setStompClient(client);
+
+    return () => {
+      if (stompClient) stompClient.disconnect();
+    };
+  }, [user]);
 
   return (
     <Box position="relative" ml={4} mr={4}>
-      {/* TODO: add notifications */}
-      <Box
-        position="absolute"
-        right="0"
-        top="0"
-        boxSize="0.75em"
-        bg="accent.500"
-        rounded="full"
-        zIndex={2}
-      />
-      <Popover placement="top-end">
+      {
+        !isRead && (
+          <Box
+          position="absolute"
+          right="0"
+          top="0"
+          boxSize="0.75em"
+          bg="accent.500"
+          rounded="full"
+          zIndex={2}
+          />
+          )
+        }
+      <Popover placement="top-end" >
         <PopoverTrigger>
-          <IconButton aria-label="View notifications" icon={<FiBell />} rounded="full" />
+          <IconButton aria-label="View notifications" icon={<FiBell />} rounded="full" onClick={() =>
+            {
+            if (!isRead) {
+              mutate();
+            }
+          }} />
         </PopoverTrigger>
         <PopoverContent>
           <PopoverArrow />
           <PopoverBody maxH={320} overflowY="auto" className="small-scrollbar">
-            {notificationsL?.length > 0 ? (
-              notificationsL.map((notification, i) => (
+            {notifications.length > 0 ? (
+              notifications.map((notification: any, i) => (
                 <>
                   <NotificationItem key={i} notification={notification} />
-                  {i < notificationsL.length - 1 && <Divider />}
+                  {i < notifications.length - 1 && <Divider />}
                 </>
               ))
             ) : (

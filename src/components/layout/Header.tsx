@@ -80,8 +80,7 @@ export const Header = () => {
             {user ? (
               <>
                 <Box position="relative">
-                  {/* TODO: add chat */}
-                  <Box
+                  {/* <Box
                     position="absolute"
                     right="0"
                     top="0"
@@ -89,7 +88,7 @@ export const Header = () => {
                     bg="accent.500"
                     rounded="full"
                     zIndex={2}
-                  />
+                  /> */}
                   <IconButton
                     onClick={() => router.push("/chat")}
                     aria-label="View messages"

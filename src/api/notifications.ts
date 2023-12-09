@@ -7,6 +7,17 @@ export const notifications = {
         user_id,
       },
     });
-    return data;
+    return data.reverse();
+  },
+  markAsRead: async (user_id: number): Promise<void> => {
+    return await axios.patch(
+      "/notifications/read",
+      {},
+      {
+        headers: {
+          user_id,
+        },
+      },
+    );
   },
 };

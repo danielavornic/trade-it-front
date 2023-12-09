@@ -1,6 +1,5 @@
 import { useAuth } from "@/hooks";
-import { HStack, Heading, IconButton, Text, VStack } from "@chakra-ui/react";
-import { AiOutlineEllipsis } from "react-icons/ai";
+import { HStack, Heading, Text, VStack } from "@chakra-ui/react";
 
 interface ChatHeaderProps {
   title?: string;
@@ -8,8 +7,6 @@ interface ChatHeaderProps {
 }
 
 export const ChatHeader = ({ title, description }: ChatHeaderProps) => {
-  const { user } = useAuth();
-
   return (
     <HStack
       shadow="sm"
@@ -31,8 +28,6 @@ export const ChatHeader = ({ title, description }: ChatHeaderProps) => {
           </Text>
         </VStack>
       </HStack>
-
-      <IconButton aria-label="Options" icon={<AiOutlineEllipsis />} rounded="full" />
     </HStack>
   );
 };

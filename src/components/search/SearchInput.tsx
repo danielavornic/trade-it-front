@@ -70,12 +70,13 @@ export const SearchInput = () => {
           placeholder="Search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          pr="224px"
-          width="600px"
+          pr={["0", "0", "0", "224px"]}
+          width="50vw"
+          maxWidth="600px"
           colorScheme="brand"
           fontSize={16}
         />
-        <InputRightElement width="224px" display="flex" alignItems="center" justifyContent="end">
+        <InputRightElement width="224px" display={["none", "none", "none", "flex"]} alignItems="center" justifyContent="end">
           <Divider orientation="vertical" pr={1} />
           <Menu>
             <MenuButton

@@ -1,7 +1,5 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
-import { decodeToken } from "react-jwt";
-import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
 import {
   Box,
@@ -14,13 +12,12 @@ import {
   Stack,
   Button,
   Text,
-  Link,
   useToast,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 import { auth } from "@/api";
-import { useAuth } from "@/hooks";
+import Link from "next/link";
 
 const initialFormValues = {
   name: "",
@@ -43,6 +40,74 @@ export const SignUpCard = () => {
 
   const handleSubmit = (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
+
+    // check for password length and characters and email format
+    const { password } = formValues;
+    if (password.length < 8) {
+      toast({
+        title: "Something went wrong.",
+        description: "Password must be at least 8 characters long.",
+        status: "error",
+        position: "top-right",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    const re = /[0-9]/;
+    if (!re.test(password)) {
+      toast({
+        title: "Something went wrong.",
+        description: "Password must contain at least one number (0-9).",
+        status: "error",
+        position: "top-right",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    const re2 = /[a-z]/;
+    if (!re2.test(password)) {
+      toast({
+        title: "Something went wrong.",
+        description: "Password must contain at least one lowercase letter (a-z).",
+        status: "error",
+        position: "top-right",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    const re3 = /[A-Z]/;
+    if (!re3.test(password)) {
+      toast({
+        title: "Something went wrong.",
+        description: "Password must contain at least one uppercase letter (A-Z).",
+        status: "error",
+        position: "top-right",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    const email = formValues.email;
+    const re4 = /\S+@\S+\.\S+/;
+    if (!re4.test(email)) {
+      toast({
+       title: "Something went wrong.",
+        description: "Email must be in the correct format.",
+        status: "error",
+        position: "top-right",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
     mutate(formValues);
   };
 
@@ -53,10 +118,13 @@ export const SignUpCard = () => {
         return;
       }
 
+      const {message} = data;
+
       toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
+        title: "Something went wrong.",
+        description: message,
         status: "error",
+        position: "top-right",
         duration: 5000,
         isClosable: true,
       });
@@ -131,8 +199,8 @@ export const SignUpCard = () => {
           <Stack pt={6}>
             <Text align="center">
               Already a user?{" "}
-              <Link color="brand.500" href="/signin">
-                Sign in
+              <Link  href="/signin">
+                <Text color="brand.500" as="span">Sign in</Text>
               </Link>
             </Text>
           </Stack>

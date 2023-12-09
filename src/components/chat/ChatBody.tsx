@@ -12,36 +12,30 @@ export const ChatBody = ({
   messages: MessageInterface[];
   isLoading: boolean;
 }) => {
-  const { user } = useAuth();
-
   useEffect(() => {
     const chatBody = document.getElementById("chat-body");
     if (chatBody) chatBody.scrollTop = chatBody.scrollHeight;
   }, [messages]);
 
+
   return (
     <VStack
-      spacing={4}
+      spacing="0px"
       alignItems="flex-start"
       overflowY="auto"
       maxH="calc(100vh - 200px)"
       px={8}
       my={-4}
-      className="hidden-scrollbar"
+      className="small-scrollbar"
       id="chat-body"
       h="full"
       backgroundSize="300px"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
     >
-      {isLoading ? (
-        <Flex w="100%" justifyContent="center" alignItems="center">
-          <PuffLoader color="#3182ce" size={90} />
-        </Flex>
-      ) : !messages || messages?.length === 0 ? (
-        <Text color="gray.500" textAlign="center" mx="auto">
-          {/* {t("noMessages")} {t("startTyping")} */}
-          <></>
+      {!messages || messages?.length === 0 ? (
+        <Text color="gray.500" textAlign="center" mx="auto">                    
+          No messages yet. Start typing!
         </Text>
       ) : (
         <>
@@ -49,7 +43,7 @@ export const ChatBody = ({
             <Message
               key={idx}
               messageText={message.text}
-              senderId={message.sender.id}
+              senderId={message.sender?.id}
               timestamp={message.timestamp}
             />
           ))}

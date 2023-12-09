@@ -3,13 +3,14 @@ import { Product, ProductAdd } from "@/types";
 
 export const products = {
   getList: async (filters?: {
-    category?: number | string;
+    category?: string;
     condition?: string;
     seller?: number;
     name?: string;
     related_to?: number;
     popular?: boolean;
     status?: string;
+    city_id?: string;
   }): Promise<Product[]> => {
     const { data } = await axios.get("/products", {
       params: { ...filters, ...(filters?.seller ? { status: "all" } : {}) },

@@ -43,10 +43,9 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
   });
 
   const { mutate } = useMutation(barters.sendProposal, {
-    onSuccess: () => {
+    onSuccess: ({data}: any) => {
       onClose();
-      // TODO: modify this to redirect to the barter page
-      router.push({ pathname: `/account/transactions/1`, query: { barter: "sent" } });
+      router.push({ pathname: `/account/transactions/${data?.barter_id}` });
       queryClient.invalidateQueries(["barters"]);
       window.scrollTo(0, 0);
     },

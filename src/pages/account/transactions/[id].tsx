@@ -2,7 +2,7 @@ import { barters } from "@/api";
 import { AccountSidebar, Layout, ProductCheckbox, isAuth } from "@/components";
 import { useAuth } from "@/hooks";
 import { Barter, BarterStatus, Product } from "@/types";
-import { HStack, Box, Card, CardBody, Heading, VStack, Text, Button } from "@chakra-ui/react";
+import { HStack, Box, Card, CardBody, Heading, VStack, Text, Button, useToast } from "@chakra-ui/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -39,6 +39,7 @@ const TransactionPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const id = Number(router.query.id);
+  const toast = useToast();
 
   const { data: barter } = useQuery({
     queryKey: ["barter", id],
@@ -66,14 +67,22 @@ const TransactionPage = () => {
   const formattedDate = new Date(initiated_at).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
+    day: "numeric"
   });
 
   const { mutate } = useMutation({
     mutationFn: (status: BarterStatus) => barters.updateStatus(id, status, Number(user?.id)),
-    onSuccess: () => {
+    onSuccess: (status: any) => {
+      
+      if (status === BarterStatus.Completed) {
+        toast({
+          title: "Congratulations!",
+          description: "You have successfully completed the transaction.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
       queryClient.invalidateQueries({ queryKey: ["barter"] });
     },
   });

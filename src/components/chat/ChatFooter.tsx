@@ -3,7 +3,7 @@ import { HStack, IconButton, Input } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { BsFillSendFill } from "react-icons/bs";
 
-export const ChatFooter = ({ sendMessage, message, setMessage, roomId }: any) => {
+export const ChatFooter = ({ sendMessage, message, targetUserId, setMessage, roomId }: any) => {
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -14,11 +14,10 @@ export const ChatFooter = ({ sendMessage, message, setMessage, roomId }: any) =>
       id: Number(roomId),
       message: String(message),
       senderId: Number(user?.id),
+      targetUserId
     });
 
-    if (roomId === -1) {
-      queryClient.invalidateQueries(["chats-history"]);
-    }
+    queryClient.invalidateQueries(({ queryKey: ['chats'] }));
 
     setMessage("");
   };

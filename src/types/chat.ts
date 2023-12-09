@@ -28,6 +28,6 @@ export interface ChatRoomListItem {
     username: string;
     email: string;
   };
-  lastMessage: Message;
+  messages: Message[];
   isRead: boolean;
 }

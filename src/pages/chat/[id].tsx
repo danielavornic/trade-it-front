@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useQuery } from "@tanstack/react-query";
 
 import { chat } from "@/api";
 import { useAuth } from "@/hooks";
@@ -10,38 +9,66 @@ import { ChatHeader, ChatLayout, ChatBody, ChatFooter, isAuth } from "@/componen
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
+const filterDuplicatesById = (messages: any[]) => {
+  const unique = new Set();
+  const filtered = messages.filter((message) => {
+    const duplicate = unique.has(message.messageId);
+    unique.add(message.messageId);
+    return !duplicate;
+  });
+  return filtered;
+}
+
 const ChatRoom = () => {
+  const { user } = useAuth();
   const router = useRouter();
   const { id } = router.query;
-
-  const { user } = useAuth();
 
   const [messages, setMessages] = useState<any[]>([]);
   const [message, setMessage] = useState("");
   const [stompClient, setStompClient] = useState<any>(null);
 
-  const { data: serverMessages, isLoading } = useQuery({
-    queryKey: ["chats-history", id, stompClient],
-    queryFn: () => chat.getChatHistoryByTargetUserId(Number(user?.id), Number(id)),
-  });
+  const [roomId, setRoomId] = useState(-1);
+  const [chatroom, setChatRoom] = useState<any>(null);
+
+  const fetchChatRoom = async () => {
+    const res = await chat.getChatHistoryByTargetUserId(Number(user?.id), Number(id));
+    setChatRoom(res);
+    setMessages((prev) => filterDuplicatesById(res?.messages || []));
+    setRoomId(res?.id || -1);
+  }
 
   useEffect(() => {
-    setMessages(serverMessages?.messages || []);
-  }, [serverMessages]);
+    if (id) {
+      fetchChatRoom();
+    }
+  }, [id, user, roomId]);
+
 
   useEffect(() => {
     const socket = new SockJS(process.env.NEXT_PUBLIC_SOCKET_BASE_URL as string);
     const client = Stomp.over(socket);
 
     client.connect({}, () => {
-      client.subscribe(`/topic/${serverMessages?.id}`, (message: any) => {
+      client.subscribe(`/topic/${roomId}`, (message: any) => {
         const receivedMessage = JSON.parse(message.body);
+
         const mess = {
-          id: serverMessages?.id ? Number(serverMessages.id) : -1,
-          message: receivedMessage.message,
-          senderId: receivedMessage.senderId,
+          id: receivedMessage.messageId,
+          ...receivedMessage
         };
-        setMessages((prev) => [...(prev || []), mess]);
+
+
+        if (receivedMessage.roomId !== roomId) {
+          setRoomId(receivedMessage.roomId);
+        }
+
+
+        if (messages.filter((m) => m.id === receivedMessage.messageId).length === 0) {
+          setMessages((prev) => filterDuplicatesById([...(prev || []), mess]));
+        } 
+
+        setMessages((prev) => filterDuplicatesById(prev || []));
       });
     });
 
@@ -50,28 +77,31 @@ const ChatRoom = () => {
     return () => {
       if (stompClient) stompClient.disconnect();
     };
-  }, [id]);
+  }, [id, roomId]);
 
   const sendMessages = (message: Message) => {
-    console.log(message);
-    stompClient.send(`/app/sendMessage/${id}`, {}, JSON.stringify(message));
+    stompClient.send(`/app/sendMessage/${chatroom?.id ?? -1}`, {}, JSON.stringify(message));
+
+    // if (roomId === -1) {
+    //   fetchChatRoom();
+    // }
   };
 
-  const otherUser = serverMessages?.targetUser;
+  const otherUser = chatroom?.targetUser;
   const chatRoomName = otherUser?.username || "";
   const fullName = otherUser?.name + " " + (otherUser?.surname ?? "");
 
-  console.log(messages);
 
   return (
     <ChatLayout title={chatRoomName} hasHeader hasFooter>
       <ChatHeader title={chatRoomName} description={fullName} />
-      <ChatBody messages={messages} isLoading={isLoading} />
+      <ChatBody messages={messages} isLoading={false} />
       <ChatFooter
         sendMessage={sendMessages}
-        roomId={serverMessages?.id ? serverMessages.id : -1}
+        roomId={roomId}
         message={message}
         setMessage={setMessage}
+        targetUserId={Number(id)}
       />
     </ChatLayout>
   );

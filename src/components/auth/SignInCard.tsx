@@ -4,10 +4,11 @@ import { decodeToken } from "react-jwt";
 import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 
-import { Box, FormControl, FormLabel, Link, Input, Stack, Button, Text } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, Stack, Button, Text, useToast } from "@chakra-ui/react";
 
 import { useAuth } from "@/hooks";
 import { auth } from "@/api";
+import Link from "next/link";
 
 const initialFormValues = {
   username: "",
@@ -18,6 +19,7 @@ export const SignInCard = () => {
   const { setUser } = useAuth();
   const router = useRouter();
   const [formValues, setFormValues] = useState(initialFormValues);
+  const toast = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -33,6 +35,7 @@ export const SignInCard = () => {
   };
 
   const { mutate } = useMutation(auth.signin, {
+    
     onSuccess: ({ data }: any) => {
       const { token } = data;
       const decodedToken = decodeToken(token) as any;
@@ -54,6 +57,14 @@ export const SignInCard = () => {
     },
     onError: (error) => {
       console.log(error);
+      toast({
+          title: "Something went wrong.",
+        description: "Check your credentials and try again.",
+        status: "error",
+        position: "top-right",
+        duration: 5000,
+        isClosable: true,
+      });
     },
   });
 
@@ -69,9 +80,6 @@ export const SignInCard = () => {
           <Input type="password" value={formValues.password} onChange={handleChange} />
         </FormControl>
         <Stack spacing={10}>
-          <Stack direction={{ base: "column", sm: "row" }} align="start" justify="space-between">
-            <Text color="brand.500">Forgot password?</Text>
-          </Stack>
           <Button
             bg="brand.500"
             color="white"
@@ -87,12 +95,14 @@ export const SignInCard = () => {
           <Text align="center">
             No account?{" "}
             <Link
-              color="brand.500"
+             
               href={`/signup?redirectProductId=${encodeURIComponent(
                 String(router.query.redirectProductId),
               )}`}
             >
+              <Text as="span" color="brand.500">
               Sign up
+              </Text>
             </Link>
           </Text>
         </Stack>

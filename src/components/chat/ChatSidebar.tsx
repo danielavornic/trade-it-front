@@ -25,6 +25,8 @@ export const ChatSidebar = () => {
       px={8}
       alignItems="flex-start"
       bg="white"
+      maxH="calc(100vh - 80px)"
+      overflowY="auto"
     >
       <HStack w="100%" justifyContent="space-between">
         <Heading as="h2" size="lg">
@@ -39,10 +41,10 @@ export const ChatSidebar = () => {
         ) : isSuccess ? (
           <>
             {data.map((chat: ChatRoomListItem) => {
-              const isActive = id === String(chat.id);
+              const isActive = id === String(chat.targetUser.id);
 
               return (
-                <Link key={chat.id} href={`/chat/${chat.id}`} passHref style={{ width: "100%" }}>
+                <Link key={chat.id} href={`/chat/${chat.targetUser.id}`} passHref style={{ width: "100%" }}>
                   <HStack
                     w="100%"
                     bg={isActive || !chat.isRead ? "white" : "#fbfdfe"}
@@ -56,9 +58,9 @@ export const ChatSidebar = () => {
                     <Avatar size="sm" name={chat.targetUser.username} bg="gray.500" color="white" />
                     <VStack spacing={1} alignItems="flex-start">
                       <HStack alignItems="center" spacing={2}>
-                        {!chat.isRead && !isActive ? (
+                        {/* {!chat.isRead && !isActive ? (
                           <Box w="8px" h="8px" borderRadius="50%" bg="accent.500" />
-                        ) : null}
+                        ) : null} */}
                         <Text
                           size="md"
                           fontWeight="bold"
@@ -68,7 +70,7 @@ export const ChatSidebar = () => {
                         </Text>
                       </HStack>
                       <Text size="sm" color="gray.500">
-                        {chat.lastMessage.text}
+                        {chat.messages[0].text}
                       </Text>
                     </VStack>
                   </HStack>

@@ -32,14 +32,16 @@ export const ProductCheckbox = ({
     >
       <CardBody display="flex" gap={6} alignItems="center" padding={4}>
         {!noCheckbox && <Radio size="lg" name="1" colorScheme="brand" isChecked={isChecked} />}
-        <Image
-          src={img}
-          alt={name}
-          boxSize="60px"
-          border="1px solid"
-          borderColor="gray.200"
-          borderRadius="md"
-        />
+        {img?.length > 1 && (
+          <Image
+            src={img?.length > 1 ? img : img}
+            alt={name}
+            boxSize="60px"
+            border="1px solid"
+            borderColor="gray.200"
+            borderRadius="md"
+          />
+        )}
         <HStack alignItems="start" justifyContent="space-between" width="100%" spacing={3}>
           <Text fontSize="lg" color="gray.800" fontWeight="bold">
             {name}

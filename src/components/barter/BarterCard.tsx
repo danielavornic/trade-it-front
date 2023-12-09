@@ -40,7 +40,7 @@ export const BarterCard = ({ barter }: { barter: Barter }) => {
       <Card width="85%" flex="auto" shadow="sm">
         <CardBody>
           <HStack justifyContent="flex-start" spacing={16}>
-            <Box position="relative" height="100%">
+            {/* <Box position="relative" height="100%">
               <Box position="relative" zIndex={2}>
                 <Image
                   src={requested_from.product.imageURL}
@@ -60,7 +60,7 @@ export const BarterCard = ({ barter }: { barter: Barter }) => {
                   rounded="md"
                 />
               </Box>
-            </Box>
+            </Box> */}
             <VStack spacing={4} alignItems="start">
               <Text fontSize="2xl" fontFamily="poppins" fontWeight="bold">
                 {offered_by.product.name} for {requested_from.product.name}

@@ -18,10 +18,10 @@ const sidebarItems = [
     label: "Add product",
     href: "/product/add",
   },
-  {
-    label: "Settings",
-    href: "/account/settings",
-  },
+  // {
+  //   label: "Settings",
+  //   href: "/account/settings",
+  // },
 ];
 
 export const AccountSidebar = () => {

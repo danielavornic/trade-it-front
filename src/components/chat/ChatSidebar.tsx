@@ -12,7 +12,7 @@ export const ChatSidebar = () => {
   const { id } = router.query;
   const { user } = useAuth();
 
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isError } = useQuery({
     queryKey: ["chats"],
     queryFn: () => chat.getChatListByUserId(Number(user?.id) || 1),
   });
@@ -35,8 +35,8 @@ export const ChatSidebar = () => {
       </HStack>
 
       <VStack w="100%" spacing={4} alignItems="flex-start" mt={6} minH="70vh">
-        {}
-        {isSuccess && data.length === 0 ? (
+        
+        {(data?.length === 0 || isError) ? (
           <Text color="gray.500">No chats found</Text>
         ) : isSuccess ? (
           <>

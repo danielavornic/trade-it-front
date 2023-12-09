@@ -14,7 +14,7 @@ export const ProductDetailsCard = ({ product }: { product: Product }) => {
 
         <TabPanels pt={4}>
           <TabPanel>
-            <Text fontSize="lg">{details}</Text>
+            <Text fontSize="lg">{details || "No details provided"}</Text>
           </TabPanel>
           {/* <TabPanel>
             <Text fontSize="lg">comments</Text>

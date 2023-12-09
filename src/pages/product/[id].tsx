@@ -14,7 +14,7 @@ export async function getServerSideProps(context: any) {
   const { id } = context.query;
 
   const product = await productsApi.getById(Number(id));
-  const categoryProducts = await productsApi.getList({ category: Number(product.category.id) });
+  const categoryProducts = await productsApi.getList({ category: String(product.category.id) });
   const relatedProducts = categoryProducts?.filter((p: Product) => p.id !== product.id);
   const sellerProucts = await productsApi.getList({ seller: Number(product.seller.id) });
   const fromThisSeller = sellerProucts?.filter((p: Product) => p.id !== product.id);

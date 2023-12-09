@@ -136,7 +136,8 @@ const TransactionPage = () => {
 
                   {status === BarterStatus.Pending && isSeller && (
                     <>
-                      <Button colorScheme="red">Decline</Button>
+                      <Button colorScheme="red" onClick={() => mutate(BarterStatus.Declined)}>
+                       Decline</Button>
                       <Button colorScheme="brand" onClick={() => mutate(BarterStatus.Accepted)}>
                         Accept
                       </Button>

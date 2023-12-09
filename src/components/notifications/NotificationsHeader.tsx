@@ -41,6 +41,7 @@ export const NotificationsHeader = () => {
     queryKey: ["notifications"],
     queryFn: () => notificationsApi.getList(Number(user?.id)),
     onSuccess: (data) => {
+      console.log('data', data)
       setNotifications((prev: any) => filterDuplicateNotifications([...prev, ...data]));
       const unread = data.filter((notification: any) => notification.status === "UNREAD");
       if (unread.length > 0) {

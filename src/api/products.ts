@@ -31,38 +31,14 @@ export const products = {
 const productFactory = (json: any): Product => {
   const params = typeof json === "object" ? json : {};
 
-  return {
-    id: params.id || 0,
-    name: params.productName || "",
-    description: params.description || "",
-    img: params.img || "",
-    category: {
-      id: params.category.id || 0,
-      name: params.category.name || "",
-    },
-    details: params.details || "",
-    condition: params.condition || "",
-    targetProducts: params.targetProducts || "",
-    status: params.status || "",
-    seller: {
-      id: params.seller.id || 0,
-      name: params.seller.name || "",
-      username: params.seller.username || "",
-    },
-  };
-
-  // For java backend
-  // let img = params.imageURL[0];
-  // img = img.replace(/.*:9000/, process.env.NEXT_PUBLIC_MINIO_BASE_URL).split("?")[0];
-
   // return {
   //   id: params.id || 0,
   //   name: params.productName || "",
   //   description: params.description || "",
-  //   img,
+  //   img: params.img || "",
   //   category: {
-  //     id: params.category.categoryId || 0,
-  //     name: params.category.categoryName || "",
+  //     id: params.category.id || 0,
+  //     name: params.category.name || "",
   //   },
   //   details: params.details || "",
   //   condition: params.condition || "",
@@ -74,4 +50,28 @@ const productFactory = (json: any): Product => {
   //     username: params.seller.username || "",
   //   },
   // };
+
+  // For java backend
+  console.log(params);
+  let img = params.imageURL?.length > 0 ? params.imageURL[0] : "";
+
+  return {
+    id: params.id || 0,
+    name: params.productName || "",
+    description: params.description || "",
+    img,
+    category: {
+      id: params.category.categoryId || 0,
+      name: params.category.categoryName || "",
+    },
+    details: params.details || "",
+    condition: params.condition || "",
+    targetProducts: params.targetProducts || "",
+    status: params.status || "",
+    seller: {
+      id: params.seller.id || 0,
+      name: params.seller.name || "",
+      username: params.seller.username || "",
+    },
+  };
 };

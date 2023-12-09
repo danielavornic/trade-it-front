@@ -2,17 +2,17 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "@/hooks";
 import { Flex, Stack, Heading } from "@chakra-ui/react";
-import { Layout, SignInCard } from "@/components";
+import { Layout, SignInCard, isNotAuth } from "@/components";
 
-const signin = () => {
+const Signin = () => {
   const { user } = useAuth();
   const { push, query } = useRouter();
 
   useEffect(() => {
     if (user) {
       const redirectProductId = decodeURIComponent(String(query.redirectProductId));
-      if (!!redirectProductId && redirectProductId !== 'undefined') {
-        push({ pathname: `/product/${redirectProductId}` })
+      if (!!redirectProductId && redirectProductId !== "undefined") {
+        push({ pathname: `/product/${redirectProductId}` });
       } else {
         push("/");
       }
@@ -35,4 +35,4 @@ const signin = () => {
   );
 };
 
-export default signin;
+export default isNotAuth(Signin);

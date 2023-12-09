@@ -8,20 +8,20 @@ export const ProductDetailsCard = ({ product }: { product: Product }) => {
       <Tabs colorScheme="brand">
         <TabList>
           <Tab>Details</Tab>
-          <Tab>Comments</Tab>
-          <Tab>Previous Reviews</Tab>
+          {/* <Tab>Comments</Tab>
+          <Tab>Previous Reviews</Tab> */}
         </TabList>
 
         <TabPanels pt={4}>
           <TabPanel>
-            <Text fontSize="lg">{details}</Text>
+            <Text fontSize="lg">{details || "No details provided"}</Text>
           </TabPanel>
-          <TabPanel>
+          {/* <TabPanel>
             <Text fontSize="lg">comments</Text>
           </TabPanel>
           <TabPanel>
             <Text fontSize="lg">previouse reviews</Text>
-          </TabPanel>
+          </TabPanel> */}
         </TabPanels>
       </Tabs>
     </Card>

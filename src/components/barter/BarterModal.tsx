@@ -14,7 +14,7 @@ import {
   Textarea,
   VStack,
   Box,
-  Text
+  Text,
 } from "@chakra-ui/react";
 
 import { products as productsApi, barters } from "@/api";
@@ -38,14 +38,14 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
   const [message, setMessage] = useState("");
 
   const { data: products, isSuccess } = useQuery({
-    queryKey: ["my-products"],
+    queryKey: ["my-products", user],
     queryFn: () => productsApi.getList({ seller: user?.id }),
   });
 
   const { mutate } = useMutation(barters.sendProposal, {
-    onSuccess: () => {
+    onSuccess: ({data}: any) => {
       onClose();
-      router.push({ pathname: `/product/${product.id}`, query: { barter: "sent" } });
+      router.push({ pathname: `/account/transactions/${data?.barter_id}` });
       queryClient.invalidateQueries(["barters"]);
       window.scrollTo(0, 0);
     },
@@ -92,22 +92,21 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
               </Heading>
               <Box maxH="220px" overflowY="auto" className="small-scrollbar">
                 <VStack spacing={4} width="full" alignItems="start" pr={2}>
-                  {isSuccess && (
-                    products?.length === 0 && (
-                      <>
-                        <Text color="gray.500">You don't have any products.</Text>
-                        <Button
-                          colorScheme="brand"
-                          variant="outline"
-                          size='sm'
-                          onClick={() => router.push("/product/add")}
-                        >
-                          Add product
-                        </Button>
-                      </>
-                    )
+                  {isSuccess && products?.length === 0 && (
+                    <>
+                      <Text color="gray.500">You don't have any products.</Text>
+                      <Button
+                        colorScheme="brand"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => router.push("/product/add")}
+                      >
+                        Add product
+                      </Button>
+                    </>
                   )}
-                  {isSuccess && products?.length > 0 &&
+                  {isSuccess &&
+                    products?.length > 0 &&
                     products?.map((product) => (
                       <ProductCheckbox
                         key={product.id}
@@ -135,7 +134,13 @@ export const BarterModal = ({ isOpen, onClose, product }: BarterModalProps) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="brand" mr={3} type="submit" form="barter-form" isDisabled={products?.length === 0}>
+          <Button
+            colorScheme="brand"
+            mr={3}
+            type="submit"
+            form="barter-form"
+            isDisabled={products?.length === 0}
+          >
             Submit
           </Button>
           <Button variant="ghost" onClick={resetForm}>

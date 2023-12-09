@@ -48,8 +48,20 @@ export const SearchInput = () => {
     setCategory(categoryUrl as string);
   }, [q, categoryUrl]);
 
+  const handeCategoryChange = (value: string) => {
+    setCategory(value);
+    router.replace(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, category: value },
+      },
+      undefined,
+      { shallow: true },
+    );
+  };
+
   return (
-    <Box as="form" onSubmit={handleSubmit} maxW={600} zIndex={20} position="relative">
+    <Box as="form" onSubmit={handleSubmit} zIndex={20} position="relative">
       <InputGroup size="lg" colorScheme="brand">
         <InputLeftElement pointerEvents="none">
           <SearchIcon color="gray.300" />
@@ -58,11 +70,13 @@ export const SearchInput = () => {
           placeholder="Search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          pr="224px"
+          pr={["0", "0", "0", "224px"]}
+          width="50vw"
+          maxWidth="600px"
           colorScheme="brand"
           fontSize={16}
         />
-        <InputRightElement width="224px" display="flex" alignItems="center" justifyContent="end">
+        <InputRightElement width="224px" display={["none", "none", "none", "flex"]} alignItems="center" justifyContent="end">
           <Divider orientation="vertical" pr={1} />
           <Menu>
             <MenuButton
@@ -70,7 +84,7 @@ export const SearchInput = () => {
               variant="ghost"
               rightIcon={<ChevronDownIcon />}
               size="sm"
-              w="130px"
+              w="160px"
               fontWeight={400}
               color="gray.600"
             >
@@ -83,7 +97,7 @@ export const SearchInput = () => {
                 categories.map((category: Category) => (
                   <MenuItem
                     key={category.id}
-                    onClick={() => setCategory(category.name)}
+                    onClick={() => handeCategoryChange(category.id.toString())}
                     value={category.name}
                     fontSize={14}
                   >

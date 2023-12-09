@@ -1,5 +1,5 @@
 export type Condition = "NEW" | "USED" | "LIKE NEW";
-export type Status = "AVAILABLE" | "SWAPPED" | "PENDING";
+export type ProductStatus = "Available" | "Unavailable";
 
 export interface Seller {
   id: number;
@@ -24,7 +24,7 @@ export interface Product {
   category: Category;
   description: string;
   details: string;
-  status: Status;
+  status: ProductStatus;
   img: string;
   condition: Condition;
   targetProducts: string;

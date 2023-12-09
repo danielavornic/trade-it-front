@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "targetUser": {
+      "id": 101,
+      "username": "user1",
+      "email": "user1@example.com",
+      "name": "Name"
+    },
+    "lastMessage": {
+      "id": 5,
+      "sender": {
+        "id": 101,
+        "username": "user1",
+        "email": "user1@example.com"
+      },
+      "text": "See you soon!",
+      "timestamp": "2023-11-21T11:00:00Z"
+    },
+    "isRead": false
+  },
+  {
+    "id": 2,
+    "targetUser": {
+      "id": 101,
+      "username": "user3",
+      "email": "user3@example.com",
+      "name": "Name"
+    },
+    "lastMessage": {
+      "id": 10,
+      "sender": {
+        "id": 104,
+        "username": "user4",
+        "email": "user4@example.com"
+      },
+      "text": "Alright, thanks!",
+      "timestamp": "2023-11-21T12:00:00Z"
+    },
+    "isRead": true
+  }
+]

@@ -1,9 +1,9 @@
-import { VStack } from "@chakra-ui/react";
+import { VStack, Text } from "@chakra-ui/react";
 import { ProductListItem } from "@/components";
 
 export const ProductsList = ({ products }: { products?: any[] }) => {
   if (!products || products.length === 0) {
-    return null;
+    return <Text>No products found.</Text>;
   }
 
   return (

@@ -1,79 +1,26 @@
-import { Layout, ProductsGrid, ProductsList } from "@/components";
-import { useAuth } from "@/hooks";
-import { HStack, VStack, Heading, Divider, Button, Card, CardBody, Icon } from "@chakra-ui/react";
 import { useState } from "react";
-import { FaThList } from "react-icons/fa";
-import { TfiLayoutGrid2Alt } from "react-icons/tfi";
-import {products as productsApi} from "@/api";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/router";
+import { TfiLayoutGrid2Alt } from "react-icons/tfi";
+import { FaThList } from "react-icons/fa";
+import { HStack, VStack, Heading, Button, Card, CardBody, Icon } from "@chakra-ui/react";
 
-const sidebarItems = [
-  {
-    label: "Profile",
-    href: "/account",
-  },
-  {
-    label: "My products",
-    href: "/account/products",
-  },
-  {
-    label: "Add product",
-    href: "/product/add",
-  },
-  {
-    label: "Transactions",
-    href: "/account/transactions",
-  },
-  {
-    label: "Reviews",
-    href: "/account/reviews",
-  },
-  {
-    label: "Settings",
-    href: "/account/settings",
-  },
-];
+import { useAuth } from "@/hooks";
+import { products as productsApi } from "@/api";
+import { AccountSidebar, Layout, ProductsGrid, ProductsList, isAuth } from "@/components";
 
 const MyAccount = () => {
   const [listingView, setListingView] = useState<"list" | "grid">("list");
-  const {user} = useAuth();
-  const router = useRouter();
+  const { user } = useAuth();
 
   const { data: products } = useQuery({
     queryKey: ["my-products"],
-    queryFn: () =>
-      productsApi.getList({ seller: Number(user?.id) }),
+    queryFn: () => productsApi.getList({ seller: Number(user?.id) }),
   });
-  
+
   return (
     <Layout title={"My products"}>
       <HStack as="section" mb={20} h="full" alignItems="start" justifyContent="space-between">
-        <VStack w="20%" alignItems="start">
-          <HStack w="full" justifyContent="space-between" alignItems="baseline">
-            <Heading size="md" textTransform="uppercase" textAlign="left">
-              Account
-            </Heading>
-          </HStack>
-          <Divider my={3} />
-
-          <VStack w="full" alignItems="start">
-            {sidebarItems.map((item) => (
-              <Button
-                w="full"
-                fontWeight={router.pathname === item.href ? "bold" : "normal"}
-                variant="ghost"
-                justifyContent="flex-start"
-                color="gray.600"
-                key={item.label}
-                onClick={() => router.push(item.href)}
-                fontFamily="poppins"
-              >
-                {item.label}
-              </Button>
-            ))}
-          </VStack>
-        </VStack>
+        <AccountSidebar />
 
         <VStack spacing={8} w="75%" alignItems="start">
           <Card shadow="sm " w="full" border="1px solid" borderColor="gray.100">
@@ -115,7 +62,7 @@ const MyAccount = () => {
         </VStack>
       </HStack>
     </Layout>
-  )
-}
+  );
+};
 
-export default MyAccount
+export default isAuth(MyAccount);

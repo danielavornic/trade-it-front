@@ -1,20 +1,70 @@
+import { useEffect } from "react";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { Box, Button, HStack, Heading, VStack, Text, Flex, Icon } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Box, Button, HStack, Heading, VStack, Text, Flex, Icon, useToast } from "@chakra-ui/react";
+import { decodeToken } from "react-jwt";
 import { MdOutlineSwapVerticalCircle } from "react-icons/md";
 import { LuHeartHandshake } from "react-icons/lu";
 
-import { products as productsApi } from "@/api";
+import { auth, products as productsApi } from "@/api";
+import { useAuth } from "@/hooks";
 import { Layout, ProductCategoriesBanner, ProductsGrid, ProductsSlider } from "@/components";
 
 export default function Home() {
+  const { query, push } = useRouter();
+  const { emailToken, redirectProductId } = query;
+  const { setUser } = useAuth();
+
+  const toast = useToast();
+
   const { data } = useQuery({
     queryKey: ["popular-products"],
     queryFn: () => productsApi.getList(),
   });
 
+  const { mutate } = useMutation(() => auth.confirmEmail(String(emailToken)), {
+    onSuccess: ({ data }: any) => {
+      const { token } = data;
+      const decodedToken = decodeToken(token) as any;
+      const user = {
+        id: Number(decodedToken?.user_id),
+        username: decodedToken?.sub,
+        token,
+      };
+
+      setUser(user);
+      Cookies.set("token", JSON.stringify(token), {
+        expires: token.exp,
+      });
+
+      toast({
+        title: "Account created and confirmed.",
+        description: "We've created your account for you.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+
+      const parsedRedirectProductId = decodeURIComponent(String(redirectProductId || "")).trim();
+      if (redirectProductId) push(`/product/${parsedRedirectProductId}`);
+      else push("/", undefined, { shallow: true });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const popularProducts = data?.sort(() => Math.random() - 0.5).slice(0, 8);
   const featuredProducts = data?.sort(() => Math.random() - 0.5).slice(0, 8);
+
+  useEffect(() => {
+    if (emailToken) {
+      mutate();
+    }
+  }, [emailToken]);
 
   return (
     <Layout>

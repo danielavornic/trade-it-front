@@ -14,15 +14,19 @@ import {
   MenuDivider,
   IconButton,
 } from "@chakra-ui/react";
-import { FiMessageSquare, FiBell } from "react-icons/fi";
+import { FiMessageSquare } from "react-icons/fi";
 
 import { useAuth } from "@/hooks";
-import { SearchInput } from "@/components";
+import { NotificationsHeader, SearchInput } from "@/components";
 
 const accountItems = [
+  // {
+  //   label: "Profile",
+  //   href: "/account",
+  // },
   {
-    label: "Profile",
-    href: "/account",
+    label: "My Transactions",
+    href: "/account/transactions",
   },
   {
     label: "My products",
@@ -32,14 +36,10 @@ const accountItems = [
     label: "Add product",
     href: "/product/add",
   },
-  {
-    label: "Transactions",
-    href: "/account/transactions",
-  },
-  {
-    label: "Reviews",
-    href: "/account/reviews",
-  },
+  // {
+  //   label: "Reviews",
+  //   href: "/account/reviews",
+  // },
   {
     label: "Settings",
     href: "/account/settings",
@@ -49,20 +49,6 @@ const accountItems = [
 export const Header = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
-
-  const handleButtonClick = (buttonName: string) => {
-    switch (buttonName) {
-      case "message":
-        console.log("Message button clicked");
-        break;
-      case "bell":
-        console.log("Bell button clicked");
-        break;
-      case "profile":
-        console.log("Profile button clicked");
-        break;
-    }
-  };
 
   return (
     <Box shadow="sm" py={2} bg="white">
@@ -93,21 +79,25 @@ export const Header = () => {
           <Flex alignItems={"center"}>
             {user ? (
               <>
-                <IconButton
-                  onClick={() => handleButtonClick("bell")}
-                  aria-label="View messages"
-                  icon={<FiMessageSquare />}
-                  rounded="full"
-                />
-                <IconButton
-                  onClick={() => handleButtonClick("bell")}
-                  aria-label="View notifications"
-                  icon={<FiBell />}
-                  rounded="full"
-                  ml={4}
-                  mr={4}
-                />
-                <Menu>
+                <Box position="relative">
+                  {/* <Box
+                    position="absolute"
+                    right="0"
+                    top="0"
+                    boxSize="0.75em"
+                    bg="accent.500"
+                    rounded="full"
+                    zIndex={2}
+                  /> */}
+                  <IconButton
+                    onClick={() => router.push("/chat")}
+                    aria-label="View messages"
+                    icon={<FiMessageSquare />}
+                    rounded="full"
+                  />
+                </Box>
+                <NotificationsHeader />
+                <Menu placement="top-end">
                   <MenuButton
                     as={Button}
                     rounded={"full"}
@@ -127,14 +117,15 @@ export const Header = () => {
                   <MenuList>
                     {accountItems.map((item) => (
                       <MenuItem key={item.label}>
-                        <Link href={item.href}>{item.label}</Link>
+                        <Link href={item.href} style={{ width: "100%" }}>
+                          {item.label}
+                        </Link>
                       </MenuItem>
                     ))}
                     <MenuDivider />
                     <MenuItem
                       onClick={() => {
                         logout();
-                        localStorage.removeItem("user");
                         router.push("/");
                       }}
                     >

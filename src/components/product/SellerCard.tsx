@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import {
   Card,
   Button,
@@ -23,7 +22,6 @@ export const SellerCard = ({ product }: { product: Product }) => {
   const location = "Chișinău, MD";
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useAuth();
-  const { query } = useRouter();
 
   const [isSaved, setIsSaved] = useState(false);
 
@@ -31,20 +29,19 @@ export const SellerCard = ({ product }: { product: Product }) => {
   const hasProduct = !isGuest && user.id === product.seller.id;
   const showBarterButtons = !isGuest && !hasProduct;
 
-  // TODO: Check if barter is sent from backend instead of query
-  const isBarterSent = query.barter === "sent";
-
   return (
     <>
-      <Card shadow="none" border="1px solid" borderColor="gray.200" minWidth='250px'>
+      <Card shadow="none" border="2px solid" borderColor="gray.200" minWidth="250px">
         <CardBody>
           <Stack>
-            <HStack align="center">
-              <Avatar bg="#0EB085" size="sm" />
-              <Text fontSize="lg" ml={2}>
-                {product.seller.username}
-              </Text>
-            </HStack>
+            <Link href={`/users/${product.seller.id}`}>
+              <HStack align="center">
+                <Avatar bg="#0EB085" size="sm" />
+                <Text fontSize="lg" ml={2}>
+                  {product.seller.username}
+                </Text>
+              </HStack>
+            </Link>
             <Divider my={2} />
             <HStack spacing={2} mb={2}>
               <Box as={FaMapMarkerAlt} fontSize="xl" fontWeight="semibold" color="gray.500" />
@@ -53,18 +50,20 @@ export const SellerCard = ({ product }: { product: Product }) => {
               </Text>
             </HStack>
             {isGuest ? (
-              <Link href={{ pathname: '/signin', query: { redirectProductId: product.id }}}>
-                <Button colorScheme="gray" variant="outline" color="#0EB085">
+              <Link href={{ pathname: "/signin", query: { redirectProductId: product.id } }}>
+                <Button colorScheme="gray" borderColor="gray.300" variant="outline" color="#0EB085">
                   Sign in to start bartering
                 </Button>
               </Link>
             ) : hasProduct ? (
-              <Button colorScheme="gray" variant="outline" color="#0EB085">
+              <Button
+                colorScheme="gray"
+                isDisabled
+                title="This feature is not yet implemented"
+                variant="outline"
+                color="#0EB085"
+              >
                 Edit
-              </Button>
-            ) : isBarterSent ? (
-              <Button colorScheme="gray" variant="outline" color="#0EB085" disabled>
-                View barter
               </Button>
             ) : (
               <Button
@@ -83,7 +82,9 @@ export const SellerCard = ({ product }: { product: Product }) => {
               mt={4}
               leftIcon={<FaHeart />}
               minWidth="170px"
-              width='100%'
+              width="100%"
+              isDisabled
+              title="This feature is not yet implemented"
               colorScheme={isSaved ? "brand" : "gray"}
               variant={isSaved ? "solid" : "outline"}
               color={isSaved ? "white" : "#0EB085"}

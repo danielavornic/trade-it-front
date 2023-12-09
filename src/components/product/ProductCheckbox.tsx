@@ -3,12 +3,18 @@ import { Button, Card, CardBody, HStack, Image, Radio, Text, VStack } from "@cha
 import Link from "next/link";
 
 interface ProductCheckboxProps {
-  product?: Product;
+  product?: any;
   isChecked?: boolean;
   setIsChecked?: (value: boolean) => void;
+  noCheckbox?: boolean;
 }
 
-export const ProductCheckbox = ({ product, isChecked, setIsChecked }: ProductCheckboxProps) => {
+export const ProductCheckbox = ({
+  product,
+  isChecked,
+  setIsChecked,
+  noCheckbox,
+}: ProductCheckboxProps) => {
   if (!product) return null;
 
   const { id, name, img } = product;
@@ -20,12 +26,12 @@ export const ProductCheckbox = ({ product, isChecked, setIsChecked }: ProductChe
       variant="outline"
       border={"2px"}
       borderColor={isChecked ? "brand.500" : "gray.200"}
-      cursor="pointer"
+      cursor={noCheckbox ? "default" : "pointer"}
       onClick={() => setIsChecked?.(true)}
       width="full"
     >
       <CardBody display="flex" gap={6} alignItems="center" padding={4}>
-        <Radio size="lg" name="1" colorScheme="brand" isChecked={isChecked} />
+        {!noCheckbox && <Radio size="lg" name="1" colorScheme="brand" isChecked={isChecked} />}
         <Image
           src={img}
           alt={name}

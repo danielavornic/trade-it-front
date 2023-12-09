@@ -3,14 +3,19 @@ import { Product, ProductAdd } from "@/types";
 
 export const products = {
   getList: async (filters?: {
-    category?: number | string;
+    category?: string;
     condition?: string;
     seller?: number;
     name?: string;
     related_to?: number;
     popular?: boolean;
+    status?: string;
+    city_id?: string;
   }): Promise<Product[]> => {
-    const { data } = await axios.get("/products", { params: filters });
+    const { data } = await axios.get("/products", {
+      params: { ...filters, ...(filters?.seller ? { status: "all" } : {}) },
+    });
+
     return data.map((product: any) => productFactory(product));
   },
   add: async (product: ProductAdd): Promise<Product> => {
@@ -26,8 +31,29 @@ export const products = {
 const productFactory = (json: any): Product => {
   const params = typeof json === "object" ? json : {};
 
-  let img = params.imageURL[0];
-  img = img.replace(/.*:9000/, process.env.NEXT_PUBLIC_MINIO_BASE_URL).split("?")[0];
+  // return {
+  //   id: params.id || 0,
+  //   name: params.productName || "",
+  //   description: params.description || "",
+  //   img: params.img || "",
+  //   category: {
+  //     id: params.category.id || 0,
+  //     name: params.category.name || "",
+  //   },
+  //   details: params.details || "",
+  //   condition: params.condition || "",
+  //   targetProducts: params.targetProducts || "",
+  //   status: params.status || "",
+  //   seller: {
+  //     id: params.seller.id || 0,
+  //     name: params.seller.name || "",
+  //     username: params.seller.username || "",
+  //   },
+  // };
+
+  // For java backend
+  console.log(params);
+  let img = params.imageURL?.length > 0 ? params.imageURL[0] : "";
 
   return {
     id: params.id || 0,

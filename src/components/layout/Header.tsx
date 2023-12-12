@@ -40,10 +40,10 @@ const accountItems = [
   //   label: "Reviews",
   //   href: "/account/reviews",
   // },
-  {
-    label: "Settings",
-    href: "/account/settings",
-  },
+  // {
+  //   label: "Settings",
+  //   href: "/account/settings",
+  // },
 ];
 
 export const Header = () => {

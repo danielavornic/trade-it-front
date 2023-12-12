@@ -17,7 +17,7 @@ const filterDuplicatesById = (messages: any[]) => {
     return !duplicate;
   });
   return filtered;
-}
+};
 
 const ChatRoom = () => {
   const { user } = useAuth();
@@ -36,14 +36,13 @@ const ChatRoom = () => {
     setChatRoom(res);
     setMessages((prev) => filterDuplicatesById(res?.messages || []));
     setRoomId(res?.id || -1);
-  }
+  };
 
   useEffect(() => {
     if (id) {
       fetchChatRoom();
     }
   }, [id, user, roomId]);
-
 
   useEffect(() => {
     const socket = new SockJS(process.env.NEXT_PUBLIC_SOCKET_BASE_URL as string);
@@ -55,18 +54,16 @@ const ChatRoom = () => {
 
         const mess = {
           id: receivedMessage.messageId,
-          ...receivedMessage
+          ...receivedMessage,
         };
-
 
         if (receivedMessage.roomId !== roomId) {
           setRoomId(receivedMessage.roomId);
         }
 
-
         if (messages.filter((m) => m.id === receivedMessage.messageId).length === 0) {
           setMessages((prev) => filterDuplicatesById([...(prev || []), mess]));
-        } 
+        }
 
         setMessages((prev) => filterDuplicatesById(prev || []));
       });
@@ -75,7 +72,7 @@ const ChatRoom = () => {
     setStompClient(client);
 
     return () => {
-      if (stompClient) stompClient.disconnect();
+      if (stompClient) stompClient?.disconnect();
     };
   }, [id, roomId]);
 
@@ -90,7 +87,6 @@ const ChatRoom = () => {
   const otherUser = chatroom?.targetUser;
   const chatRoomName = otherUser?.username || "";
   const fullName = otherUser?.name + " " + (otherUser?.surname ?? "");
-
 
   return (
     <ChatLayout title={chatRoomName} hasHeader hasFooter>

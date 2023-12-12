@@ -20,7 +20,6 @@ import { useEffect, useState } from "react";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
-
 const filterDuplicateNotifications = (notifications: Notification[]) => {
   const seen: any = {};
   return notifications.filter((notification) => {
@@ -28,7 +27,7 @@ const filterDuplicateNotifications = (notifications: Notification[]) => {
     seen[notification.id] = true;
     return !previous;
   });
-}
+};
 
 export const NotificationsHeader = () => {
   const { user } = useAuth();
@@ -41,21 +40,21 @@ export const NotificationsHeader = () => {
     queryKey: ["notifications"],
     queryFn: () => notificationsApi.getList(Number(user?.id)),
     onSuccess: (data) => {
-      console.log('data', data)
+      console.log("data", data);
       setNotifications((prev: any) => filterDuplicateNotifications([...prev, ...data]));
       const unread = data.filter((notification: any) => notification.status === "UNREAD");
       if (unread.length > 0) {
         setIsRead(false);
       }
-    }
+    },
   });
 
-  const {mutate}  = useMutation({
+  const { mutate } = useMutation({
     mutationFn: () => notificationsApi.markAsRead(Number(user?.id)),
     onSuccess: () => {
       setNotifications((prev) => prev.map((notification) => ({ ...notification, status: "READ" })));
       setIsRead(true);
-    }
+    },
   });
 
   useEffect(() => {
@@ -73,15 +72,14 @@ export const NotificationsHeader = () => {
     setStompClient(client);
 
     return () => {
-      if (stompClient) stompClient.disconnect();
+      if (stompClient) stompClient?.disconnect();
     };
   }, [user]);
 
   return (
     <Box position="relative" ml={4} mr={4}>
-      {
-        !isRead && (
-          <Box
+      {!isRead && (
+        <Box
           position="absolute"
           right="0"
           top="0"
@@ -89,17 +87,20 @@ export const NotificationsHeader = () => {
           bg="accent.500"
           rounded="full"
           zIndex={2}
-          />
-          )
-        }
-      <Popover placement="top-end" >
+        />
+      )}
+      <Popover placement="top-end">
         <PopoverTrigger>
-          <IconButton aria-label="View notifications" icon={<FiBell />} rounded="full" onClick={() =>
-            {
-            if (!isRead) {
-              mutate();
-            }
-          }} />
+          <IconButton
+            aria-label="View notifications"
+            icon={<FiBell />}
+            rounded="full"
+            onClick={() => {
+              if (!isRead) {
+                mutate();
+              }
+            }}
+          />
         </PopoverTrigger>
         <PopoverContent>
           <PopoverArrow />

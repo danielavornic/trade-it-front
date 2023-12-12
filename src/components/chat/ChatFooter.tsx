@@ -10,14 +10,16 @@ export const ChatFooter = ({ sendMessage, message, targetUserId, setMessage, roo
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
+    if (message.trim() === "") return;
+
     sendMessage({
       id: Number(roomId),
       message: String(message),
       senderId: Number(user?.id),
-      targetUserId
+      targetUserId,
     });
 
-    queryClient.invalidateQueries(({ queryKey: ['chats'] }));
+    queryClient.invalidateQueries({ queryKey: ["chats"] });
 
     setMessage("");
   };
